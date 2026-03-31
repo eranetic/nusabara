@@ -390,6 +390,31 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
 .fc:hover{border-color:var(--g400);color:var(--g600)}
 .fc.on{background:var(--g600);border-color:var(--g600);color:#fff}
 
+/* ── MONITORING ── */
+.mon-hero{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px;flex-wrap:wrap}
+.mon-kicker{font-size:10px;font-weight:800;color:var(--g600);letter-spacing:.08em;text-transform:uppercase}
+.mon-title{font-size:24px;font-weight:800;color:var(--n9);line-height:1.05;margin-top:3px}
+.mon-sub{font-size:11px;color:var(--n5);margin-top:6px;max-width:720px;line-height:1.6}
+.mon-note{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.mon-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:var(--white);border:1px solid var(--n2);font-size:10.5px;font-weight:700;color:var(--n6)}
+.mon-pill strong{color:var(--n8)}
+.mon-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-bottom:14px}
+.mon-panel{background:var(--white);border:1px solid var(--n2);border-radius:12px;box-shadow:var(--sh1);overflow:hidden}
+.mon-body{padding:16px}
+.mon-list{display:flex;flex-direction:column;gap:9px}
+.mon-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--n2);border-radius:10px;background:var(--n0)}
+.mon-row strong{display:block;font-size:12px;color:var(--n8)}
+.mon-row span{display:block;font-size:10.5px;color:var(--n5);margin-top:2px}
+.mon-meta{font-size:10px;color:var(--n4);margin-top:3px}
+.mon-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:700}
+.mon-tag.pm{background:var(--g50);color:var(--g700)}
+.mon-tag.trouble{background:#FEF2F2;color:#991B1B}
+.mon-tab-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.mon-search{width:240px;max-width:100%}
+.mon-empty{padding:20px;border:1px dashed var(--n3);border-radius:12px;background:var(--n0);font-size:11px;color:var(--n5);text-align:center}
+.mon-caption{font-size:10px;color:var(--n4);margin-top:8px;line-height:1.5}
+.mon-action{font-size:11px;font-weight:600;color:var(--n7);line-height:1.5}
+
 /* ── MODAL ── */
 .overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.show{opacity:1;pointer-events:all}
@@ -526,13 +551,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
 .att-chip{background:var(--n0);border:1px solid var(--n2);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--n7);display:flex;align-items:center;gap:5px;cursor:pointer}
 .att-chip:hover{border-color:var(--g400);color:var(--g600)}
 @media (max-width:1100px){
-  .detail-grid,.req-grid{grid-template-columns:1fr}
+  .detail-grid,.req-grid,.mon-grid{grid-template-columns:1fr}
 }
 @media (max-width:900px){
   .shell{overflow:auto}
   .sb{display:none}
   body,.shell{height:auto;overflow:auto}
   .main{min-height:100vh}
+  .mon-title{font-size:20px}
   .pm-search{width:100%}
   .pm-toolbar-left,.pm-toolbar-right{width:100%}
   .pm-select{min-width:0;flex:1}
@@ -575,6 +601,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
       <svg class="nic" viewBox="0 0 18 18" fill="none"><rect x="1" y="10" width="3" height="7" rx="1" fill="var(--g600)"/><rect x="5" y="7" width="3" height="10" rx="1" fill="var(--g400)"/><rect x="9" y="4" width="3" height="13" rx="1" fill="var(--g600)"/><rect x="13" y="1" width="3" height="16" rx="1" fill="var(--g300)"/></svg>
       <span>Analitik</span>
       <span class="nbadge b">Utama</span>
+    </div>
+    <div class="ni" onclick="go('monitoring',this)">
+      <svg class="nic" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" fill="var(--g200)"/><path d="M5 11.5h2l1.5-5 2.2 7 1.3-4H15" stroke="var(--g700)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <span>Monitoring</span>
+      <span class="nbadge g">Baru</span>
     </div>
     <div class="sg">Operasional</div>
     <div class="ni" onclick="go('project',this)">
@@ -856,6 +887,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
   </tbody></table></div></div>
 </div>
 </div></div><!-- end analitik -->
+<!-- MONITORING -->
+<div class="mod" id="pg-monitoring"><div class="mtabs"><div class="mt on" onclick="swTab(this,'mn-overview')">Ringkasan</div><div class="mt" onclick="swTab(this,'mn-group')">Prioritas PM</div><div class="mt" onclick="swTab(this,'mn-detail')">Detail Data</div></div>
+<div class="pg">
+  <div class="sub on" id="mn-overview"></div>
+  <div class="sub" id="mn-group"></div>
+  <div class="sub" id="mn-detail"></div>
+</div></div><!-- end monitoring -->
 <!-- PROJECT -->
 <div class="mod" id="pg-project"><div class="mtabs"><div class="mt on" onclick="swTab(this,'pj-backlog')">Backlog</div><div class="mt" onclick="swTab(this,'pj-kanban')">Kanban</div><div class="mt" onclick="swTab(this,'pj-grid')">Grid</div><div class="mt" onclick="swTab(this,'pj-gantt')">Gantt</div><div class="mt" onclick="swTab(this,'pj-calendar')">Calendar</div><div class="mt" onclick="swTab(this,'pj-detail')">Detail Proyek</div></div>
 <div class="pg">
@@ -1457,7 +1495,95 @@ Direktur Utama — Nusabara Group</textarea></div>
 <div id="toast-el">✓ Berhasil</div>
 <style>#toast-el{position:fixed;bottom:20px;right:20px;background:var(--n9);color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:600;box-shadow:0 20px 40px rgba(0,0,0,.2);transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.175,.885,.32,1.275);z-index:9999;display:flex;align-items:center;gap:7px;max-width:360px}#toast-el.show{transform:translateY(0);opacity:1}</style>
 <script>
-const pgLabel={dashboard:'Dashboard',analytic:'Analitik',project:'Project Management',asset:'Aset Management',inventory:'Inventory',procurement:'Pengadaan',hr:'HR & Karyawan',chat:'Chat Internal',broadcast:'Broadcast Email',esign:'Approval & E-Sign',laporan:'Laporan',setting:'Pengaturan'};
+const pgLabel={dashboard:'Dashboard',analytic:'Analitik',monitoring:'Monitoring',project:'Project Management',asset:'Aset Management',inventory:'Inventory',procurement:'Pengadaan',hr:'HR & Karyawan',chat:'Chat Internal',broadcast:'Broadcast Email',esign:'Approval & E-Sign',laporan:'Laporan',setting:'Pengaturan'};
+const monitoringData={
+  sourceUrl:'https://lookerstudio.google.com/u/0/reporting/98e79477-f255-450a-bc89-8e79f5fc08d4/page/p_yo9bbculid',
+  sourceName:'Nusabara Power',
+  pageName:'PM Monitoring',
+  pagesUsed:['PM Monitoring','Batam Log Maintenance','Lombok Log Maintenance','Maintenance (RP/kWh)','Spare Parts'],
+  lastUpdated:'31/3/2026 13.09.49',
+  pm:{
+    lombok:[
+      {dg:'DG 01D',site:'Lombok',currentRh:'11419',deadline:'30 Des 1899'},
+      {dg:'DG 02D',site:'Lombok',currentRh:'11738',deadline:'30 Des 1899'},
+      {dg:'DG 03D',site:'Lombok',currentRh:'12060',deadline:'30 Des 1899'},
+      {dg:'DG 04D',site:'Lombok',currentRh:'11904',deadline:'30 Des 1899'},
+      {dg:'DG 05D',site:'Lombok',currentRh:'11835',deadline:'30 Des 1899'},
+      {dg:'DG 06D',site:'Lombok',currentRh:'12084',deadline:'30 Des 1899'}
+    ],
+    batamVisible:[
+      {dg:'DG 01A',site:'Batam',currentRh:'429',deadline:'11 Apr 2026'},
+      {dg:'DG 01B',site:'Batam',currentRh:'482',deadline:'9 Apr 2026'},
+      {dg:'DG 01C',site:'Batam',currentRh:'355',deadline:'14 Apr 2026'},
+      {dg:'DG 02A',site:'Batam',currentRh:'393',deadline:'12 Apr 2026'},
+      {dg:'DG 02B',site:'Batam',currentRh:'472',deadline:'9 Apr 2026'},
+      {dg:'DG 02C',site:'Batam',currentRh:'340',deadline:'15 Apr 2026'},
+      {dg:'DG 03A',site:'Batam',currentRh:'417',deadline:'11 Apr 2026'},
+      {dg:'DG 03B',site:'Batam',currentRh:'480',deadline:'9 Apr 2026'},
+      {dg:'DG 03C',site:'Batam',currentRh:'313',deadline:'16 Apr 2026'},
+      {dg:'DG 04A',site:'Batam',currentRh:'400',deadline:'12 Apr 2026'},
+      {dg:'DG 04B',site:'Batam',currentRh:'462',deadline:'9 Apr 2026'},
+      {dg:'DG 04C',site:'Batam',currentRh:'334',deadline:'15 Apr 2026'},
+      {dg:'DG 05A',site:'Batam',currentRh:'389',deadline:'12 Apr 2026'},
+      {dg:'DG 05B',site:'Batam',currentRh:'446',deadline:'10 Apr 2026'},
+      {dg:'DG 05C',site:'Batam',currentRh:'312',deadline:'16 Apr 2026'},
+      {dg:'DG 06A',site:'Batam',currentRh:'386',deadline:'13 Apr 2026'}
+    ],
+    batamTotalUnits:25,
+    lombokTotalUnits:6
+  },
+  maintenance:{
+    lombokUpdated:'31/3/2026 13.20.28',
+    lombokTotalLogs:502,
+    lombokSample:[
+      {groupNo:'1',date:'18 Mar 2024',module:'Engine',unit:'DG 01',type:'Preventive Maintenance 450',history:'Maintenance RH 750',action:'by pass filter 1 pcs [37540-02100A]'},
+      {groupNo:'1',date:'18 Mar 2024',module:'Engine',unit:'DG 01',type:'Preventive Maintenance 450',history:'Maintenance RH 750',action:'oil filter 4 pcs [37540-11100A]'},
+      {groupNo:'2',date:'8 Apr 2024',module:'Engine',unit:'DG 01',type:'Preventive Maintenance 1000',history:'Maintenance RH 1201',action:'penggantian oli pelumas engine 340 liter'},
+      {groupNo:'3',date:'6 Mei 2024',module:'Engine',unit:'DG 01',type:'Preventive Maintenance 1000',history:'Maintenance RH 1650',action:'penggantian fuel filter solar'},
+      {groupNo:'4',date:'10 Mei 2024',module:'Engine',unit:'DG 01',type:'Troubleshoot',history:'TROBLE SHOTING',action:'indikasi emergency stop di depsea dan generator locked out'},
+      {groupNo:'6',date:'8 Jun 2024',module:'Engine',unit:'DG 01',type:'Preventive Maintenance 2000',history:'Maintenance RH 2100 PM 2000',action:'Penggantian oil Filter (4pcs) J8610460'}
+    ],
+    batamUpdated:'31/3/2026 13.09.36',
+    batamTotalLogs:1226,
+    batamTotalMtcTs:991,
+    batamMonthly:[
+      {month:'Jan',count:128},
+      {month:'Feb',count:125},
+      {month:'Mar',count:56},
+      {month:'Apr',count:75},
+      {month:'Mei',count:185},
+      {month:'Jun',count:192},
+      {month:'Jul',count:165},
+      {month:'Agu',count:154},
+      {month:'Sep',count:24}
+    ],
+    batamSample:[
+      {groupNo:'1',date:'2 Jan 2024',module:'Engine',unit:'DG 02C',type:'Troubleshoot',history:'arus pendek relay Deapsey tidak nyala',sub:'Fuse 6A',action:'Ganti'},
+      {groupNo:'1',date:'3 Sep 2023',module:'Engine',unit:'DG 06A',type:'Preventive Maintenance 6000',history:'Pergantian',sub:'Varistor',action:'Ganti'},
+      {groupNo:'2',date:'3 Jan 2024',module:'Engine',unit:'DG 05C',type:'Troubleshoot',history:'Tidak bisa start',sub:'Accu N200 GS Premium',action:'Rolling engine 1C'},
+      {groupNo:'3',date:'14 Jan 2025',module:'Engine',unit:'DG 10B',type:'Preventive Maintenance Engine',history:'Priming Pump engine',sub:'priming pump',action:'pengecekan manual engine'},
+      {groupNo:'4',date:'10 Jan 2024',module:'Trafo',unit:'DG 04A',type:'Troubleshoot',history:'Bocor oli pada packing trafo',sub:'Baut kendor',action:'Pengencangan baut'},
+      {groupNo:'5',date:'22 Okt 2023',module:'Engine',unit:'DG 02A',type:'Preventive Maintenance Engine',history:'Lumer dan Patah',sub:'Kepala Aki +',action:'Ganti'}
+    ]
+  },
+  cost:{
+    updated:'31/3/2026 13.21.07',
+    lombok:{total:'2.035.944.970,02',kwh:'24.989.398,56',rpPerKwh:'100,37',cf80:'54,38',cf:'52,42%'},
+    batam:{total:'329.667.276',kwh:'3.733.302,97',rpPerKwh:'50,07',cf80:'1,76',cf:'1,56%'}
+  },
+  spareParts:{
+    updated:'31/3/2026 13.09.56',
+    batamTotalItems:39,
+    lombokStatus:'Error konfigurasi set data',
+    topRemain:[
+      {partNumber:'Pertamina SX Plus CI-4',name:'Oli Pertamina (Meditran)',remain:'1.405'},
+      {partNumber:'2020TM',name:'Racor Parker (30 Micron)',remain:'89'},
+      {partNumber:'Air Aki',name:'Air Aki',remain:'48'},
+      {partNumber:'37540-11100A',name:'Element Oil Filter (Filter Oli)',remain:'46'},
+      {partNumber:'2020TM 10 Micron',name:'Racor Parker (10 Micron)',remain:'34'}
+    ]
+  }
+};
 const currentUser='Iden Robet Ulum';
 const people=['Iden Robet Ulum','M. Ichsan Kukuh','Dwi Hartono','Ahmad Syarif','Wahyu Santoso','Farid Pratama','Budi Kusuma','Sri Mulyani'];
 const peopleInitials={'Iden Robet Ulum':'IR','M. Ichsan Kukuh':'MI','Dwi Hartono':'DH','Ahmad Syarif':'AS','Wahyu Santoso':'WS','Farid Pratama':'FP','Budi Kusuma':'BK','Sri Mulyani':'SM'};
@@ -1537,6 +1663,96 @@ function closeModal(id){
 }
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');}));
 
+function esc(str=''){return String(str).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));}
+function monitoringTypeClass(type){return /trouble/i.test(type)?'trouble':'pm';}
+function monitoringStatusBadge(deadline){
+  return deadline==='30 Des 1899'
+    ? '<span class="bdg r">Deadline invalid</span>'
+    : '<span class="bdg a">Due April 2026</span>';
+}
+function monitoringStats(){
+  return [
+    {label:'Unit Termonitor',value:'31',meta:'6 Lombok + 25 Batam',bar:'g'},
+    {label:'Due Paling Dekat',value:'9 Apr',meta:'Batam DG 01B / 02B / 03B / 04B',bar:'a'},
+    {label:'RH Lombok',value:'11.4k–12.1k',meta:'6 unit visible di PM Monitoring',bar:'b'},
+    {label:'Batam Mtc/TS',value:'991',meta:'1.226 log maintenance',bar:'t'},
+    {label:'Cost Rp/kWh',value:'100,37 vs 50,07',meta:'Lombok vs Batam',bar:'v'}
+  ];
+}
+function renderMonitoring(){
+  const overview=document.getElementById('mn-overview');
+  const group=document.getElementById('mn-group');
+  const detail=document.getElementById('mn-detail');
+  if(!overview||!group||!detail)return;
+  const stats=monitoringStats();
+  const batamPriority=monitoringData.pm.batamVisible
+    .filter(item=>['9 Apr 2026','10 Apr 2026','11 Apr 2026'].includes(item.deadline))
+    .slice(0,6);
+  const batamPeak=monitoringData.maintenance.batamMonthly.reduce((best,item)=>item.count>best.count?item:best,monitoringData.maintenance.batamMonthly[0]);
+  overview.innerHTML=`
+    <div class="mon-hero">
+      <div>
+        <div class="mon-kicker">Monitoring Snapshot</div>
+        <div class="mon-title">${esc(monitoringData.pageName)}</div>
+        <div class="mon-sub">Versi ini tidak lagi terpaku ke Lombok saja. Monitoring sekarang diringkas dari beberapa page report publik: <strong>PM Monitoring</strong> sebagai pusat prioritas unit, lalu dilengkapi dengan <strong>Batam/Lombok Log Maintenance</strong>, <strong>Maintenance (RP/kWh)</strong>, dan <strong>Spare Parts</strong>.</div>
+        <div class="mon-note">
+          <div class="mon-pill"><strong>Sumber</strong> ${esc(monitoringData.sourceName)}</div>
+          <div class="mon-pill"><strong>Updated</strong> ${esc(monitoringData.lastUpdated)}</div>
+          <div class="mon-pill"><strong>Pages</strong> ${monitoringData.pagesUsed.length} page dipakai</div>
+        </div>
+      </div>
+      <div class="cacts">
+        <button class="btn btn-outline btn-sm" onclick="toast('Monitoring dirangkum dari PM Monitoring, Log Maintenance, Maintenance cost, dan Spare Parts')">Info Snapshot</button>
+        <button class="btn btn-primary btn-sm" onclick="window.open('${monitoringData.sourceUrl}','_blank','noopener')">Buka Looker Studio</button>
+      </div>
+    </div>
+    <div class="fchip-row">${monitoringData.pagesUsed.map(page=>`<div class="fc on">${esc(page)}</div>`).join('')}</div>
+    <div class="krow k5">${stats.map(stat=>`<div class="kpi"><div class="kbar ${stat.bar}"></div><div class="ktop"><div class="klbl">${esc(stat.label)}</div><div class="kib" style="background:var(--n0)"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" fill="var(--n2)"/><path d="M6 11h2l1.2-4 1.8 6 1.2-3H16" stroke="var(--g600)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div class="kv">${esc(stat.value)}</div><div class="km neu">${esc(stat.meta)}</div></div>`).join('')}</div>
+    <div class="mon-grid">
+      <div class="mon-panel">
+        <div class="ch"><div><div class="ct">Prioritas PM Terdekat</div><div class="cs">Unit Batam yang deadline-nya paling dekat pada snapshot visible</div></div></div>
+        <div class="mon-body"><div class="mon-list">${batamPriority.map(item=>`<div class="mon-row"><div><strong>${esc(item.dg)} · ${esc(item.deadline)}</strong><span>${esc(item.site)} · Current RH ${esc(item.currentRh)}</span><div class="mon-meta">Semua unit Batam yang terlihat berada pada rentang deadline 9–16 Apr 2026.</div></div><span class="bdg a">Priority</span></div>`).join('')}</div></div>
+      </div>
+      <div class="mon-panel">
+        <div class="ch"><div><div class="ct">Insight Cepat</div><div class="cs">Apa yang penting dibaca lebih dulu</div></div></div>
+        <div class="mon-body">
+          <div class="mon-list">
+            <div class="mon-row"><div><strong>Lombok dan Batam sama-sama masuk</strong><span>Page <strong>PM Monitoring</strong> menggabungkan 6 unit Lombok dan 25 unit Batam, jadi ini page yang paling tepat untuk layar Monitoring utama.</span></div></div>
+            <div class="mon-row"><div><strong>Lombok punya isu kualitas deadline</strong><span>Semua unit Lombok yang terlihat masih memunculkan <strong>30 Des 1899</strong>, jadi field PM deadline Lombok belum bisa dipakai sebagai alarm yang valid.</span></div></div>
+            <div class="mon-row"><div><strong>Batam punya jadwal PM yang actionable</strong><span>Unit Batam yang terlihat jatuh pada deadline <strong>9–16 Apr 2026</strong>, jadi ini bagian yang paling operasional untuk diprioritaskan.</span></div></div>
+            <div class="mon-row"><div><strong>Batam lebih murah per kWh</strong><span>Dari page biaya maintenance, Batam berada di <strong>50,07 Rp/kWh</strong> vs Lombok <strong>100,37 Rp/kWh</strong>.</span></div></div>
+            <div class="mon-row"><div><strong>Puncak log Batam ada di Juni</strong><span>Grafik ringkas Batam menunjukkan beban tertinggi di <strong>${esc(batamPeak.month)} (${esc(batamPeak.count)})</strong>, disusul Mei 185.</span></div></div>
+            <div class="mon-row"><div><strong>Spare parts Lombok belum siap dipakai</strong><span>Page spare parts menampilkan data Batam, sementara bagian Lombok masih berstatus Error konfigurasi set data.</span></div></div>
+          </div>
+          <div class="mon-caption">Monitoring ini sekarang menaruh prioritas PM di depan, lalu baru log maintenance, biaya, dan spare parts sebagai konteks.</div>
+        </div>
+      </div>
+    </div>`;
+  group.innerHTML=`
+    <div class="g2e">
+      <div class="card"><div class="ch"><div><div class="ct">PM Monitoring · Lombok</div><div class="cs">6 unit visible, deadline belum usable</div></div><button class="btn btn-outline btn-sm" onclick="window.open('${monitoringData.sourceUrl}','_blank','noopener')">Sumber</button></div><table class="tbl"><thead><tr><th>DG</th><th>Current RH</th><th>PM Deadline</th><th>Status</th></tr></thead><tbody>${monitoringData.pm.lombok.map(item=>`<tr><td style="font-weight:700">${esc(item.dg)}</td><td class="mono">${esc(item.currentRh)}</td><td>${esc(item.deadline)}</td><td>${monitoringStatusBadge(item.deadline)}</td></tr>`).join('')}</tbody></table></div>
+      <div class="card"><div class="ch"><div><div class="ct">PM Monitoring · Batam</div><div class="cs">25 unit di report, 16 unit visible pada snapshot</div></div><button class="btn btn-outline btn-sm" onclick="window.open('${monitoringData.sourceUrl}','_blank','noopener')">Sumber</button></div><table class="tbl"><thead><tr><th>DG</th><th>Current RH</th><th>PM Deadline</th><th>Status</th></tr></thead><tbody>${monitoringData.pm.batamVisible.map(item=>`<tr><td style="font-weight:700">${esc(item.dg)}</td><td class="mono">${esc(item.currentRh)}</td><td>${esc(item.deadline)}</td><td><span class="bdg a">Due</span></td></tr>`).join('')}</tbody></table></div>
+    </div>
+    <div class="mon-caption">Untuk Lombok, deadline 30 Des 1899 saya tampilkan apa adanya karena itu yang muncul di source. Ini saya tandai sebagai anomali data, bukan due date riil.</div>`;
+  detail.innerHTML=`
+    <div class="krow k4" style="margin-bottom:14px">
+      <div class="kpi"><div class="kbar a"></div><div class="ktop"><div class="klbl">Batam Log Maintenance</div><div class="kib" style="background:#FFFBEB"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" fill="#FDE68A"/></svg></div></div><div class="kv">${esc(monitoringData.maintenance.batamTotalLogs)}</div><div class="km neu">log total · update ${esc(monitoringData.maintenance.batamUpdated)}</div></div>
+      <div class="kpi"><div class="kbar r"></div><div class="ktop"><div class="klbl">Batam Mtc/TS</div><div class="kib" style="background:#FEF2F2"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" fill="#FECACA"/></svg></div></div><div class="kv">${esc(monitoringData.maintenance.batamTotalMtcTs)}</div><div class="km neu">akumulasi yang tampil di page Batam</div></div>
+      <div class="kpi"><div class="kbar b"></div><div class="ktop"><div class="klbl">Lombok Log Maintenance</div><div class="kib" style="background:#EFF6FF"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" fill="#BFDBFE"/></svg></div></div><div class="kv">${esc(monitoringData.maintenance.lombokTotalLogs)}</div><div class="km neu">log total · update ${esc(monitoringData.maintenance.lombokUpdated)}</div></div>
+      <div class="kpi"><div class="kbar g"></div><div class="ktop"><div class="klbl">Spare Parts Batam</div><div class="kib" style="background:var(--g50)"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="4" rx="1.5" fill="var(--g200)"/><rect x="3" y="10" width="14" height="4" rx="1.5" fill="var(--g600)"/></svg></div></div><div class="kv">${esc(monitoringData.spareParts.batamTotalItems)}</div><div class="km neu">item visible di page Spare Parts</div></div>
+    </div>
+    <div class="g2e">
+      <div class="card"><div class="ch"><div><div class="ct">Sample Log Maintenance · Batam</div><div class="cs">Diambil dari page Batam Log Maintenance</div></div></div><table class="tbl"><thead><tr><th>Group</th><th>Date</th><th>Unit</th><th>Type</th><th>Sub</th><th>Action</th></tr></thead><tbody>${monitoringData.maintenance.batamSample.map(item=>`<tr><td class="mono">${esc(item.groupNo)}</td><td>${esc(item.date)}</td><td>${esc(item.unit)}</td><td><span class="mon-tag ${monitoringTypeClass(item.type)}">${esc(item.type.replace('Preventive Maintenance ','PM '))}</span></td><td>${esc(item.sub)}</td><td class="mon-action">${esc(item.action)}</td></tr>`).join('')}</tbody></table></div>
+      <div class="card"><div class="ch"><div><div class="ct">Sample Log Maintenance · Lombok</div><div class="cs">Diambil dari page Lombok Log Maintenance</div></div></div><table class="tbl"><thead><tr><th>Group</th><th>Date</th><th>Unit</th><th>Type</th><th>History</th><th>Action</th></tr></thead><tbody>${monitoringData.maintenance.lombokSample.map(item=>`<tr><td class="mono">${esc(item.groupNo)}</td><td>${esc(item.date)}</td><td>${esc(item.unit)}</td><td><span class="mon-tag ${monitoringTypeClass(item.type)}">${esc(item.type.replace('Preventive Maintenance ','PM '))}</span></td><td>${esc(item.history)}</td><td class="mon-action">${esc(item.action)}</td></tr>`).join('')}</tbody></table></div>
+    </div>
+    <div class="g2e">
+      <div class="card"><div class="ch"><div><div class="ct">Maintenance Cost Summary</div><div class="cs">Page Maintenance (RP/kWh)</div></div></div><table class="tbl"><thead><tr><th>Site</th><th>Total Biaya</th><th>kWh</th><th>Rp/kWh</th><th>CF</th></tr></thead><tbody><tr><td style="font-weight:700">Lombok</td><td class="mono">${esc(monitoringData.cost.lombok.total)}</td><td class="mono">${esc(monitoringData.cost.lombok.kwh)}</td><td><span class="bdg r">${esc(monitoringData.cost.lombok.rpPerKwh)}</span></td><td class="mono">${esc(monitoringData.cost.lombok.cf)}</td></tr><tr><td style="font-weight:700">Batam</td><td class="mono">${esc(monitoringData.cost.batam.total)}</td><td class="mono">${esc(monitoringData.cost.batam.kwh)}</td><td><span class="bdg g">${esc(monitoringData.cost.batam.rpPerKwh)}</span></td><td class="mono">${esc(monitoringData.cost.batam.cf)}</td></tr></tbody></table><div class="mon-caption">Update biaya: ${esc(monitoringData.cost.updated)}</div></div>
+      <div class="card"><div class="ch"><div><div class="ct">Top Spare Parts Batam</div><div class="cs">Sisa stok terbesar yang terlihat</div></div></div><table class="tbl"><thead><tr><th>Part Number</th><th>Nama</th><th>Remain</th></tr></thead><tbody>${monitoringData.spareParts.topRemain.map(item=>`<tr><td class="mono">${esc(item.partNumber)}</td><td>${esc(item.name)}</td><td><span class="bdg b">${esc(item.remain)}</span></td></tr>`).join('')}</tbody></table><div class="mon-caption">Lombok spare parts belum saya jadikan basis monitoring karena source saat ini menampilkan status: ${esc(monitoringData.spareParts.lombokStatus)}.</div></div>
+    </div>
+    <div class="card"><div class="ch"><div><div class="ct">Distribusi Log Batam per Bulan</div><div class="cs">Ringkasan chart yang terlihat di page Batam Log Maintenance</div></div></div><div class="cb">${monitoringData.maintenance.batamMonthly.map(item=>`<div class="pr"><span class="pn">${esc(item.month)}</span><div class="pbw"><div class="pbf" style="width:${Math.round(item.count/192*100)}%;background:${item.count===batamPeak.count?'var(--red)':'var(--amber)'}"></div></div><span class="pv">${esc(item.count)}</span></div>`).join('')}</div></div>
+    <div class="mon-caption">Snapshot ini tetap berbasis data yang terlihat publik. Untuk seluruh 1.226 log Batam, 502 log Lombok, 25 unit Batam penuh, atau interaksi filter/page asli, tetap buka Looker Studio.</div>`;
+}
+
 function toast(msg,err=false){
   const t=document.getElementById('toast-el');
   if(!t)return;
@@ -1554,6 +1770,7 @@ function go(id,el){
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   if(el)el.classList.add('on');
   document.getElementById('tbpg').textContent=pgLabel[id]||id;
+  if(id==='monitoring')renderMonitoring();
   if(id==='project')renderProjectWorkspace();
   if(id==='esign')renderEsign();
 }
@@ -2192,6 +2409,7 @@ function initialize(){
   syncSubtabState('pg-project',projectState.viewState.activeView);
   const pending=esignState.requests.find(request=>requestScope(request)==='action')||esignState.requests[0];
   if(pending)activeRequestId=pending.id;
+  renderMonitoring();
   renderProjectWorkspace();
   renderEsign();
 }
