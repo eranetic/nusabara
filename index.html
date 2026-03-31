@@ -414,6 +414,25 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
 .mon-empty{padding:20px;border:1px dashed var(--n3);border-radius:12px;background:var(--n0);font-size:11px;color:var(--n5);text-align:center}
 .mon-caption{font-size:10px;color:var(--n4);margin-top:8px;line-height:1.5}
 .mon-action{font-size:11px;font-weight:600;color:var(--n7);line-height:1.5}
+.mon-hbars{display:flex;flex-direction:column;gap:10px}
+.mon-hrow{display:grid;grid-template-columns:88px 1fr 44px;gap:10px;align-items:center}
+.mon-hlbl{font-size:10.5px;font-weight:700;color:var(--n6)}
+.mon-htrack{height:12px;border-radius:999px;background:linear-gradient(90deg,var(--n1),#E8F3E6);overflow:hidden;position:relative}
+.mon-hfill{height:100%;border-radius:999px;min-width:14px;display:block}
+.mon-hfill.g{background:linear-gradient(90deg,var(--g300),var(--g600))}
+.mon-hfill.a{background:linear-gradient(90deg,#FDE68A,var(--amber))}
+.mon-hfill.b{background:linear-gradient(90deg,#93C5FD,var(--blue))}
+.mon-hfill.r{background:linear-gradient(90deg,#FCA5A5,var(--red))}
+.mon-hval{font-size:11px;font-weight:800;color:var(--n8);font-family:'JetBrains Mono',monospace;text-align:right}
+.mon-vbars{display:flex;align-items:flex-end;gap:10px;height:188px;padding:8px 2px 0}
+.mon-vcol{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px;height:100%}
+.mon-vval{font-size:10px;font-weight:800;color:var(--n6);font-family:'JetBrains Mono',monospace}
+.mon-vtrack{width:100%;height:142px;border-radius:12px 12px 6px 6px;background:linear-gradient(180deg,#F6FAF4,#EAF3E7);position:relative;display:flex;align-items:flex-end;padding:0 3px 3px}
+.mon-vfill{width:100%;border-radius:10px 10px 4px 4px;min-height:14px;transition:height .4s ease}
+.mon-vfill.g{background:linear-gradient(180deg,var(--g300),var(--g600))}
+.mon-vfill.a{background:linear-gradient(180deg,#FCD34D,var(--amber))}
+.mon-vfill.b{background:linear-gradient(180deg,#60A5FA,var(--blue))}
+.mon-xlbl{font-size:9.5px;font-weight:700;color:var(--n5);text-align:center;line-height:1.25}
 
 /* ── MODAL ── */
 .overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
@@ -1571,6 +1590,13 @@ const monitoringData={
     lombok:{total:'2.035.944.970,02',kwh:'24.989.398,56',rpPerKwh:'100,37',cf80:'54,38',cf:'52,42%'},
     batam:{total:'329.667.276',kwh:'3.733.302,97',rpPerKwh:'50,07',cf80:'1,76',cf:'1,56%'}
   },
+  sfc:{
+    site:'Lombok',
+    updated:'31/3/2026 13.51.33',
+    sfcToDate:'0,2781',
+    potentialFine:'-5.249.032.100,08',
+    visibleRows:872
+  },
   spareParts:{
     updated:'31/3/2026 13.09.56',
     batamTotalItems:39,
@@ -1688,7 +1714,12 @@ function renderMonitoring(){
   const batamPriority=monitoringData.pm.batamVisible
     .filter(item=>['9 Apr 2026','10 Apr 2026','11 Apr 2026'].includes(item.deadline))
     .slice(0,6);
+  const dueBuckets=['9 Apr 2026','10 Apr 2026','11 Apr 2026','12 Apr 2026','13 Apr 2026','14 Apr 2026','15 Apr 2026','16 Apr 2026']
+    .map(deadline=>({deadline,count:monitoringData.pm.batamVisible.filter(item=>item.deadline===deadline).length}))
+    .filter(item=>item.count>0);
+  const duePeak=dueBuckets.reduce((best,item)=>item.count>best.count?item:best,dueBuckets[0]);
   const batamPeak=monitoringData.maintenance.batamMonthly.reduce((best,item)=>item.count>best.count?item:best,monitoringData.maintenance.batamMonthly[0]);
+  const fineIsNegative=monitoringData.sfc.potentialFine.trim().startsWith('-');
   overview.innerHTML=`
     <div class="mon-hero">
       <div>
@@ -1708,6 +1739,34 @@ function renderMonitoring(){
     </div>
     <div class="fchip-row">${monitoringData.pagesUsed.map(page=>`<div class="fc on">${esc(page)}</div>`).join('')}</div>
     <div class="krow k5">${stats.map(stat=>`<div class="kpi"><div class="kbar ${stat.bar}"></div><div class="ktop"><div class="klbl">${esc(stat.label)}</div><div class="kib" style="background:var(--n0)"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="3" fill="var(--n2)"/><path d="M6 11h2l1.2-4 1.8 6 1.2-3H16" stroke="var(--g600)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><div class="kv">${esc(stat.value)}</div><div class="km neu">${esc(stat.meta)}</div></div>`).join('')}</div>
+    <div class="g2e">
+      <div class="card">
+        <div class="ch"><div><div class="ct">Sebaran Deadline PM Batam</div><div class="cs">Chart prioritas paling penting untuk dibaca cepat</div></div></div>
+        <div class="cb">
+          <div class="mon-hbars">${dueBuckets.map(item=>`<div class="mon-hrow"><div class="mon-hlbl">${esc(item.deadline.replace(' 2026',''))}</div><div class="mon-htrack"><span class="mon-hfill ${item.count===duePeak.count?'a':'g'}" style="width:${Math.max(18,Math.round(item.count/duePeak.count*100))}%"></span></div><div class="mon-hval">${esc(item.count)}</div></div>`).join('')}</div>
+          <div class="mon-caption">Puncak urgency visible ada di ${esc(duePeak.deadline)} dengan ${esc(duePeak.count)} unit. Visual ini saya naikkan ke Ringkasan karena langsung menunjukkan cluster deadline yang paling dekat.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="ct">Risiko SFC & Potensi Denda</div><div class="cs">Saya letakkan di Ringkasan karena ini metrik risiko finansial</div></div></div>
+        <div class="cb">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+            <div class="sm" style="background:${fineIsNegative?'var(--g50)':'#FEF2F2'}"><div class="smv" style="font-size:14px;color:${fineIsNegative?'var(--g700)':'var(--red)'}">${esc(monitoringData.sfc.sfcToDate)}</div><div class="sml">SFC To Date · ${esc(monitoringData.sfc.site)}</div></div>
+            <div class="sm" style="background:${fineIsNegative?'#F0FDFA':'#FEF2F2'}"><div class="smv" style="font-size:13px;color:${fineIsNegative?'#0F766E':'#991B1B'}">${esc(monitoringData.sfc.potentialFine)}</div><div class="sml">Potensi Denda (Rp)</div></div>
+          </div>
+          <div class="pr"><span class="pn">SFC To Date</span><div class="pbw"><div class="pbf" style="width:${Math.min(100,Math.round(parseFloat(monitoringData.sfc.sfcToDate.replace(',','.'))*100))}%;background:var(--blue)"></div></div><span class="pv">${esc(monitoringData.sfc.sfcToDate)}</span></div>
+          <div class="pr"><span class="pn">Status Risiko</span><div class="pbw"><div class="pbf" style="width:100%;background:${fineIsNegative?'var(--g500)':'var(--red)'}"></div></div><span class="pv">${fineIsNegative?'negatif':'positif'}</span></div>
+          <div class="mon-caption">Source: page Lombok SFC, update ${esc(monitoringData.sfc.updated)}. Nilai potensi denda saat ini terbaca negatif, jadi saya tampilkan sebagai indikator risiko finansial yang perlu dipantau, bukan saya anggap otomatis sebagai denda aktif.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="ch"><div><div class="ct">Trend Beban Maintenance Batam</div><div class="cs">Chart cepat untuk melihat kapan volume log maintenance memuncak</div></div></div>
+      <div class="cb">
+        <div class="mon-vbars">${monitoringData.maintenance.batamMonthly.map(item=>`<div class="mon-vcol"><div class="mon-vval">${esc(item.count)}</div><div class="mon-vtrack"><div class="mon-vfill ${item.count===batamPeak.count?'g':'b'}" style="height:${Math.max(12,Math.round(item.count/batamPeak.count*100))}%"></div></div><div class="mon-xlbl">${esc(item.month)}</div></div>`).join('')}</div>
+        <div class="mon-caption">Beban tertinggi terlihat pada ${esc(batamPeak.month)} (${esc(batamPeak.count)} log). Ini saya taruh di Ringkasan supaya pola workload langsung kelihatan tanpa harus masuk tab detail.</div>
+      </div>
+    </div>
     <div class="mon-grid">
       <div class="mon-panel">
         <div class="ch"><div><div class="ct">Prioritas PM Terdekat</div><div class="cs">Unit Batam yang deadline-nya paling dekat pada snapshot visible</div></div></div>
@@ -1721,6 +1780,7 @@ function renderMonitoring(){
             <div class="mon-row"><div><strong>Lombok punya isu kualitas deadline</strong><span>Semua unit Lombok yang terlihat masih memunculkan <strong>30 Des 1899</strong>, jadi field PM deadline Lombok belum bisa dipakai sebagai alarm yang valid.</span></div></div>
             <div class="mon-row"><div><strong>Batam punya jadwal PM yang actionable</strong><span>Unit Batam yang terlihat jatuh pada deadline <strong>9–16 Apr 2026</strong>, jadi ini bagian yang paling operasional untuk diprioritaskan.</span></div></div>
             <div class="mon-row"><div><strong>Batam lebih murah per kWh</strong><span>Dari page biaya maintenance, Batam berada di <strong>50,07 Rp/kWh</strong> vs Lombok <strong>100,37 Rp/kWh</strong>.</span></div></div>
+            <div class="mon-row"><div><strong>Potensi denda saya taruh di Ringkasan</strong><span>Karena metrik ini berasal dari page <strong>Lombok SFC</strong> dan sifatnya finansial-risk, posisinya paling tepat berdampingan dengan summary eksekutif, bukan tenggelam di detail tindakan maintenance.</span></div></div>
             <div class="mon-row"><div><strong>Puncak log Batam ada di Juni</strong><span>Grafik ringkas Batam menunjukkan beban tertinggi di <strong>${esc(batamPeak.month)} (${esc(batamPeak.count)})</strong>, disusul Mei 185.</span></div></div>
             <div class="mon-row"><div><strong>Spare parts Lombok belum siap dipakai</strong><span>Page spare parts menampilkan data Batam, sementara bagian Lombok masih berstatus Error konfigurasi set data.</span></div></div>
           </div>
