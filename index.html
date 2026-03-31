@@ -406,17 +406,140 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
 #toast{position:fixed;bottom:20px;right:20px;background:var(--n9);color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:600;box-shadow:var(--sh4);transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.175,.885,.32,1.275);z-index:9999;display:flex;align-items:center;gap:7px;max-width:350px}
 #toast.show{transform:translateY(0);opacity:1}
 
-/* ── TASK POPUP ── */
-.task-popup{max-height:85vh;overflow-y:auto}
-.task-status-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}
-.tstat{padding:5px 12px;border-radius:20px;border:1px solid var(--n2);font-size:11px;font-weight:600;cursor:pointer;transition:all .14s;color:var(--n6)}
-.tstat.on{border-color:var(--g500);background:var(--g50);color:var(--g700)}
+/* ── WORKSPACE ── */
+.ws-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+.ws-title{font-size:14px;font-weight:800;color:var(--n9)}
+.ws-sub{font-size:11px;color:var(--n5);margin-top:3px}
+.ws-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pm-shell{display:flex;flex-direction:column;gap:14px}
+.pm-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--white);border:1px solid var(--n2);border-radius:12px;padding:12px 14px;box-shadow:var(--sh1)}
+.pm-toolbar-left,.pm-toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pm-select{min-width:170px}
+.pm-search{width:240px}
+.pm-chip-row{display:flex;gap:6px;flex-wrap:wrap}
+.pm-chip{padding:5px 10px;border-radius:999px;border:1px solid var(--n2);background:var(--white);font-size:11px;font-weight:700;color:var(--n6);cursor:pointer;transition:all .14s}
+.pm-chip.on{background:var(--g50);border-color:var(--g300);color:var(--g700)}
+.pm-chip.ghost{background:var(--n0)}
+.pm-meta{display:flex;gap:8px;flex-wrap:wrap}
+.pm-stat{background:var(--n0);border:1px solid var(--n2);border-radius:9px;padding:8px 11px;min-width:110px}
+.pm-stat .label{font-size:9.5px;font-weight:700;color:var(--n4);text-transform:uppercase;letter-spacing:.05em}
+.pm-stat .value{font-size:15px;font-weight:700;color:var(--n9);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.issue-stack{display:flex;flex-direction:column;gap:10px}
+.issue-row{display:flex;align-items:flex-start;gap:10px;background:var(--white);border:1px solid var(--n2);border-radius:10px;padding:12px;box-shadow:var(--sh1)}
+.issue-row:hover{border-color:var(--g300)}
+.issue-main{flex:1;min-width:0}
+.issue-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.issue-title{font-size:12.5px;font-weight:700;color:var(--n8);cursor:pointer}
+.issue-title:hover{color:var(--g700)}
+.issue-key{font-size:10px;color:var(--n4);font-family:'JetBrains Mono',monospace}
+.issue-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:10.5px;color:var(--n5)}
+.issue-actions{display:flex;gap:6px;align-items:center}
+.tiny-btn{width:26px;height:26px;border-radius:7px;border:1px solid var(--n2);background:var(--white);cursor:pointer;color:var(--n6);font-size:12px}
+.tiny-btn:hover{border-color:var(--g300);color:var(--g700)}
+.issue-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:700}
+.issue-pill::before{content:'';width:5px;height:5px;border-radius:50%}
+.issue-pill.high{background:#FEF2F2;color:#991B1B}.issue-pill.high::before{background:var(--red)}
+.issue-pill.medium{background:#FFFBEB;color:#92400E}.issue-pill.medium::before{background:var(--amber)}
+.issue-pill.low{background:#EFF6FF;color:#1D4ED8}.issue-pill.low::before{background:var(--blue)}
+.issue-pill.status{background:var(--g50);color:var(--g700)}
+.issue-pill.status::before{background:var(--g500)}
+.issue-pill.review{background:#EFF6FF;color:#1D4ED8}.issue-pill.review::before{background:var(--blue)}
+.issue-pill.done{background:var(--n1);color:var(--n6)}.issue-pill.done::before{background:var(--n4)}
+.backlog-group{background:var(--white);border:1px solid var(--n2);border-radius:12px;padding:12px;box-shadow:var(--sh1)}
+.backlog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.backlog-title{font-size:12px;font-weight:800;color:var(--n8)}
+.backlog-sub{font-size:10px;color:var(--n4)}
+.empty-state{padding:26px 18px;text-align:center;border:1px dashed var(--n3);border-radius:12px;background:var(--n0);font-size:11px;color:var(--n5)}
+.calendar-wrap{background:var(--white);border:1px solid var(--n2);border-radius:12px;box-shadow:var(--sh1);overflow:hidden}
+.calendar-head{display:grid;grid-template-columns:repeat(7,1fr);background:var(--n0);border-bottom:1px solid var(--n2)}
+.calendar-head div{padding:10px 8px;font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.05em}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal-cell{min-height:128px;border-right:1px solid var(--n1);border-bottom:1px solid var(--n1);padding:8px;display:flex;flex-direction:column;gap:6px}
+.cal-cell:nth-child(7n){border-right:none}
+.cal-day{font-size:10px;font-weight:800;color:var(--n5)}
+.cal-day.muted{opacity:.35}
+.cal-item{padding:6px 7px;border-radius:8px;background:var(--g50);border:1px solid var(--g200);font-size:10px;font-weight:700;color:var(--g700);cursor:pointer}
+.cal-item.review{background:#EFF6FF;border-color:#BFDBFE;color:#1D4ED8}
+.cal-item.done{background:var(--n1);border-color:var(--n2);color:var(--n6)}
+.detail-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.doc-card{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--n2);border-radius:9px;background:var(--n0)}
+.doc-card:hover{border-color:var(--g300)}
+.doc-icon{width:34px;height:34px;border-radius:9px;background:var(--white);border:1px solid var(--n2);display:flex;align-items:center;justify-content:center;font-size:16px}
+.doc-main{flex:1}
+.doc-name{font-size:12px;font-weight:700;color:var(--n8)}
+.doc-sub{font-size:10px;color:var(--n4);margin-top:2px}
+.doc-cta{display:flex;gap:6px;flex-wrap:wrap}
+.seg-row{display:flex;gap:6px;flex-wrap:wrap}
+.seg-btn{padding:5px 11px;border-radius:999px;border:1px solid var(--n2);background:var(--white);font-size:11px;font-weight:700;color:var(--n6);cursor:pointer}
+.seg-btn.on{background:var(--g600);border-color:var(--g600);color:#fff}
+.req-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:14px}
+.queue-stack{display:flex;flex-direction:column;gap:8px}
+.req-card{background:var(--white);border:1px solid var(--n2);border-radius:11px;padding:13px 14px;cursor:pointer;transition:all .14s;box-shadow:var(--sh1)}
+.req-card:hover,.req-card.active{border-color:var(--g400);box-shadow:var(--sh2)}
+.req-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.req-title{font-size:12.5px;font-weight:800;color:var(--n9)}
+.req-sub{font-size:10.5px;color:var(--n5);margin-top:3px}
+.req-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.req-summary{display:flex;gap:8px;flex-wrap:wrap;font-size:10.5px;color:var(--n5);margin-top:9px}
+.exec-card{background:var(--white);border:1px solid var(--n2);border-radius:12px;box-shadow:var(--sh1);overflow:hidden}
+.exec-head{padding:14px 16px;border-bottom:1px solid var(--n1);display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.exec-preview{padding:16px}
+.exec-kv{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.exec-kv .sm{text-align:left}
+.stepper-col{display:flex;flex-direction:column;gap:10px}
+.step-card{display:flex;gap:10px;padding:10px;border:1px solid var(--n2);border-radius:10px;background:var(--n0)}
+.step-card.active{border-color:var(--g300);background:var(--g50)}
+.step-index{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:var(--white);border:1px solid var(--n2);color:var(--n6)}
+.step-card.done .step-index{background:var(--g600);border-color:var(--g600);color:#fff}
+.step-label{font-size:11.5px;font-weight:700;color:var(--n8)}
+.step-sub{font-size:10px;color:var(--n4);margin-top:2px}
+.step-note{font-size:10px;color:var(--n6);margin-top:5px}
+.composer-step{display:none}
+.composer-step.on{display:block}
+.wizard-steps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.wizard-pill{padding:5px 10px;border-radius:999px;background:var(--n1);border:1px solid var(--n2);font-size:10.5px;font-weight:700;color:var(--n5)}
+.wizard-pill.on{background:var(--g50);border-color:var(--g300);color:var(--g700)}
+.flow-list{display:flex;flex-direction:column;gap:8px}
+.flow-item{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--n2);border-radius:10px;background:var(--n0)}
+.flow-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--white);border:1px solid var(--n2);font-size:10px;font-weight:800;color:var(--g700)}
+.flow-main{display:flex;flex-direction:column;gap:2px}
+.flow-name{font-size:11.5px;font-weight:700;color:var(--n8)}
+.flow-role{font-size:10px;color:var(--n4)}
+.rule-card{padding:11px 12px;border-radius:10px;border:1px solid var(--n2);background:var(--n0);margin-top:12px}
+.rule-card.ok{background:var(--g50);border-color:var(--g300)}
+.rule-card.warn{background:#FFFBEB;border-color:#FDE68A}
+.issue-drawer-wrap{position:fixed;inset:0;display:flex;justify-content:flex-end;z-index:3000;background:rgba(15,23,42,.4);opacity:0;pointer-events:none;transition:opacity .2s}
+.issue-drawer-wrap.show{opacity:1;pointer-events:auto}
+.issue-drawer{width:460px;max-width:100vw;height:100vh;background:var(--white);display:flex;flex-direction:column;box-shadow:var(--sh4);transform:translateX(100%);transition:transform .2s}
+.issue-drawer-wrap.show .issue-drawer{transform:translateX(0)}
+.drawer-head{padding:16px 18px;border-bottom:1px solid var(--n1);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.drawer-title{font-size:16px;font-weight:800;color:var(--n9)}
+.drawer-sub{font-size:10px;color:var(--n4);margin-top:4px}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px;background:var(--n0)}
+.drawer-section{background:var(--white);border:1px solid var(--n2);border-radius:11px;padding:13px}
+.drawer-label{font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px}
+.drawer-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .comment-box{background:var(--n0);border-radius:8px;padding:10px;margin-top:9px}
 .cmt-row{display:flex;gap:8px;margin-bottom:8px}
 .cmt-bbl{flex:1;background:var(--white);border:1px solid var(--n2);border-radius:7px;padding:8px 10px;font-size:11.5px;color:var(--n7)}
 .attachment-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
 .att-chip{background:var(--n0);border:1px solid var(--n2);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--n7);display:flex;align-items:center;gap:5px;cursor:pointer}
 .att-chip:hover{border-color:var(--g400);color:var(--g600)}
+@media (max-width:1100px){
+  .detail-grid,.req-grid{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .shell{overflow:auto}
+  .sb{display:none}
+  body,.shell{height:auto;overflow:auto}
+  .main{min-height:100vh}
+  .pm-search{width:100%}
+  .pm-toolbar-left,.pm-toolbar-right{width:100%}
+  .pm-select{min-width:0;flex:1}
+  .issue-drawer{width:100vw}
+  .calendar-head,.calendar-grid{min-width:720px}
+  .exec-kv,.drawer-row{grid-template-columns:1fr}
+}
 
 /* ── ASSET ── */
 .astat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px}
@@ -734,112 +857,43 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--n0);color:var(-
 </div>
 </div></div><!-- end analitik -->
 <!-- PROJECT -->
-<div class="mod" id="pg-project"><div class="mtabs"><div class="mt on" onclick="swTab(this,'pj-kanban')">Kanban</div><div class="mt" onclick="swTab(this,'pj-gantt')">Gantt</div><div class="mt" onclick="swTab(this,'pj-grid')">Grid View</div><div class="mt" onclick="swTab(this,'pj-detail')">Detail Proyek</div></div>
+<div class="mod" id="pg-project"><div class="mtabs"><div class="mt on" onclick="swTab(this,'pj-backlog')">Backlog</div><div class="mt" onclick="swTab(this,'pj-kanban')">Kanban</div><div class="mt" onclick="swTab(this,'pj-grid')">Grid</div><div class="mt" onclick="swTab(this,'pj-gantt')">Gantt</div><div class="mt" onclick="swTab(this,'pj-calendar')">Calendar</div><div class="mt" onclick="swTab(this,'pj-detail')">Detail Proyek</div></div>
 <div class="pg">
-<div class="sub on" id="pj-kanban">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><div style="font-size:13.5px;font-weight:700;color:var(--n9)">Board Proyek Aktif</div><div style="font-size:11px;color:var(--n4);margin-top:1px">12 proyek · 47 tugas · Q1 2026</div></div><div style="display:flex;gap:7px"><button class="btn btn-outline btn-sm">Filter</button><button class="btn btn-primary btn-sm" onclick="openModal('modal-addtask')">+ Tambah Tugas</button></div></div>
-  <div class="kb">
-    <div class="kbc"><div class="kbh"><span class="kbt">📋 Backlog</span><span class="kbn">4</span></div><div class="kbb">
-      <div class="kcard" onclick="openTaskDetail('Instalasi Panel Surya Blok C','PLTS','backlog','Ahmad Syarif','15 Apr 2026','Pemasangan 120 unit panel di blok C PLTS Sumatra','Menunggu material dari gudang')"><div class="kct">Instalasi panel surya Blok C</div><div class="km2"><span class="ktag g">PLTS</span><div class="kav">AS</div></div></div>
-      <div class="kcard" onclick="openTaskDetail('Audit Jaringan Distribusi Q2','Audit','backlog','Budi Dharma','30 Jun 2026','Audit menyeluruh jaringan distribusi Q2','Menunggu jadwal tim audit')"><div class="kct">Audit jaringan distribusi Q2</div><div class="km2"><span class="ktag n">Audit</span><div class="kav">BD</div></div></div>
-      <div class="kcard" onclick="openTaskDetail('Upgrade SCADA Sistem Lama','IT','backlog','Iden Robet Ulum','30 Jun 2026','Migrasi sistem SCADA lama ke platform baru berbasis cloud','Dalam tahap perencanaan')"><div class="kct">Upgrade SCADA sistem lama</div><div class="km2"><span class="ktag n">IT</span><div class="kav">IR</div></div></div>
-      <div class="kcard" onclick="openTaskDetail('Pengajuan Izin AMDAL Fase 3','Legal','backlog','Farid Pratama','15 Mei 2026','Pengajuan AMDAL untuk ekspansi pembangkit fase 3','Draft dokumen sedang disiapkan')"><div class="kct">Pengajuan izin AMDAL Fase 3</div><div class="km2"><span class="ktag a">Legal</span><div class="kav">FP</div></div></div>
-    </div></div>
-    <div class="kbc"><div class="kbh" style="border-top:2px solid var(--g400)"><span class="kbt" style="color:var(--g700)">⚡ In Progress</span><span class="kbn" style="background:var(--g100);color:var(--g700)">6</span></div><div class="kbb">
-      <div class="kcard" style="border-left:3px solid var(--g500)" onclick="openTaskDetail('Overhaul Turbin Unit 2 PLTU','Kritis','in_progress','Dwi Hartono','5 Apr 2026','Penggantian blade, bearing, dan seal turbin unit 2. Progress 72%','Bearing sudah ganti, menunggu seal')"><div class="kct">Overhaul turbin Unit 2 PLTU</div><div class="km2"><span class="ktag r">Kritis</span><div class="kav">DH</div></div></div>
-      <div class="kcard" style="border-left:3px solid var(--g500)" onclick="openTaskDetail('Commissioning Trafo 150kV','Elektrik','in_progress','Wahyu Santoso','10 Mei 2026','Komisioning trafo baru 150kV di PLTG Sulawesi. Progress 55%','Test beban 50% sudah selesai')"><div class="kct">Commissioning trafo 150kV</div><div class="km2"><span class="ktag g">Elektrik</span><div class="kav">WS</div></div></div>
-      <div class="kcard" style="border-left:3px solid var(--g500)" onclick="openTaskDetail('Survey Lokasi PLTMH Aceh','Survey','in_progress','Farid Pratama','5 Apr 2026','Survey topografi dan hidrologi lokasi PLTMH Aceh Tengah. Progress 90%','Data sudah terkumpul, laporan final sedang ditulis')"><div class="kct">Survey lokasi PLTMH Aceh</div><div class="km2"><span class="ktag n">Survey</span><div class="kav">FP</div></div></div>
-      <div class="kcard" style="border-left:3px solid var(--g500)" onclick="openTaskDetail('Pemasangan Kabel Bawah Tanah Sektor B','Sipil','in_progress','Ahmad Syarif','20 Apr 2026','Pemasangan 2.4km kabel NYY 3x150mm² di sektor B','Sudah 60% selesai, kendala cuaca')"><div class="kct">Kabel bawah tanah Sektor B</div><div class="km2"><span class="ktag a">Sipil</span><div class="kav">AS</div></div></div>
-    </div></div>
-    <div class="kbc"><div class="kbh"><span class="kbt">🔍 Review</span><span class="kbn">3</span></div><div class="kbb">
-      <div class="kcard" onclick="openTaskDetail('Laporan Studi Kelayakan PLTS','Dokumen','review','Iden Robet Ulum','28 Mar 2026','Review akhir laporan feasibility study ekspansi PLTS 106MW','Dalam review teknis dan keuangan')"><div class="kct">Laporan studi kelayakan PLTS</div><div class="km2"><span class="ktag g">Dokumen</span><div class="kav">IR</div></div></div>
-      <div class="kcard" onclick="openTaskDetail('Test Load Generator Cadangan','QC','review','Budi Dharma','1 Apr 2026','Pengujian beban penuh generator cadangan 5MW','Hasil uji 95% — final approval pending')"><div class="kct">Test load generator cadangan</div><div class="km2"><span class="ktag n">QC</span><div class="kav">BD</div></div></div>
-      <div class="kcard" onclick="openTaskDetail('Verifikasi Data Survey PLTMH','Data','review','Farid Pratama','3 Apr 2026','Verifikasi data hidrologi dan topografi dari tim lapangan','Cross-check dengan data BPS')"><div class="kct">Verifikasi data survey PLTMH</div><div class="km2"><span class="ktag n">Data</span><div class="kav">FP</div></div></div>
-    </div></div>
-    <div class="kbc"><div class="kbh"><span class="kbt">✅ Selesai</span><span class="kbn">8</span></div><div class="kbb">
-      <div class="kcard" style="opacity:.6" onclick="openTaskDetail('Izin AMDAL PLTU Kalimantan','Done','done','Wahyu Santoso','15 Jan 2026','Izin lingkungan PLTU Kalimantan telah diterbitkan oleh KLHK','Selesai — dokumen disimpan di arsip')"><div class="kct">Izin AMDAL PLTU Kalimantan</div><div class="km2"><span class="ktag n">Done</span><div class="kav" style="background:var(--n3)">WS</div></div></div>
-      <div class="kcard" style="opacity:.6" onclick="openTaskDetail('Rekrutmen Teknisi 20 Orang','SDM','done','Budi Dharma','28 Feb 2026','Rekrutmen dan onboarding 20 teknisi baru untuk operasi PLTS Sumatra','Semua teknisi sudah orientasi')"><div class="kct">Rekrutmen teknisi 20 orang</div><div class="km2"><span class="ktag n">Done</span><div class="kav" style="background:var(--n3)">BD</div></div></div>
-      <div class="kcard" style="opacity:.6" onclick="openTaskDetail('Pengadaan Trafo Distribusi','Pengadaan','done','Dwi Hartono','10 Mar 2026','PO dan delivery trafo distribusi 20kV untuk PLTG Sulawesi','Trafo tiba dan diuji, OK')"><div class="kct">Pengadaan trafo distribusi</div><div class="km2"><span class="ktag n">Done</span><div class="kav" style="background:var(--n3)">DH</div></div></div>
-    </div></div>
-  </div>
-</div>
-<div class="sub" id="pj-gantt">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:13.5px;font-weight:700;color:var(--n9)">Timeline Proyek Q1–Q2 2026</div><div style="display:flex;gap:7px"><button class="btn btn-outline btn-sm">Filter</button><button class="btn btn-primary btn-sm" onclick="openModal('modal-addproj')">+ Proyek</button></div></div>
-  <div class="card"><div class="gw"><div class="ghd"><div class="glc">Nama Proyek</div><div class="gms"><div class="gm">Jan</div><div class="gm">Feb</div><div class="gm cur">Mar ●</div><div class="gm">Apr</div><div class="gm">Mei</div><div class="gm">Jun</div></div></div><div id="gantt-body"></div></div></div>
-</div>
-<div class="sub" id="pj-grid">
-  <div class="card"><div class="ch"><div class="ct">Daftar Semua Proyek</div><div class="cacts"><button class="btn btn-outline btn-sm" onclick="toast('Data diekspor')">Export</button><button class="btn btn-primary btn-sm" onclick="openModal('modal-addproj')">+ Proyek</button></div></div>
-  <table class="tbl"><thead><tr><th>Nama Proyek</th><th>Lokasi</th><th>PIC</th><th>Progress</th><th>Anggaran</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
-    <tr onclick="swTab(document.querySelectorAll('#pg-project .mt')[3],'pj-detail')"><td style="font-weight:600">PLTU Kalimantan Overhaul</td><td>Balikpapan</td><td>Dwi Hartono</td><td><div style="display:flex;align-items:center;gap:6px"><div class="pb" style="width:65px"><div class="pf g" style="width:72%"></div></div><span style="font-size:10.5px">72%</span></div></td><td class="mono">12.0M</td><td style="font-size:11px;color:var(--n4)">30 Apr</td><td><span class="bdg b">On Track</span></td><td><button class="btn btn-outline btn-sm" onclick="swTab(document.querySelectorAll('#pg-project .mt')[3],'pj-detail');event.stopPropagation()">Detail</button></td></tr>
-    <tr onclick="swTab(document.querySelectorAll('#pg-project .mt')[3],'pj-detail')"><td style="font-weight:600">PLTS Sumatra Fase 2</td><td>Medan</td><td>Ahmad Syarif</td><td><div style="display:flex;align-items:center;gap:6px"><div class="pb" style="width:65px"><div class="pf g" style="width:28%"></div></div><span style="font-size:10.5px">28%</span></div></td><td class="mono">18.0M</td><td style="font-size:11px;color:var(--n4)">15 Jun</td><td><span class="bdg g">Berjalan</span></td><td><button class="btn btn-outline btn-sm" onclick="event.stopPropagation()">Detail</button></td></tr>
-    <tr onclick="swTab(document.querySelectorAll('#pg-project .mt')[3],'pj-detail')"><td style="font-weight:600">Commissioning Trafo 150kV</td><td>Sulawesi</td><td>Wahyu Santoso</td><td><div style="display:flex;align-items:center;gap:6px"><div class="pb" style="width:65px"><div class="pf a" style="width:55%"></div></div><span style="font-size:10.5px">55%</span></div></td><td class="mono">8.4M</td><td style="font-size:11px;color:var(--red)">10 Mei</td><td><span class="bdg a">Tertunda</span></td><td><button class="btn btn-outline btn-sm" onclick="event.stopPropagation()">Detail</button></td></tr>
-    <tr onclick="swTab(document.querySelectorAll('#pg-project .mt')[3],'pj-detail')"><td style="font-weight:600">Survey PLTMH Aceh</td><td>Aceh Tengah</td><td>Farid Pratama</td><td><div style="display:flex;align-items:center;gap:6px"><div class="pb" style="width:65px"><div class="pf g" style="width:90%"></div></div><span style="font-size:10.5px">90%</span></div></td><td class="mono">3.2M</td><td style="font-size:11px;color:var(--g600)">5 Apr</td><td><span class="bdg g">Hampir Selesai</span></td><td><button class="btn btn-outline btn-sm" onclick="event.stopPropagation()">Detail</button></td></tr>
-    <tr onclick="swTab(document.querySelectorAll('#pg-project .mt')[3],'pj-detail')"><td style="font-weight:600">Upgrade SCADA Sistem</td><td>Kalimantan</td><td>Iden Robet Ulum</td><td><div style="display:flex;align-items:center;gap:6px"><div class="pb" style="width:65px"><div class="pf b" style="width:15%"></div></div><span style="font-size:10.5px">15%</span></div></td><td class="mono">6.8M</td><td style="font-size:11px;color:var(--n4)">30 Jun</td><td><span class="bdg gr">Baru Mulai</span></td><td><button class="btn btn-outline btn-sm" onclick="event.stopPropagation()">Detail</button></td></tr>
-  </tbody></table></div>
-</div>
-<div class="sub" id="pj-detail">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:13.5px;font-weight:700;color:var(--n9)">Detail — PLTU Kalimantan Overhaul</div><div style="display:flex;gap:7px"><button class="btn btn-outline btn-sm" onclick="swTab(document.querySelectorAll('#pg-project .mt')[2],'pj-grid')">← Kembali</button><button class="btn btn-primary btn-sm" onclick="go('esign',document.querySelector('[onclick*=esign]'))">📝 Buat PO</button></div></div>
-  <div class="g2">
-    <div class="gcol">
-      <div class="card"><div class="ch"><div><div class="ct">PLTU Kalimantan Overhaul</div><div class="cs">PRJ-2026-001 · Balikpapan</div></div><span class="bdg b">On Track</span></div><div class="cb">
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:13px">
-          <div class="sm" style="background:var(--g50)"><div class="smv" style="color:var(--g700)">72%</div><div class="sml">Progress</div></div>
-          <div class="sm"><div class="smv">8.64M</div><div class="sml">Terserap IDR</div></div>
-          <div class="sm"><div class="smv">30 Apr</div><div class="sml">Deadline</div></div>
-          <div class="sm"><div class="smv">32</div><div class="sml">Hari Tersisa</div></div>
-        </div>
-        <div class="pb" style="height:8px;margin-bottom:13px"><div class="pf g" style="width:72%"></div></div>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:12px">
-          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--n1)"><span style="color:var(--n5)">PIC Utama</span><span style="font-weight:600">Dwi Hartono</span></div>
-          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--n1)"><span style="color:var(--n5)">President Comm.</span><span style="font-weight:600">M. Ichsan Kukuh</span></div>
-          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--n1)"><span style="color:var(--n5)">Direktur Utama</span><span style="font-weight:600">Iden Robet Ulum</span></div>
-          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--n1)"><span style="color:var(--n5)">Anggaran</span><span style="font-weight:700;font-family:'JetBrains Mono'">Rp 12.0M</span></div>
-          <div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:var(--n5)">Vendor Utama</span><span style="font-weight:600">PT. Schneider Electric</span></div>
-        </div>
-      </div></div>
-      <div class="card"><div class="ch"><div class="ct">Sub-Tugas</div><div class="cs">Klik untuk detail</div><div class="cacts"><button class="btn btn-outline btn-sm" onclick="openModal('modal-addtask')">+ Tambah</button></div></div><div class="cb" style="padding:10px 14px">
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="padding:8px 10px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="openTaskDetail('Shut Down Turbin Unit 2','Done','done','Dwi Hartono','2 Jan 2026','Prosedur shutdown aman unit 2 sesuai SOP K3','Selesai tanpa insiden')"><input type="checkbox" checked style="accent-color:var(--g600)"><span style="font-size:12px;color:var(--g700);text-decoration:line-through;flex:1">Shut down turbin unit 2</span><span class="bdg g">✓</span></div>
-          <div style="padding:8px 10px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="openTaskDetail('Penggantian Blade Turbin','Done','done','Dwi Hartono','15 Feb 2026','Penggantian 12 blade turbin yang aus dengan unit baru Siemens','Blade baru terpasang dan diuji')"><input type="checkbox" checked style="accent-color:var(--g600)"><span style="font-size:12px;color:var(--g700);text-decoration:line-through;flex:1">Penggantian blade turbin</span><span class="bdg g">✓</span></div>
-          <div style="padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="openTaskDetail('Penggantian Bearing dan Seal','Kritis','in_progress','Dwi Hartono','5 Apr 2026','Penggantian bearing utama dan 4 seal shaft. Bearing sudah selesai, menunggu seal khusus dari supplier Jepang','Bearing selesai. Seal ETA 2 Apr')"><input type="checkbox" style="accent-color:var(--g600)"><span style="font-size:12px;color:var(--n7);flex:1">Penggantian bearing dan seal</span><span class="bdg a">In Progress</span></div>
-          <div style="padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="openTaskDetail('Pengujian Beban Penuh','QC','backlog','Wahyu Santoso','25 Apr 2026','Uji beban 25%, 50%, 75%, 100% sesuai prosedur commissioning','Menunggu penggantian seal selesai')"><input type="checkbox" style="accent-color:var(--g600)"><span style="font-size:12px;color:var(--n7);flex:1">Pengujian beban penuh</span><span class="bdg gr">Belum</span></div>
-          <div style="padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="openTaskDetail('Laporan Commissioning Final','Dokumen','backlog','Iden Robet Ulum','30 Apr 2026','Penulisan laporan commissioning lengkap untuk arsip dan regulator','Akan dimulai setelah uji beban selesai')"><input type="checkbox" style="accent-color:var(--g600)"><span style="font-size:12px;color:var(--n7);flex:1">Laporan commissioning final</span><span class="bdg gr">Belum</span></div>
-        </div>
-      </div></div>
-      <div class="card"><div class="ch"><div class="ct">Komentar Tim</div></div><div class="cb" style="padding:10px 14px">
-        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:9px">
-          <div style="display:flex;gap:7px"><div class="kav" style="width:22px;height:22px;font-size:8.5px;background:#F59E0B;flex-shrink:0">DH</div><div style="flex:1;background:var(--n0);border-radius:0 7px 7px 7px;padding:7px 9px;font-size:11.5px;color:var(--n7)">Bearing sudah diganti, menunggu seal khusus ETA 2 April dari Jepang.<div style="font-size:9.5px;color:var(--n4);margin-top:2px">Dwi Hartono · 2 jam lalu</div></div></div>
-          <div style="display:flex;gap:7px;flex-direction:row-reverse"><div class="kav" style="width:22px;height:22px;font-size:8.5px;background:var(--g600);flex-shrink:0">IR</div><div style="flex:1;background:var(--g50);border-radius:7px 0 7px 7px;padding:7px 9px;font-size:11.5px;color:var(--n8)">OK. Pastikan seal dicek mutu sebelum pasang. Update laporan H-1 deadline.<div style="font-size:9.5px;color:var(--n5);margin-top:2px">Iden Robet Ulum · 1 jam lalu</div></div></div>
-        </div>
-        <div style="display:flex;gap:6px"><input class="finp" placeholder="Tulis komentar..." id="proj-cmt" style="flex:1"><button class="btn btn-primary" style="padding:7px 13px;font-size:12px" onclick="addProjCmt()">Kirim</button></div>
-      </div></div>
+  <div class="pm-shell">
+    <div class="ws-head">
+      <div><div class="ws-title">Project Workspace</div><div class="ws-sub">Satu sumber data untuk backlog, board, grid, gantt, calendar, dan detail proyek.</div></div>
+      <div class="ws-actions"><button class="btn btn-outline btn-sm" onclick="openModal('modal-columns')">Columns</button><button class="btn btn-outline btn-sm" onclick="resetProjectFilters()">Reset Filter</button><button class="btn btn-primary btn-sm" onclick="openModal('modal-addtask')">+ Create Issue</button></div>
     </div>
-    <div class="gcol">
-      <div class="card"><div class="ch"><div><div class="ct">Alur Persetujuan Proyek</div></div></div><div class="cb">
-        <div class="ptl">
-          <div class="pstep"><div class="pleft"><div class="pdot done"></div><div class="pline"></div></div><div><div class="ptitle">Kick-off &amp; Budget Approval</div><div class="pdate">✓ 2 Jan 2026 · M. Ichsan Kukuh (PC)</div></div></div>
-          <div class="pstep"><div class="pleft"><div class="pdot done"></div><div class="pline"></div></div><div><div class="ptitle">PO Material Disetujui</div><div class="pdate">✓ 15 Jan 2026 · Iden Robet Ulum (DU)</div></div></div>
-          <div class="pstep"><div class="pleft"><div class="pdot done"></div><div class="pline"></div></div><div><div class="ptitle">Material Tiba di Lokasi</div><div class="pdate">✓ 28 Feb 2026 · Dwi Hartono</div></div></div>
-          <div class="pstep"><div class="pleft"><div class="pdot act"></div><div class="pline"></div></div><div><div class="ptitle" style="color:var(--g700)">Pekerjaan Overhaul — 72%</div><div class="pdate" style="color:var(--g600)">⏳ Berlangsung s/d 20 Apr 2026</div></div></div>
-          <div class="pstep"><div class="pleft"><div class="pdot idle"></div><div class="pline"></div></div><div><div class="ptitle">Uji Beban &amp; Commissioning</div><div class="pdate">— 21–28 Apr 2026</div></div></div>
-          <div class="pstep"><div class="pleft"><div class="pdot idle"></div></div><div><div class="ptitle">Serah Terima &amp; Laporan Final</div><div class="pdate">— 30 Apr 2026</div></div></div>
-        </div>
-      </div></div>
-      <div class="card"><div class="ch"><div class="ct">Dokumen Terkait</div></div><div class="cb" style="padding:10px 14px;display:flex;flex-direction:column;gap:6px">
-        <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;cursor:pointer" onclick="go('esign',document.querySelector('[onclick*=esign]'))"><span style="font-size:18px">📄</span><div style="flex:1"><div style="font-size:12px;font-weight:600">PO-2026-0339 — Schneider Electric</div><div style="font-size:10px;color:var(--n4)">✓ E-Sign selesai · Rp 2.15M</div></div><span class="bdg g">Final</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;cursor:pointer"><span style="font-size:18px">📋</span><div style="flex:1"><div style="font-size:12px;font-weight:600">SPK Overhaul Turbin Unit 2</div><div style="font-size:10px;color:var(--n4)">✓ Ditandatangani · 3 Jan 2026</div></div><span class="bdg g">Final</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;cursor:pointer" onclick="go('esign',document.querySelector('[onclick*=esign]'))"><span style="font-size:18px">📝</span><div style="flex:1"><div style="font-size:12px;font-weight:600">Laporan Progress Maret 2026</div><div style="font-size:10px;color:var(--amber)">⚠ Menunggu e-sign</div></div><span class="bdg a">Draft</span></div>
-        <button class="btn btn-outline" style="width:100%;padding:8px;margin-top:2px" onclick="openModal('modal-upload')">+ Upload Dokumen</button>
-      </div></div>
-      <div class="card"><div class="ch"><div class="ct">Risiko &amp; Issues</div></div><div class="cb" style="padding:10px 14px;display:flex;flex-direction:column;gap:6px">
-        <div style="padding:9px 11px;background:#FEF2F2;border:1px solid #FECACA;border-radius:7px"><div style="font-size:12px;font-weight:700;color:#991B1B">🔴 Seal Turbin Belum Tiba</div><div style="font-size:10.5px;color:#B91C1C;margin-top:2px">Risiko keterlambatan 3–5 hari jika ETA meleset</div></div>
-        <div style="padding:9px 11px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:7px"><div style="font-size:12px;font-weight:700;color:#92400E">🟡 Anggaran BBM Over 5%</div><div style="font-size:10.5px;color:#B45309;margin-top:2px">Harga BBM naik, perlu revisi anggaran</div></div>
-        <div style="padding:9px 11px;background:var(--n0);border:1px solid var(--n2);border-radius:7px"><div style="font-size:12px;font-weight:600;color:var(--n7)">🟢 Cuaca Mendukung</div><div style="font-size:10.5px;color:var(--n5);margin-top:2px">Prakiraan cuaca baik untuk 2 minggu ke depan</div></div>
-        <button class="btn btn-outline btn-sm" onclick="openModal('modal-risk')">+ Tambah Risiko</button>
-      </div></div>
+    <div class="pm-toolbar">
+      <div class="pm-toolbar-left">
+        <select class="finp fsel pm-select" id="pm-project-select" onchange="setProjectSelection(this.value)"></select>
+        <input class="finp pm-search" id="pm-search" placeholder="Cari issue, label, atau dokumen..." oninput="setProjectSearch(this.value)">
+        <select class="finp fsel" id="pm-group-by" onchange="setProjectGrouping(this.value)">
+          <option value="project">Group: Project</option>
+          <option value="assignee">Group: Assignee</option>
+          <option value="priority">Group: Priority</option>
+          <option value="status">Group: Status</option>
+        </select>
+        <select class="finp fsel" id="pm-sort-by" onchange="setProjectSort(this.value)">
+          <option value="rank">Sort: Rank</option>
+          <option value="dueDate">Sort: Due Date</option>
+          <option value="priority">Sort: Priority</option>
+          <option value="progress">Sort: Progress</option>
+        </select>
+      </div>
+      <div class="pm-toolbar-right">
+        <div class="pm-chip-row" id="pm-status-chips"></div>
+        <div class="pm-chip-row" id="pm-priority-chips"></div>
+      </div>
     </div>
+    <div class="pm-meta" id="pm-meta-stats"></div>
+    <div class="sub on" id="pj-backlog"><div id="pj-backlog-body"></div></div>
+    <div class="sub" id="pj-kanban"><div id="pj-kanban-body"></div></div>
+    <div class="sub" id="pj-grid"><div id="pj-grid-body"></div></div>
+    <div class="sub" id="pj-gantt"><div id="pj-gantt-body"></div></div>
+    <div class="sub" id="pj-calendar"><div id="pj-calendar-body"></div></div>
+    <div class="sub" id="pj-detail"><div id="pj-detail-body"></div></div>
   </div>
-</div>
 </div></div><!-- end project -->
 <!-- ASSET -->
 <div class="mod" id="pg-asset"><div class="mtabs"><div class="mt on" onclick="swTab(this,'as-list')">Semua Aset</div><div class="mt" onclick="swTab(this,'as-servis')">Jadwal Servis</div><div class="mt" onclick="swTab(this,'as-dep')">Depresiasi</div></div>
@@ -1110,159 +1164,93 @@ Direktur Utama — Nusabara Group</textarea></div>
 <!-- APPROVAL & E-SIGN FULL -->
 <div class="mod" id="pg-esign"><div class="mtabs"><div class="mt on" onclick="swTab(this,'es-list')">Antrian Approval</div><div class="mt" onclick="swTab(this,'es-sign')">Upload &amp; E-Sign</div><div class="mt" onclick="swTab(this,'es-history')">Riwayat</div></div>
 <div class="pg">
-<div class="sub on" id="es-list">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-    <div><div style="font-size:13.5px;font-weight:700">Antrian Approval</div><div style="font-size:11px;color:var(--n4);margin-top:1px">5 dokumen menunggu · Semua divisi</div></div>
-    <div style="display:flex;gap:7px">
-      <div class="fc on" onclick="fcToggle(this)">Semua</div>
-      <div class="fc" onclick="fcToggle(this)">PO</div>
-      <div class="fc" onclick="fcToggle(this)">SPK</div>
-      <div class="fc" onclick="fcToggle(this)">MOU</div>
-      <div class="fc" onclick="fcToggle(this)">SDM</div>
-      <button class="btn btn-primary btn-sm" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[1],'es-sign')">✍ Buka E-Sign</button>
+  <div class="sub on" id="es-list">
+    <div class="ws-head">
+      <div><div class="ws-title">Approval &amp; Request Sign</div><div class="ws-sub">Setup workflow signer dulu, lalu kirim request sign tanpa keluar dari pola halaman yang ada.</div></div>
+      <div class="ws-actions"><button class="btn btn-outline btn-sm" onclick="openModal('modal-upload')">Upload Dokumen</button><button class="btn btn-primary btn-sm" onclick="openRequestComposer()">+ Request Sign</button></div>
+    </div>
+    <div class="seg-row" id="req-scope-chips"></div>
+    <div class="krow k4" style="margin-top:14px" id="req-kpis"></div>
+    <div class="req-grid" style="margin-top:14px">
+      <div><div class="queue-stack" id="req-queue"></div></div>
+      <div class="card"><div class="ch"><div><div class="ct">Workflow Default</div><div class="cs">Auto berdasarkan tipe dokumen</div></div></div><div class="cb" id="req-template-panel"></div></div>
     </div>
   </div>
-  <div class="apv-item sel" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[1],'es-sign')">
-    <div class="apvi" style="background:var(--g50)"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="2" width="16" height="18" rx="2" fill="var(--g100)"/><rect x="3" y="2" width="16" height="6" rx="2" fill="var(--g600)"/><path d="M6 12q2-2 3 0t3 0" stroke="var(--g600)" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></div>
-    <div class="apv-info"><div class="apvn">PO-2026-0341 — PT. Elektrindo Jaya</div><div class="apvm">Purchase Order · 28 Mar · Menunggu: M. Ichsan Kukuh (President Commissioner)</div></div>
-    <div class="apvr"><div class="apva">Rp 485.000.000</div><span class="bdg r">E-Sign Diperlukan</span></div>
-  </div>
-  <div class="apv-item" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[1],'es-sign')">
-    <div class="apvi" style="background:#EFF6FF"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="2" width="16" height="18" rx="2" fill="#BFDBFE"/><rect x="3" y="2" width="16" height="6" rx="2" fill="var(--blue)"/></svg></div>
-    <div class="apv-info"><div class="apvn">PO-2026-0340 — CV. Teknik Mandiri</div><div class="apvm">Purchase Order · 27 Mar · Menunggu: Verifikasi Manajer Pengadaan</div></div>
-    <div class="apvr"><div class="apva">Rp 128.500.000</div><span class="bdg a">Perlu Review</span></div>
-  </div>
-  <div class="apv-item" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[1],'es-sign')">
-    <div class="apvi" style="background:#FFFBEB"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="2" width="16" height="18" rx="2" fill="#FDE68A"/><rect x="3" y="2" width="16" height="6" rx="2" fill="var(--amber)"/></svg></div>
-    <div class="apv-info"><div class="apvn">SPK-2026-014 — Kontrak Pemeliharaan Trafo</div><div class="apvm">Surat Perintah Kerja · 26 Mar · Wajib E-Materai + E-Sign Direktur Utama</div></div>
-    <div class="apvr"><div class="apva">Rp 1.200.000.000</div><span class="bdg r">E-Materai Wajib</span></div>
-  </div>
-  <div class="apv-item" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[1],'es-sign')">
-    <div class="apvi" style="background:#F0FDFA"><svg viewBox="0 0 22 22" fill="none"><rect x="3" y="2" width="16" height="18" rx="2" fill="#99F6E4"/><rect x="3" y="2" width="16" height="6" rx="2" fill="var(--teal)"/></svg></div>
-    <div class="apv-info"><div class="apvn">MOU-2026-003 — PT. Pertamina Partnership</div><div class="apvm">Nota Kesepahaman · 25 Mar · Menunggu Direktur Utama + Legal</div></div>
-    <div class="apvr"><div class="apva">MOU</div><span class="bdg r">E-Materai + Sign</span></div>
-  </div>
-  <div class="apv-item" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[1],'es-sign')">
-    <div class="apvi" style="background:var(--g50)"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="4" fill="var(--g200)"/><circle cx="11" cy="8" r="2.5" fill="var(--g600)"/><path d="M7 19c0-2.2 1.8-4 4-4s4 1.8 4 4" fill="var(--g600)" opacity=".6"/></svg></div>
-    <div class="apv-info"><div class="apvn">SDM-CUTI-2026-088 — Budi Dharma</div><div class="apvm">Permohonan Cuti 5 Hari · 1–5 Apr 2026 · Menunggu: M. Ichsan Kukuh</div></div>
-    <div class="apvr"><div class="apva">5 Hari</div><span class="bdg a">Persetujuan SDM</span></div>
-  </div>
-  <!-- Stats -->
-  <div class="krow k4" style="margin-top:14px">
-    <div class="kpi"><div class="kbar r"></div><div class="ktop"><div class="klbl">Perlu E-Sign</div><div class="kib" style="background:#FEF2F2"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="2" fill="#FECACA"/></svg></div></div><div class="kv">3</div><div class="km dn">Segera ditanda</div></div>
-    <div class="kpi"><div class="kbar a"></div><div class="ktop"><div class="klbl">Perlu Review</div><div class="kib" style="background:#FFFBEB"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#FDE68A"/></svg></div></div><div class="kv">2</div><div class="km neu">Verifikasi</div></div>
-    <div class="kpi"><div class="kbar g"></div><div class="ktop"><div class="klbl">Selesai Bulan Ini</div><div class="kib" style="background:var(--g50)"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="2" width="14" height="16" rx="2" fill="var(--g100)"/><path d="M7 10l2 2 4-4" stroke="var(--g600)" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></div></div><div class="kv">12</div><div class="km up">↑ lebih banyak</div></div>
-    <div class="kpi"><div class="kbar tl"></div><div class="ktop"><div class="klbl">Rata-rata Waktu</div><div class="kib" style="background:#F0FDFA"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" fill="#99F6E4"/><path d="M10 6v4l3 2" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round"/></svg></div></div><div class="kv">1.8h</div><div class="km up">↓ lebih cepat</div></div>
-  </div>
-</div>
-
-<!-- E-SIGN TAB FULL -->
-<div class="sub" id="es-sign">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-    <div><div style="font-size:13.5px;font-weight:700">Upload &amp; E-Sign Dokumen</div><div style="font-size:11px;color:var(--n4);margin-top:1px">Upload dokumen baru atau ambil dari antrian · PO-2026-0341</div></div>
-    <div style="display:flex;gap:7px"><button class="btn btn-outline btn-sm" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[0],'es-list')">← Antrian</button><button class="btn btn-primary btn-sm" onclick="openModal('modal-mat')">🪙 Pilih e-Materai</button></div>
-  </div>
-  <div style="display:flex;gap:14px">
-    <!-- LEFT -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:0">
-      <!-- Upload zone -->
-      <div class="card"><div class="ch"><div class="ct">📂 Upload / Ambil Dokumen</div></div><div class="cb">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-          <div class="upload-zone" onclick="simulateUpload()" id="upload-zone"><svg viewBox="0 0 32 32" fill="none"><path d="M16 22V10M16 10l-5 5M16 10l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="4" width="24" height="24" rx="6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><h4>Upload Dokumen Baru</h4><p>Drag &amp; drop atau klik — PDF, DOCX, JPG</p></div>
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <div style="font-size:10.5px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Ambil dari Antrian</div>
-            <div style="padding:8px 10px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:8px" onclick="selectDoc('PO-2026-0341','PT. Elektrindo Jaya','Rp 485,000,000')"><span style="font-size:16px">📄</span><div><div style="font-size:11.5px;font-weight:600;color:var(--g700)">PO-2026-0341</div><div style="font-size:9.5px;color:var(--n4)">Rp 485jt · Butuh sign</div></div></div>
-            <div style="padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:8px" onclick="selectDoc('SPK-2026-014','Trafo Maintenance','Rp 1,200,000,000')"><span style="font-size:16px">📋</span><div><div style="font-size:11.5px;font-weight:600;color:var(--n7)">SPK-2026-014</div><div style="font-size:9.5px;color:var(--n4)">Rp 1.2M · E-materai wajib</div></div></div>
-            <div style="padding:8px 10px;background:var(--n0);border:1px solid var(--n2);border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:8px" onclick="selectDoc('MOU-2026-003','PT. Pertamina','MOU Partnership')"><span style="font-size:16px">📑</span><div><div style="font-size:11.5px;font-weight:600;color:var(--n7)">MOU-2026-003</div><div style="font-size:9.5px;color:var(--n4)">Pertamina · MOU</div></div></div>
-          </div>
-        </div>
-        <div style="padding:8px 11px;background:var(--g50);border:1px solid var(--g200);border-radius:7px;font-size:11px;color:var(--g700)">📄 <strong id="doc-selected-name">PO-2026-0341 — PT. Elektrindo Jaya (Rp 485,000,000)</strong> dimuat</div>
-      </div></div>
-      <!-- Doc preview -->
-      <div class="dv">
-        <div class="dtb"><div class="ddot" style="background:#FF5F57"></div><div class="ddot" style="background:#FFBD2E;margin-left:5px"></div><div class="ddot" style="background:#28C940;margin-left:5px"></div><div style="color:var(--n4);font-size:10.5px;margin-left:11px" id="doc-filename">PO-2026-0341_PT-Elektrindo-Jaya.pdf</div></div>
-        <div class="dbody">
-          <div class="dlh"><div class="dlhlogo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L5 12H10V22L19 12H14L12 2Z" fill="rgba(255,255,255,.5)"/><path d="M12 2L5 12H10V22L19 12H14L12 2Z" fill="white" style="clip-path:inset(0 0 50% 0)"/></svg></div><div><div class="dlhn">PT. NUSABARA GROUP</div><div class="dlhs">Jl. Sudirman No. 123, Jakarta · NPWP: 01.234.567.8-001.000</div></div></div>
-          <div class="dh1">PURCHASE ORDER</div>
-          <div class="dh2">No: PO-2026-0341 · Tanggal: 28 Maret 2026</div>
-          <table class="dtbl"><tr><td>Vendor</td><td><strong>PT. Elektrindo Jaya</strong></td></tr><tr><td>Alamat</td><td>Jl. Industri No. 45, Surabaya</td></tr><tr><td>NPWP</td><td>02.345.678.9-031.000</td></tr><tr><td>Pembayaran</td><td>Transfer Bank — 30 hari</td></tr></table>
-          <table class="dtbl"><tr style="background:var(--g600)"><td style="color:#fff;font-weight:700;font-size:10px">ITEM</td><td style="color:#fff;font-weight:700;font-size:10px">DESKRIPSI</td><td style="color:#fff;font-weight:700;font-size:10px">QTY</td><td style="color:#fff;font-weight:700;font-size:10px">HARGA</td><td style="color:#fff;font-weight:700;font-size:10px">SUBTOTAL</td></tr><tr><td>1</td><td>Kabel NYY 3×150mm² — 500m</td><td>2 Roll</td><td>Rp 175.000.000</td><td>Rp 350.000.000</td></tr><tr><td>2</td><td>MCB 3 Phase 100A Schneider</td><td>15 Unit</td><td>Rp 9.000.000</td><td>Rp 135.000.000</td></tr></table>
-          <table class="dtbl"><tr><td style="text-align:right;font-weight:700">Subtotal</td><td>Rp 485.000.000</td></tr><tr><td style="text-align:right;font-weight:700">PPN 11%</td><td>Rp 53.350.000</td></tr><tr style="background:var(--g50)"><td style="text-align:right;font-weight:700;color:var(--g700)">TOTAL</td><td style="font-weight:800;color:var(--g700)">Rp 538.350.000</td></tr></table>
-          <div class="dp">Dokumen ini merupakan perintah pembelian resmi. Mohon konfirmasi dalam 2×24 jam. Pembayaran diproses setelah DO diterima dan diverifikasi.</div>
-          <div class="dsrow">
-            <div class="dsbox"><div class="dslbl">Dibuat Oleh</div><div class="dssig">Iden R.</div><div style="border-top:1px solid var(--n2);margin-top:6px;padding-top:4px;font-size:10px;font-weight:600">Iden Robet Ulum<br><span style="color:var(--n4)">Direktur Utama</span></div></div>
-            <div class="dsbox" style="position:relative"><div class="dslbl">Manajer Pengadaan</div><div class="dssig">B. Kusuma</div><div style="border-top:1px solid var(--n2);margin-top:6px;padding-top:4px;font-size:10px;font-weight:600">Budi Kusuma<br><span style="color:var(--n4)">Mgr Pengadaan</span></div><div id="stamp-on-doc" style="display:none;position:absolute;top:5px;right:5px;width:34px;height:34px;border-radius:50%;border:2px solid var(--g500);background:rgba(238,248,238,.92);display:none;align-items:center;justify-content:center;flex-direction:column"><div style="font-size:5.5px;font-weight:800;color:var(--g700);text-align:center;line-height:1.2">e-METERAI<br>10.000</div></div></div>
-            <div class="dsbox" id="sign-box-you" style="border:2px dashed var(--g300);background:var(--g50)"><div class="dslbl" style="color:var(--g600);font-weight:700">⬆ Tanda Tangan Anda</div><div id="sig-you-content" style="min-height:36px;display:flex;align-items:center;justify-content:center;color:var(--n3);font-size:10.5px">Belum ditandatangani</div><div style="border-top:1px solid var(--g200);margin-top:6px;padding-top:4px;font-size:10px;font-weight:600;color:var(--g700)">M. Ichsan Kukuh<br><span style="color:var(--n4)">President Commissioner</span></div></div>
-          </div>
-        </div>
-      </div>
-      <!-- Canvas -->
-      <div class="card"><div class="ch"><div><div class="ct">✍️ Tanda Tangan Digital</div><div class="cs">Gambar tanda tangan di area di bawah</div></div><div class="cacts"><button class="btn btn-outline btn-sm" onclick="clearSign()">🗑 Hapus</button><button class="btn btn-outline btn-sm" onclick="cycleColor()">🎨 Warna</button></div></div><div class="cb" style="padding:12px 16px">
-        <div class="sign-area" id="sign-area"><div class="sign-cvw"><canvas id="cvs" width="560" height="110"></canvas></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px"><span style="font-size:10.5px;color:var(--n4)" id="sign-hint">✏️ Gambar tanda tangan Anda di atas</span><div style="display:flex;align-items:center;gap:7px"><span style="font-size:10px;color:var(--n4)">Tebal:</span><input type="range" id="pen-size" min="1" max="6" value="2" style="width:70px;accent-color:var(--g600)"></div></div></div>
-        <button class="btn btn-primary" style="width:100%;margin-top:10px;padding:9px" onclick="applySign()">✍️ Terapkan Tanda Tangan ke Dokumen</button>
-      </div></div>
-      <!-- Action -->
-      <div class="ap-panel">
-        <div style="font-size:13px;font-weight:700;margin-bottom:10px">Tindakan Persetujuan</div>
-        <div class="req-note" id="req-note">⚠️ Tanda tangan &amp; e-Materai wajib sebelum menyetujui</div>
-        <div class="ok-note" id="ok-note">✅ Siap disetujui — semua persyaratan terpenuhi</div>
-        <div style="margin-bottom:10px">
-          <label style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--n7);cursor:pointer;margin-bottom:5px"><input type="checkbox" id="chk1" onchange="checkReady()" style="accent-color:var(--g600)"> Saya telah membaca dan memahami isi dokumen ini</label>
-          <label style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--n7);cursor:pointer"><input type="checkbox" id="chk2" onchange="checkReady()" style="accent-color:var(--g600)"> Saya berwenang menyetujui dokumen ini sesuai jabatan</label>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button style="flex:1;padding:10px;background:var(--g600);border:none;border-radius:7px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;font-family:'Plus Jakarta Sans',sans-serif" id="btn-approve" disabled onclick="doApprove()"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3 3 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Setujui &amp; Tanda Tangani</button>
-          <button style="flex:1;padding:10px;background:#FEF2F2;border:1px solid #FECACA;border-radius:7px;color:#991B1B;font-size:12.5px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif" onclick="doReject()">✕ Tolak</button>
-        </div>
-      </div>
+  <div class="sub" id="es-sign">
+    <div class="ws-head">
+      <div><div class="ws-title">Execution View</div><div class="ws-sub" id="exec-subtitle">Pilih request dari antrian untuk review, sign, atau approve.</div></div>
+      <div class="ws-actions"><button class="btn btn-outline btn-sm" onclick="swTab(document.querySelectorAll('#pg-esign .mt')[0],'es-list')">← Antrian</button><button class="btn btn-primary btn-sm" onclick="openRequestComposer(esignState.activeRequestId)">Request Sign</button></div>
     </div>
-    <!-- RIGHT -->
-    <div style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:12px">
-      <!-- Stepper -->
-      <div class="card"><div class="ch"><div><div class="ct">Alur Persetujuan</div><div class="cs">PO-2026-0341</div></div></div><div class="cb" style="padding:12px 14px">
-        <div style="margin-bottom:10px">
-          <div class="step-row done"><div class="pleft"><div class="sico done"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6l3 3 6-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="pline"></div></div><div class="sbody"><div class="sname">Iden Robet Ulum</div><div class="srole">Direktur Utama — Pembuat</div><div class="smeta"><div class="sts">✓ 28 Mar 2026, 09:15</div><div class="snote">"Dokumen dibuat dan diajukan"</div></div></div></div>
-          <div class="step-row done"><div class="pleft"><div class="sico done"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1.5 6l3 3 6-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="pline"></div></div><div class="sbody"><div class="sname">Budi Kusuma</div><div class="srole">Manajer Pengadaan — Verifikasi</div><div class="smeta"><div class="sts">✓ 28 Mar 2026, 14:30</div><div class="snote">"Vendor &amp; spesifikasi OK"</div></div></div></div>
-          <div class="step-row"><div class="pleft"><div class="sico act"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="3" fill="var(--g600)"/></svg></div><div class="pline"></div></div><div class="sbody"><div class="sname" style="color:var(--g700)">M. Ichsan Kukuh (Anda)</div><div class="srole">President Commissioner — E-Sign</div><div class="smeta" style="border-color:var(--g200);background:var(--g50)"><div class="sts" style="color:var(--g600)">⏳ Menunggu tanda tangan</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px"><span id="stat-sign" class="bdg r" style="font-size:9px">✗ Belum sign</span><span id="stat-mat" class="bdg r" style="font-size:9px">✗ Belum materai</span></div></div></div></div>
-          <div class="step-row" style="margin-bottom:0"><div class="pleft"><div class="sico idle"></div></div><div class="sbody" style="padding-bottom:0"><div class="sname" style="color:var(--n4)">Iden Robet Ulum</div><div class="srole" style="color:var(--n4)">Direktur Utama — Final Approval</div><div class="smeta"><div class="sts">— Menunggu step sebelumnya</div></div></div></div>
-        </div>
-      </div></div>
-      <!-- E-Materai -->
-      <div class="mat-card" id="mat-card"><div class="mat-head"><div style="width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:7px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="3" fill="rgba(255,255,255,.3)"/><text x="10" y="14" text-anchor="middle" fill="white" style="font-size:9px;font-weight:800;font-family:'Plus Jakarta Sans'">Rp</text></svg></div><div><div class="mat-title">e-Meterai Peruri</div><div class="mat-sub">Resmi berdasarkan PP No. 86/2021</div></div><div style="margin-left:auto"><span style="background:rgba(255,255,255,.2);color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px" id="mat-pill">Belum Ditempel</span></div></div>
-        <div class="mat-body">
-          <div style="border:2px dashed var(--n3);border-radius:9px;padding:11px;text-align:center;margin-bottom:10px;background:var(--n0);cursor:pointer;transition:all .2s" id="mat-zone" onclick="openModal('modal-mat')">
-            <div class="stamp-c"><div class="stamp-i">METERAI<br><span class="stamp-v">10.000</span><br>REPUBLIK<br>INDONESIA</div></div>
-            <div style="font-size:11.5px;font-weight:600;color:var(--g700);margin-bottom:2px">Klik untuk Tempel e-Meterai</div>
-            <div style="font-size:10px;color:var(--n4)">Pilih jenis materai dari Peruri</div>
+    <div class="req-grid">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="exec-card">
+          <div class="exec-head"><div><div class="ct" id="exec-title">Pilih request</div><div class="cs" id="exec-meta">Belum ada dokumen aktif</div></div><span class="bdg gr" id="exec-status-badge">Idle</span></div>
+          <div class="exec-preview">
+            <div class="exec-kv">
+              <div class="sm"><div class="sml">Nominal</div><div class="smv" id="exec-amount">—</div></div>
+              <div class="sm"><div class="sml">Project</div><div class="smv" id="exec-project" style="font-size:14px">—</div></div>
+              <div class="sm"><div class="sml">Current Step</div><div class="smv" id="exec-step" style="font-size:14px">—</div></div>
+              <div class="sm"><div class="sml">Requester</div><div class="smv" id="exec-requester" style="font-size:14px">—</div></div>
+            </div>
+            <div class="dv">
+              <div class="dtb"><div class="ddot" style="background:#FF5F57"></div><div class="ddot" style="background:#FFBD2E;margin-left:5px"></div><div class="ddot" style="background:#28C940;margin-left:5px"></div><div style="color:var(--n4);font-size:10.5px;margin-left:11px" id="doc-filename">—</div></div>
+              <div class="dbody">
+                <div class="dlh"><div class="dlhlogo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L5 12H10V22L19 12H14L12 2Z" fill="rgba(255,255,255,.5)"/><path d="M12 2L5 12H10V22L19 12H14L12 2Z" fill="white" style="clip-path:inset(0 0 50% 0)"/></svg></div><div><div class="dlhn">PT. NUSABARA GROUP</div><div class="dlhs">Preview dokumen request aktif</div></div></div>
+                <div class="dh1" id="exec-doc-type">Document</div>
+                <div class="dh2" id="doc-selected-name">Pilih request dari antrian</div>
+                <table class="dtbl"><tr><td>Pihak</td><td id="exec-counterparty">—</td></tr><tr><td>Project</td><td id="exec-project-table">—</td></tr><tr><td>Jenis Workflow</td><td id="exec-workflow-kind">—</td></tr><tr><td>Compliance</td><td id="exec-compliance">—</td></tr></table>
+                <div class="dp" id="exec-summary">Ringkasan permintaan akan tampil di sini setelah request dipilih.</div>
+                <div class="dsrow">
+                  <div class="dsbox"><div class="dslbl">Requester</div><div class="dssig">Requester</div><div style="border-top:1px solid var(--n2);margin-top:6px;padding-top:4px;font-size:10px;font-weight:600" id="exec-requester-box">—</div></div>
+                  <div class="dsbox" style="position:relative"><div class="dslbl">e-Materai</div><div style="min-height:36px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--n4)" id="mat-zone">Belum ditempel</div><div id="stamp-on-doc" style="display:none;position:absolute;top:5px;right:5px;width:34px;height:34px;border-radius:50%;border:2px solid var(--g500);background:rgba(238,248,238,.92);align-items:center;justify-content:center;flex-direction:column"><div style="font-size:5.5px;font-weight:800;color:var(--g700);text-align:center;line-height:1.2">e-METERAI<br>10.000</div></div></div>
+                  <div class="dsbox" id="sign-box-you" style="border:2px dashed var(--g300);background:var(--g50)"><div class="dslbl" style="color:var(--g600);font-weight:700">Signer Aktif</div><div id="sig-you-content" style="min-height:36px;display:flex;align-items:center;justify-content:center;color:var(--n3);font-size:10.5px">Belum ditandatangani</div><div style="border-top:1px solid var(--g200);margin-top:6px;padding-top:4px;font-size:10px;font-weight:600;color:var(--g700)" id="exec-signer-box">—</div></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:5px;font-size:11.5px">
-            <div style="display:flex;justify-content:space-between"><span style="color:var(--n5)">Status</span><span class="bdg a" id="mat-badge">Belum bermaterai</span></div>
-            <div style="display:flex;justify-content:space-between"><span style="color:var(--n5)">Biaya</span><span style="font-weight:700;font-family:'JetBrains Mono'" id="mat-cost">—</span></div>
-            <div style="display:flex;justify-content:space-between"><span style="color:var(--n5)">No. Seri</span><span style="font-family:'JetBrains Mono';font-size:10px;color:var(--n4)" id="mat-serial">—</span></div>
+        </div>
+        <div class="card" id="sign-panel"><div class="ch"><div><div class="ct">Tanda Tangan Digital</div><div class="cs" id="sign-panel-sub">Canvas aktif hanya untuk step bertipe sign.</div></div><div class="cacts"><button class="btn btn-outline btn-sm" onclick="clearSign()">Hapus</button><button class="btn btn-outline btn-sm" onclick="cycleColor()">Warna</button></div></div><div class="cb" style="padding:12px 16px">
+          <div class="sign-area" id="sign-area"><div class="sign-cvw"><canvas id="cvs" width="560" height="110"></canvas></div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px"><span style="font-size:10.5px;color:var(--n4)" id="sign-hint">Gambar tanda tangan Anda di atas</span><div style="display:flex;align-items:center;gap:7px"><span style="font-size:10px;color:var(--n4)">Tebal:</span><input type="range" id="pen-size" min="1" max="6" value="2" style="width:70px;accent-color:var(--g600)"></div></div></div>
+          <button class="btn btn-primary" style="width:100%;margin-top:10px;padding:9px" onclick="applySign()">Terapkan Tanda Tangan</button>
+        </div></div>
+        <div class="ap-panel">
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px">Tindakan Persetujuan</div>
+          <div class="req-note" id="req-note">Selesaikan syarat langkah aktif sebelum submit.</div>
+          <div class="ok-note" id="ok-note">Siap diproses.</div>
+          <div style="margin-bottom:10px">
+            <label style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--n7);cursor:pointer;margin-bottom:5px"><input type="checkbox" id="chk1" onchange="checkReady()" style="accent-color:var(--g600)"> Saya telah membaca dan memahami isi dokumen ini</label>
+            <label style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--n7);cursor:pointer"><input type="checkbox" id="chk2" onchange="checkReady()" style="accent-color:var(--g600)"> Saya memproses langkah ini sesuai kewenangan saya</label>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button style="flex:1;padding:10px;background:var(--g600);border:none;border-radius:7px;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif" id="btn-approve" disabled onclick="doApprove()">Proses Langkah</button>
+            <button style="flex:1;padding:10px;background:#FEF2F2;border:1px solid #FECACA;border-radius:7px;color:#991B1B;font-size:12.5px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif" onclick="doReject()">Tolak</button>
           </div>
         </div>
       </div>
-      <div class="card" style="padding:12px 14px">
-        <div style="font-size:11.5px;font-weight:700;color:var(--n7);margin-bottom:6px">Dokumen Terkait</div>
-        <div style="display:flex;flex-direction:column;gap:5px">
-          <div style="padding:7px 9px;background:var(--n0);border:1px solid var(--n2);border-radius:6px;cursor:pointer;font-size:11px"><span>📄</span> PO-2026-0339 — Schneider ✓</div>
-          <div style="padding:7px 9px;background:var(--n0);border:1px solid var(--n2);border-radius:6px;cursor:pointer;font-size:11px"><span>📋</span> SPK Overhaul Turbin ✓</div>
-          <div style="padding:7px 9px;background:var(--g50);border:1px solid var(--g200);border-radius:6px;cursor:pointer;font-size:11px"><span>📝</span> Laporan Progress ⚠ Draft</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="exec-card"><div class="ch"><div><div class="ct">Alur Persetujuan</div><div class="cs">Dari workflow request</div></div></div><div class="cb"><div class="stepper-col" id="exec-stepper"></div></div></div>
+        <div class="mat-card" id="mat-card"><div class="mat-head"><div style="width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:7px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="3" fill="rgba(255,255,255,.3)"/><text x="10" y="14" text-anchor="middle" fill="white" style="font-size:9px;font-weight:800;font-family:'Plus Jakarta Sans'">Rp</text></svg></div><div><div class="mat-title">e-Meterai</div><div class="mat-sub">Aktif jika diminta workflow atau nominal dokumen</div></div><div style="margin-left:auto"><span style="background:rgba(255,255,255,.2);color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px" id="mat-pill">Belum aktif</span></div></div>
+          <div class="mat-body">
+            <div style="border:2px dashed var(--n3);border-radius:9px;padding:11px;text-align:center;margin-bottom:10px;background:var(--n0);cursor:pointer;transition:all .2s" onclick="openModal('modal-mat')" id="mat-zone-trigger">
+              <div class="stamp-c"><div class="stamp-i">METERAI<br><span class="stamp-v">10.000</span><br>RI</div></div>
+              <div style="font-size:11.5px;font-weight:600;color:var(--g700);margin-bottom:2px">Klik untuk Tempel e-Meterai</div>
+              <div style="font-size:10px;color:var(--n4)" id="mat-rule-copy">Akan otomatis diwajibkan pada dokumen kontraktual / nominal tinggi</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;font-size:11.5px">
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--n5)">Status</span><span class="bdg a" id="mat-badge">Belum bermaterai</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--n5)">Biaya</span><span style="font-weight:700;font-family:'JetBrains Mono'" id="mat-cost">—</span></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:var(--n5)">No. Seri</span><span style="font-family:'JetBrains Mono';font-size:10px;color:var(--n4)" id="mat-serial">—</span></div>
+            </div>
+          </div>
         </div>
+        <div class="card"><div class="ch"><div class="ct">Dokumen Terkait</div><button class="btn btn-primary btn-sm" onclick="openRequestComposer(esignState.activeRequestId)">Request Sign</button></div><div class="cb" id="exec-related-docs"></div></div>
       </div>
     </div>
   </div>
-</div><!-- es-sign end -->
-
-<div class="sub" id="es-history">
-  <div style="margin-bottom:12px"><div style="font-size:13.5px;font-weight:700">Riwayat Persetujuan</div></div>
-  <div class="card"><table class="tbl"><thead><tr><th>No. Dokumen</th><th>Jenis</th><th>Vendor/Pihak</th><th>Nilai</th><th>Disetujui</th><th>Tanggal</th><th>e-Materai</th><th>Status</th></tr></thead><tbody>
-    <tr><td class="mono" style="color:var(--g600);font-weight:600">PO-2026-0339</td><td>PO</td><td>PT. Schneider Electric</td><td class="mono">2,150,000,000</td><td>M. Ichsan Kukuh</td><td style="font-size:11px;color:var(--n4)">25 Mar 2026</td><td><span class="bdg tl">Rp 10.000</span></td><td><span class="bdg g">✓ Final</span></td></tr>
-    <tr><td class="mono" style="color:var(--g600);font-weight:600">PO-2026-0337</td><td>PO</td><td>PT. Kabelindo Murni</td><td class="mono">675,000,000</td><td>M. Ichsan Kukuh</td><td style="font-size:11px;color:var(--n4)">22 Mar 2026</td><td><span class="bdg tl">Rp 10.000</span></td><td><span class="bdg g">✓ Final</span></td></tr>
-    <tr><td class="mono" style="color:var(--g600);font-weight:600">SPK-2026-013</td><td>SPK</td><td>CV. Mitra Teknik</td><td class="mono">320,000,000</td><td>Iden Robet Ulum</td><td style="font-size:11px;color:var(--n4)">20 Mar 2026</td><td><span class="bdg tl">Rp 10.000</span></td><td><span class="bdg g">✓ Final</span></td></tr>
-    <tr><td class="mono" style="color:var(--g600);font-weight:600">PO-2026-0334</td><td>PO</td><td>PT. Unindo</td><td class="mono">145,000,000</td><td>M. Ichsan Kukuh</td><td style="font-size:11px;color:var(--n4)">15 Mar 2026</td><td><span class="bdg gr">Tidak ada</span></td><td><span class="bdg r">✕ Ditolak</span></td></tr>
-  </tbody></table></div>
-</div>
+  <div class="sub" id="es-history">
+    <div class="ws-head"><div><div class="ws-title">Riwayat Approval</div><div class="ws-sub">Semua request yang selesai, ditolak, atau telah diteruskan.</div></div></div>
+    <div class="card"><table class="tbl"><thead><tr><th>No. Dokumen</th><th>Jenis</th><th>Pihak</th><th>Nilai</th><th>Requester</th><th>Update Terakhir</th><th>e-Materai</th><th>Status</th></tr></thead><tbody id="es-history-body"></tbody></table></div>
+  </div>
 </div></div><!-- end esign -->
 
 <!-- LAPORAN -->
@@ -1365,42 +1353,20 @@ Direktur Utama — Nusabara Group</textarea></div>
 
 <!-- ═══ ALL MODALS ═══ -->
 <!-- Task Detail Modal -->
-<div class="overlay" id="modal-task">
-<div class="modal" style="width:580px"><div class="mh"><div class="mt2" id="task-title">Detail Tugas</div><button class="mcl" onclick="closeModal('modal-task')">✕</button></div>
-<div class="mb" style="padding:16px 20px">
-  <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:14px">
-    <div style="flex:1"><div class="task-status-row" id="task-statrow">
-      <div class="tstat" onclick="setTaskStat(this,'Backlog')">📋 Backlog</div>
-      <div class="tstat on" onclick="setTaskStat(this,'In Progress')">⚡ In Progress</div>
-      <div class="tstat" onclick="setTaskStat(this,'Review')">🔍 Review</div>
-      <div class="tstat" onclick="setTaskStat(this,'Selesai')">✅ Selesai</div>
-    </div></div>
-    <span class="bdg a" id="task-tag-badge">In Progress</span>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px">
-    <div class="sm"><div style="font-size:10px;color:var(--n4);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">PIC</div><div style="font-size:12px;font-weight:600;color:var(--n8)" id="task-pic">Dwi Hartono</div></div>
-    <div class="sm"><div style="font-size:10px;color:var(--n4);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Deadline</div><div style="font-size:12px;font-weight:600;color:var(--n8)" id="task-deadline">5 Apr 2026</div></div>
-  </div>
-  <div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Deskripsi</div><div style="font-size:12.5px;color:var(--n7);line-height:1.6;padding:10px;background:var(--n0);border-radius:7px" id="task-desc">Deskripsi tugas...</div></div>
-  <div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Catatan Progress</div><div style="font-size:12px;color:var(--n6);padding:10px;background:var(--n0);border-radius:7px" id="task-notes">Catatan...</div></div>
-  <div><div style="font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Progress (%)</div>
-    <div style="display:flex;align-items:center;gap:10px"><input type="range" id="task-prog" min="0" max="100" value="55" style="flex:1;accent-color:var(--g600)" oninput="document.getElementById('task-prog-val').textContent=this.value+'%'"><span style="font-family:'JetBrains Mono';font-weight:700;font-size:13px;color:var(--g700);width:42px" id="task-prog-val">55%</span></div>
-    <div class="pb" style="margin-top:7px"><div class="pf g" id="task-pb" style="width:55%"></div></div>
-  </div>
-  <!-- Comments -->
-  <div style="margin-top:13px"><div style="font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Komentar</div>
-    <div style="display:flex;flex-direction:column;gap:7px" id="task-cmts">
-      <div class="cmt-row"><div class="kav" style="width:24px;height:24px;font-size:8.5px;background:#F59E0B;flex-shrink:0">DH</div><div class="cmt-bbl">Bearing sudah ganti, menunggu seal dari supplier.<div style="font-size:9.5px;color:var(--n4);margin-top:2px">Dwi Hartono · 2 jam lalu</div></div></div>
+<div class="issue-drawer-wrap" id="modal-task" onclick="if(event.target===this)closeModal('modal-task')">
+  <div class="issue-drawer">
+    <div class="drawer-head"><div><div class="drawer-title" id="task-title">Issue Detail</div><div class="drawer-sub" id="task-keyline">PRJ-000 · Project Issue</div></div><button class="mcl" onclick="closeModal('modal-task')">✕</button></div>
+    <div class="drawer-body">
+      <div class="drawer-section"><div class="drawer-label">Overview</div><div class="drawer-row"><div><div class="flbl">Status</div><select class="finp fsel" id="task-status" onchange="setTaskStatus(this.value)"><option value="backlog">Backlog</option><option value="in_progress">In Progress</option><option value="review">Review</option><option value="done">Done</option></select></div><div><div class="flbl">Priority</div><select class="finp fsel" id="task-priority" onchange="setTaskPriority(this.value)"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div><div><div class="flbl">PIC</div><select class="finp fsel" id="task-pic" onchange="setTaskAssignee(this.value)"></select></div><div><div class="flbl">Deadline</div><input class="finp" id="task-deadline" type="date" onchange="setTaskDeadline(this.value)"></div></div></div>
+      <div class="drawer-section"><div class="drawer-label">Deskripsi</div><textarea class="finp fta" id="task-desc" style="min-height:92px" onchange="setTaskDescription(this.value)"></textarea></div>
+      <div class="drawer-section"><div class="drawer-label">Progress</div><div style="display:flex;align-items:center;gap:10px"><input type="range" id="task-prog" min="0" max="100" value="0" style="flex:1;accent-color:var(--g600)" oninput="document.getElementById('task-prog-val').textContent=this.value+'%';setTaskProgress(this.value)"><span style="font-family:'JetBrains Mono';font-weight:700;font-size:13px;color:var(--g700);width:42px" id="task-prog-val">0%</span></div><div class="pb" style="margin-top:7px"><div class="pf g" id="task-pb" style="width:0%"></div></div><div class="comment-box" id="task-notes">Catatan progress akan tampil di sini.</div></div>
+      <div class="drawer-section"><div class="drawer-label">Komentar</div><div id="task-cmts"></div><div style="display:flex;gap:7px;margin-top:9px"><input class="finp" id="task-cmt-inp" placeholder="Tulis komentar..." style="flex:1;font-size:12px"><button class="btn btn-primary btn-sm" onclick="addTaskCmt()">Kirim</button></div></div>
+      <div class="drawer-section"><div class="drawer-label">Lampiran & Dokumen</div><div class="attachment-row" id="task-attachments"></div></div>
     </div>
-    <div style="display:flex;gap:7px;margin-top:9px"><input class="finp" id="task-cmt-inp" placeholder="Tulis komentar..." style="flex:1;font-size:12px"><button class="btn btn-primary btn-sm" onclick="addTaskCmt()">Kirim</button></div>
-  </div>
-  <!-- Attachments -->
-  <div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--n5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Lampiran</div>
-    <div class="attachment-row"><div class="att-chip">📄 Brief_Overhaul.pdf</div><div class="att-chip">📊 Timeline.xlsx</div><div class="att-chip" onclick="toast('Upload file dibuka')">+ Tambah</div></div>
   </div>
 </div>
-<div class="mf"><button class="btn btn-outline" onclick="toast('Tugas dihapus');closeModal('modal-task')">🗑 Hapus</button><button class="btn btn-outline" onclick="closeModal('modal-task')">Tutup</button><button class="btn btn-primary" onclick="saveTask()">💾 Simpan Perubahan</button></div>
-</div></div>
+<div class="overlay" id="modal-columns"><div class="modal sm-modal"><div class="mh"><div class="mt2">Columns Grid</div><button class="mcl" onclick="closeModal('modal-columns')">✕</button></div><div class="mb" id="column-options"></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-columns')">Tutup</button></div></div></div>
+<div class="overlay" id="modal-request-sign"><div class="modal" style="width:640px"><div class="mh"><div class="mt2">Request Sign</div><button class="mcl" onclick="closeModal('modal-request-sign')">✕</button></div><div class="mb"><div class="wizard-steps"><span class="wizard-pill on" data-step="0">1. Document</span><span class="wizard-pill" data-step="1">2. Workflow</span><span class="wizard-pill" data-step="2">3. Compliance</span><span class="wizard-pill" data-step="3">4. Review</span></div><div class="composer-step on" data-step="0"><div class="fld"><div class="flbl">Jenis Dokumen</div><select class="finp fsel" id="req-doc-type" onchange="updateComposerDocType(this.value)"><option value="PO">Purchase Order</option><option value="SPK">SPK / Kontrak</option><option value="MOU">MOU</option><option value="SDM">Approval SDM</option><option value="Laporan">Laporan</option></select></div><div class="fld"><div class="flbl">Judul</div><input class="finp" id="req-doc-title" placeholder="Contoh: PO Kabel NYY 500m" oninput="updateComposerField('title',this.value)"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="fld"><div class="flbl">Project</div><select class="finp fsel" id="req-project" onchange="updateComposerField('projectId',this.value)"></select></div><div class="fld"><div class="flbl">Counterparty / Vendor</div><input class="finp" id="req-counterparty" placeholder="PT / CV ..." oninput="updateComposerField('counterparty',this.value)"></div><div class="fld"><div class="flbl">Nominal (IDR)</div><input class="finp" id="req-amount" type="number" min="0" oninput="updateComposerAmount(this.value)"></div><div class="fld"><div class="flbl">Sumber Dokumen</div><select class="finp fsel" id="req-source" onchange="updateComposerField('source',this.value)"><option value="existing">Dokumen Existing</option><option value="upload">Upload Baru</option></select></div></div></div><div class="composer-step" data-step="1"><div class="fld"><div class="flbl">Workflow Signer</div><div class="flow-list" id="composer-flow"></div></div><div class="fld"><div class="flbl">Tambah Step</div><div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px"><select class="finp fsel" id="new-step-person"></select><select class="finp fsel" id="new-step-type"><option value="review">Review</option><option value="sign">Sign</option><option value="approve">Approve</option></select><button class="btn btn-outline" onclick="addComposerStep()">Tambah</button></div></div></div><div class="composer-step" data-step="2"><div class="rule-card" id="composer-rule-card"></div><label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--n7);margin-top:12px"><input type="checkbox" id="req-materai-override" onchange="toggleComposerMateraiOverride(this.checked)" style="accent-color:var(--g600)"> Paksa e-Materai untuk request ini</label></div><div class="composer-step" data-step="3"><div class="rule-card ok" id="composer-review-card"></div></div></div><div class="mf"><button class="btn btn-outline" onclick="stepComposer(-1)">Kembali</button><button class="btn btn-outline" onclick="closeModal('modal-request-sign')">Batal</button><button class="btn btn-primary" id="composer-next-btn" onclick="stepComposer(1)">Lanjut</button></div></div></div>
 
 <!-- Materai Modal -->
 <div class="overlay" id="modal-mat">
@@ -1472,7 +1438,7 @@ Direktur Utama — Nusabara Group</textarea></div>
 <div class="overlay" id="modal-emp-hw"><div class="modal sm-modal"><div class="mh"><div class="mt2">Hendra Wijaya</div><button class="mcl" onclick="closeModal('modal-emp-hw')">✕</button></div><div class="mb"><div style="text-align:center;padding:12px 0"><div class="empav" style="width:52px;height:52px;font-size:18px;background:#0EA5E9;margin:0 auto 8px">HW</div><div style="font-size:14px;font-weight:700">Hendra Wijaya</div><div style="font-size:12px;color:var(--n5)">Teknisi HSE</div><div style="margin-top:6px"><span class="bdg g">Aktif</span></div></div></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-emp-hw')">Tutup</button></div></div></div>
 
 <!-- Quick Modals -->
-<div class="overlay" id="modal-addtask"><div class="modal sm-modal"><div class="mh"><div class="mt2">+ Tambah Tugas</div><button class="mcl" onclick="closeModal('modal-addtask')">✕</button></div><div class="mb"><div class="fld"><div class="flbl">Nama Tugas</div><input class="finp" placeholder="Nama tugas..."></div><div class="fld"><div class="flbl">PIC</div><select class="finp fsel"><option>Dwi Hartono</option><option>Ahmad Syarif</option><option>Wahyu Santoso</option><option>Farid Pratama</option></select></div><div class="fld"><div class="flbl">Deadline</div><input class="finp" type="date"></div><div class="fld" style="margin-bottom:0"><div class="flbl">Deskripsi</div><textarea class="finp fta" style="min-height:60px" placeholder="Deskripsi tugas..."></textarea></div></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-addtask')">Batal</button><button class="btn btn-primary" onclick="toast('Tugas berhasil ditambahkan ✓');closeModal('modal-addtask')">Simpan</button></div></div></div>
+<div class="overlay" id="modal-addtask"><div class="modal sm-modal"><div class="mh"><div class="mt2">+ Create Issue</div><button class="mcl" onclick="closeModal('modal-addtask')">✕</button></div><div class="mb"><div class="fld"><div class="flbl">Judul Issue</div><input class="finp" id="new-issue-title" placeholder="Nama issue..."></div><div class="fld"><div class="flbl">Project</div><select class="finp fsel" id="new-issue-project"></select></div><div class="fld"><div class="flbl">PIC</div><select class="finp fsel" id="new-issue-pic"></select></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="fld"><div class="flbl">Priority</div><select class="finp fsel" id="new-issue-priority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></div><div class="fld"><div class="flbl">Deadline</div><input class="finp" id="new-issue-deadline" type="date"></div></div><div class="fld" style="margin-bottom:0"><div class="flbl">Deskripsi</div><textarea class="finp fta" id="new-issue-desc" style="min-height:60px" placeholder="Deskripsi issue..."></textarea></div></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-addtask')">Batal</button><button class="btn btn-primary" onclick="createIssue()">Simpan</button></div></div></div>
 <div class="overlay" id="modal-addproj"><div class="modal sm-modal"><div class="mh"><div class="mt2">+ Proyek Baru</div><button class="mcl" onclick="closeModal('modal-addproj')">✕</button></div><div class="mb"><div class="fld"><div class="flbl">Nama Proyek</div><input class="finp" placeholder="Nama proyek..."></div><div class="fld"><div class="flbl">Lokasi</div><input class="finp" placeholder="Kalimantan / Sulawesi / Sumatra"></div><div class="fld"><div class="flbl">Anggaran (IDR)</div><input class="finp" type="number" placeholder="0"></div></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-addproj')">Batal</button><button class="btn btn-primary" onclick="toast('Proyek berhasil dibuat ✓');closeModal('modal-addproj')">Simpan</button></div></div></div>
 <div class="overlay" id="modal-upload"><div class="modal sm-modal"><div class="mh"><div class="mt2">Upload Dokumen</div><button class="mcl" onclick="closeModal('modal-upload')">✕</button></div><div class="mb"><div class="upload-zone" onclick="toast('File browser dibuka')"><svg viewBox="0 0 32 32" fill="none"><path d="M16 22V10M16 10l-5 5M16 10l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="4" width="24" height="24" rx="6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><h4>Klik untuk upload</h4><p>PDF, DOCX, XLSX, JPG — maks 20MB</p></div></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-upload')">Batal</button><button class="btn btn-primary" onclick="toast('Dokumen berhasil diupload ✓');closeModal('modal-upload')">Upload</button></div></div></div>
 <div class="overlay" id="modal-risk"><div class="modal sm-modal"><div class="mh"><div class="mt2">+ Tambah Risiko</div><button class="mcl" onclick="closeModal('modal-risk')">✕</button></div><div class="mb"><div class="fld"><div class="flbl">Deskripsi Risiko</div><input class="finp" placeholder="Jelaskan risiko..."></div><div class="fld"><div class="flbl">Level</div><select class="finp fsel"><option>Tinggi 🔴</option><option>Sedang 🟡</option><option>Rendah 🟢</option></select></div><div class="fld" style="margin-bottom:0"><div class="flbl">Mitigasi</div><textarea class="finp fta" style="min-height:55px" placeholder="Rencana mitigasi..."></textarea></div></div><div class="mf"><button class="btn btn-outline" onclick="closeModal('modal-risk')">Batal</button><button class="btn btn-primary" onclick="toast('Risiko ditambahkan');closeModal('modal-risk')">Simpan</button></div></div></div>
@@ -1492,61 +1458,85 @@ Direktur Utama — Nusabara Group</textarea></div>
 <style>#toast-el{position:fixed;bottom:20px;right:20px;background:var(--n9);color:#fff;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:600;box-shadow:0 20px 40px rgba(0,0,0,.2);transform:translateY(80px);opacity:0;transition:all .4s cubic-bezier(.175,.885,.32,1.275);z-index:9999;display:flex;align-items:center;gap:7px;max-width:360px}#toast-el.show{transform:translateY(0);opacity:1}</style>
 <script>
 const pgLabel={dashboard:'Dashboard',analytic:'Analitik',project:'Project Management',asset:'Aset Management',inventory:'Inventory',procurement:'Pengadaan',hr:'HR & Karyawan',chat:'Chat Internal',broadcast:'Broadcast Email',esign:'Approval & E-Sign',laporan:'Laporan',setting:'Pengaturan'};
+const currentUser='Iden Robet Ulum';
+const people=['Iden Robet Ulum','M. Ichsan Kukuh','Dwi Hartono','Ahmad Syarif','Wahyu Santoso','Farid Pratama','Budi Kusuma','Sri Mulyani'];
+const peopleInitials={'Iden Robet Ulum':'IR','M. Ichsan Kukuh':'MI','Dwi Hartono':'DH','Ahmad Syarif':'AS','Wahyu Santoso':'WS','Farid Pratama':'FP','Budi Kusuma':'BK','Sri Mulyani':'SM'};
+const statusLabel={backlog:'Backlog',in_progress:'In Progress',review:'Review',done:'Done'};
+const priorityLabel={high:'High',medium:'Medium',low:'Low'};
+const projectStorageKey='nusabara-project-prefs-v2';
+let activeIssueId=null;
+let activeRequestId=null;
 
-// NAV
-function go(id,el){
-  document.querySelectorAll('.mod').forEach(m=>m.classList.remove('on'));
-  const m=document.getElementById('pg-'+id);
-  if(m)m.classList.add('on');
-  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
-  if(el)el.classList.add('on');
-  document.getElementById('tbpg').textContent=pgLabel[id]||id;
+const projectState={
+  projects:[
+    {id:'all',name:'Semua Project'},
+    {id:'prj-1',name:'PLTU Kalimantan Overhaul',location:'Balikpapan',budget:'Rp 12.0M',vendor:'PT. Schneider Electric',status:'On Track',progress:72},
+    {id:'prj-2',name:'PLTS Sumatra Fase 2',location:'Medan',budget:'Rp 18.0M',vendor:'PT. Solarin',status:'Berjalan',progress:28},
+    {id:'prj-3',name:'Commissioning Trafo 150kV',location:'Sulawesi',budget:'Rp 8.4M',vendor:'PT. Elektrindo Jaya',status:'Tertunda',progress:55}
+  ],
+  issues:[
+    {id:'iss-1',key:'PRJ-001',projectId:'prj-1',title:'Penggantian bearing dan seal',type:'Maintenance',status:'in_progress',priority:'high',assignee:'Dwi Hartono',reporter:'Iden Robet Ulum',labels:['turbin','vendor'],startDate:'2026-03-15',dueDate:'2026-04-05',progress:72,rank:1,dependencies:['PRJ-002'],linkedDocIds:['PO-2026-0339'],notes:'Bearing selesai. Seal ETA 2 Apr.',description:'Penggantian bearing utama dan 4 seal shaft. Fokus pada stabilitas turbin unit 2.',comments:[{author:'Dwi Hartono',text:'Bearing sudah diganti, tinggal seal dari Jepang.',time:'2 jam lalu'}],attachments:['Brief_Overhaul.pdf','Timeline.xlsx']},
+    {id:'iss-2',key:'PRJ-002',projectId:'prj-1',title:'Pengujian beban penuh',type:'QA',status:'backlog',priority:'medium',assignee:'Wahyu Santoso',reporter:'Dwi Hartono',labels:['commissioning'],startDate:'2026-04-21',dueDate:'2026-04-25',progress:0,rank:2,dependencies:[],linkedDocIds:['SPK-2026-014'],notes:'Menunggu seal dan sign-off HSE.',description:'Uji beban 25%, 50%, 75%, 100% sesuai prosedur commissioning.',comments:[],attachments:['Test_Plan.pdf']},
+    {id:'iss-3',key:'PRJ-003',projectId:'prj-1',title:'Laporan commissioning final',type:'Dokumen',status:'review',priority:'medium',assignee:'Iden Robet Ulum',reporter:'Wahyu Santoso',labels:['laporan','sign'],startDate:'2026-04-24',dueDate:'2026-04-30',progress:55,rank:3,dependencies:[],linkedDocIds:['LAP-2026-041'],notes:'Draft 2 sudah naik ke komisaris.',description:'Dokumen final untuk arsip dan regulator setelah commissioning selesai.',comments:[{author:'Iden Robet Ulum',text:'Pastikan lampiran vibrasi dan temperature trend masuk.',time:'1 jam lalu'}],attachments:['Draft_Commissioning.docx']},
+    {id:'iss-4',key:'PLTS-014',projectId:'prj-2',title:'Instalasi panel surya blok C',type:'Field Work',status:'backlog',priority:'medium',assignee:'Ahmad Syarif',reporter:'Iden Robet Ulum',labels:['panel','site'],startDate:'2026-04-08',dueDate:'2026-04-15',progress:18,rank:1,dependencies:[],linkedDocIds:['PO-2026-0341'],notes:'Menunggu material dari gudang.',description:'Pemasangan 120 unit panel di blok C PLTS Sumatra.',comments:[],attachments:['Site_Map.png']},
+    {id:'iss-5',key:'PLTS-017',projectId:'prj-2',title:'Verifikasi data survey lahan',type:'Survey',status:'review',priority:'low',assignee:'Farid Pratama',reporter:'Ahmad Syarif',labels:['data'],startDate:'2026-03-28',dueDate:'2026-04-03',progress:90,rank:2,dependencies:[],linkedDocIds:['MOU-2026-003'],notes:'Cross-check dengan data BPS.',description:'Verifikasi data hidrologi dan topografi untuk perluasan fase 2.',comments:[{author:'Farid Pratama',text:'Data lapangan sudah lengkap, tinggal summary legal.',time:'30 menit lalu'}],attachments:['Survey_Aceh.pdf']},
+    {id:'iss-6',key:'TRF-021',projectId:'prj-3',title:'Commissioning trafo 150kV',type:'Electrical',status:'in_progress',priority:'high',assignee:'Wahyu Santoso',reporter:'Iden Robet Ulum',labels:['trafo','energize'],startDate:'2026-03-10',dueDate:'2026-05-10',progress:55,rank:1,dependencies:[],linkedDocIds:['SPK-2026-014'],notes:'Test beban 50% selesai.',description:'Komisioning trafo baru 150kV di Sulawesi, termasuk sinkronisasi SCADA.',comments:[],attachments:['Trafo_Checklist.xlsx']},
+    {id:'iss-7',key:'TRF-022',projectId:'prj-3',title:'Audit vendor panel proteksi',type:'Audit',status:'done',priority:'low',assignee:'Budi Kusuma',reporter:'Wahyu Santoso',labels:['vendor'],startDate:'2026-02-05',dueDate:'2026-02-18',progress:100,rank:2,dependencies:[],linkedDocIds:['PO-2026-0337'],notes:'Audit vendor selesai tanpa major finding.',description:'Audit vendor panel proteksi sebelum FAT.',comments:[],attachments:['Audit_Report.pdf']}
+  ],
+  viewState:{activeView:'pj-backlog',selectedProject:'all',search:'',statusFilters:[],priorityFilters:[],groupBy:'project',sortBy:'rank',visibleColumns:['key','project','assignee','priority','status','progress','dueDate','linkedDocIds'],calendarMonth:'2026-04'}
+};
+
+const esignState={
+  queueScope:'action',
+  templates:{
+    PO:[{person:'Budi Kusuma',role:'Procurement Review',actionType:'review'},{person:'Iden Robet Ulum',role:'Direktur Utama',actionType:'sign'},{person:'M. Ichsan Kukuh',role:'President Commissioner',actionType:'approve'}],
+    SPK:[{person:'Budi Kusuma',role:'Procurement Review',actionType:'review'},{person:'M. Ichsan Kukuh',role:'Commissioner Sign',actionType:'sign'},{person:'Iden Robet Ulum',role:'Final Approval',actionType:'approve'}],
+    MOU:[{person:'Sri Mulyani',role:'Legal Review',actionType:'review'},{person:'Iden Robet Ulum',role:'Direktur Utama Sign',actionType:'sign'},{person:'M. Ichsan Kukuh',role:'Final Approval',actionType:'approve'}],
+    SDM:[{person:'Sri Mulyani',role:'HR Review',actionType:'review'},{person:'Iden Robet Ulum',role:'Approver',actionType:'approve'}],
+    Laporan:[{person:'Iden Robet Ulum',role:'Reviewer',actionType:'review'},{person:'M. Ichsan Kukuh',role:'Signer',actionType:'sign'}]
+  },
+  requests:[
+    {id:'req-1',docId:'PO-2026-0341',docType:'PO',title:'PO-2026-0341 Kabel NYY 500m',projectId:'prj-2',counterparty:'PT. Elektrindo Jaya',amount:485000000,requester:'Budi Kusuma',source:'existing',steps:[{person:'Budi Kusuma',role:'Procurement Review',actionType:'review',status:'done',note:'Vendor dan spesifikasi OK'},{person:'Iden Robet Ulum',role:'Direktur Utama',actionType:'sign',status:'pending',note:'Menunggu tanda tangan'},{person:'M. Ichsan Kukuh',role:'President Commissioner',actionType:'approve',status:'idle',note:'Menunggu step sebelumnya'}],materaiRequired:true,materaiApplied:false,materaiCost:'—',materaiSerial:'—',status:'pending',currentStepIndex:1,lastUpdate:'28 Mar 2026, 14:30',summary:'PO pengadaan kabel dan MCB untuk fase 2 PLTS Sumatra.'},
+    {id:'req-2',docId:'SPK-2026-014',docType:'SPK',title:'SPK-2026-014 Trafo Maintenance',projectId:'prj-3',counterparty:'CV. Teknik Mandiri',amount:1200000000,requester:'Iden Robet Ulum',source:'existing',steps:[{person:'Budi Kusuma',role:'Procurement Review',actionType:'review',status:'done',note:'Kontrak siap naik direksi'},{person:'M. Ichsan Kukuh',role:'Commissioner Sign',actionType:'sign',status:'pending',note:'Materai wajib'},{person:'Iden Robet Ulum',role:'Final Approval',actionType:'approve',status:'idle',note:'Menunggu sign'}],materaiRequired:true,materaiApplied:false,materaiCost:'—',materaiSerial:'—',status:'pending',currentStepIndex:1,lastUpdate:'29 Mar 2026, 09:10',summary:'Kontrak pemeliharaan trafo 150kV untuk commissioning Sulawesi.'},
+    {id:'req-3',docId:'MOU-2026-003',docType:'MOU',title:'MOU Partnership Pertamina',projectId:'prj-1',counterparty:'PT. Pertamina',amount:0,requester:'Sri Mulyani',source:'existing',steps:[{person:'Sri Mulyani',role:'Legal Review',actionType:'review',status:'done',note:'Legal OK'},{person:'Iden Robet Ulum',role:'Direktur Utama Sign',actionType:'sign',status:'pending',note:'Menunggu sign direksi'},{person:'M. Ichsan Kukuh',role:'Final Approval',actionType:'approve',status:'idle',note:'Menunggu step sebelumnya'}],materaiRequired:true,materaiApplied:false,materaiCost:'—',materaiSerial:'—',status:'pending',currentStepIndex:1,lastUpdate:'30 Mar 2026, 11:40',summary:'MOU kerja sama penyediaan fuel support untuk overhaul.'},
+    {id:'req-4',docId:'SDM-CUTI-2026-088',docType:'SDM',title:'Approval Cuti Budi Dharma',projectId:'prj-1',counterparty:'Internal SDM',amount:0,requester:'Sri Mulyani',source:'existing',steps:[{person:'Sri Mulyani',role:'HR Review',actionType:'review',status:'done',note:'Data cuti valid'},{person:'Iden Robet Ulum',role:'Approver',actionType:'approve',status:'pending',note:'Menunggu approval'}],materaiRequired:false,materaiApplied:false,materaiCost:'—',materaiSerial:'—',status:'pending',currentStepIndex:1,lastUpdate:'31 Mar 2026, 08:00',summary:'Permohonan cuti 5 hari Budi Dharma.'},
+    {id:'req-5',docId:'PO-2026-0339',docType:'PO',title:'PO-2026-0339 Schneider Electric',projectId:'prj-1',counterparty:'PT. Schneider Electric',amount:2150000000,requester:'Budi Kusuma',source:'existing',steps:[{person:'Budi Kusuma',role:'Procurement Review',actionType:'review',status:'done',note:'Review selesai'},{person:'Iden Robet Ulum',role:'Direktur Utama',actionType:'sign',status:'done',note:'Sudah sign'},{person:'M. Ichsan Kukuh',role:'President Commissioner',actionType:'approve',status:'done',note:'Final approve'}],materaiRequired:true,materaiApplied:true,materaiCost:'Rp 10.000',materaiSerial:'MAT-2026-8SD7K1Q2',status:'final',currentStepIndex:2,lastUpdate:'25 Mar 2026, 16:30',summary:'PO material overhaul turbin unit 2.'}
+  ],
+  composerDraft:{step:0,docType:'PO',title:'',projectId:'prj-1',counterparty:'',amount:0,source:'existing',materaiOverride:false,steps:[]}
+};
+
+function saveProjectPrefs(){localStorage.setItem(projectStorageKey,JSON.stringify(projectState.viewState));}
+function loadProjectPrefs(){
+  try{
+    const raw=localStorage.getItem(projectStorageKey);
+    if(!raw)return;
+    Object.assign(projectState.viewState,JSON.parse(raw));
+  }catch(_){}
 }
 
-// SUB TABS
-function swTab(el,subId){
-  const pg=el.closest('.mod');
-  if(pg){pg.querySelectorAll('.mt').forEach(t=>t.classList.remove('on'));el.classList.add('on');pg.querySelectorAll('.sub').forEach(s=>s.classList.remove('on'));const s=document.getElementById(subId);if(s)s.classList.add('on');}
+function formatCurrency(value){
+  return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(value||0));
 }
-
-// FILTER CHIP
-function fcToggle(el){el.classList.toggle('on');}
-
-// FORMAT SELECT
-function selectFormat(el){el.closest('.cb,.mb').querySelectorAll('[onclick*=selectFormat]').forEach(d=>d.style.borderColor='');el.style.borderColor='var(--g500)';}
-
-// LAPORAN
-const lapNames=['⚡ Produksi Energi','💰 Laporan Keuangan','🔧 Aset & Maintenance','👥 SDM & Kepegawaian','🛒 Pengadaan & PO','📊 Laporan Eksekutif'];
-function selLap(n){
-  for(let i=1;i<=6;i++){const el=document.getElementById('lapsel-'+i);if(el){el.style.border=i===n?'1.5px solid var(--g300)':'1px solid var(--n2)';el.style.background=i===n?'var(--white)':'var(--white)';el.querySelector('div:first-child').style.border=i===n?'1.5px solid var(--g300)':'none';}}
-  const t=document.getElementById('lap-form-title');if(t)t.textContent=lapNames[n-1]||'Laporan';
-  // Fix active state
-  document.querySelectorAll('[id^=lapsel-]').forEach((el,i)=>{el.style.border=(i+1)===n?'1.5px solid var(--g400)':'1px solid var(--n2)';el.style.background=(i+1)===n?'var(--g50)':'var(--white)';});
+function findProject(id){return projectState.projects.find(p=>p.id===id);}
+function getProjectName(id){const p=findProject(id);return p?p.name:'-';}
+function initials(name){return peopleInitials[name]||name.split(' ').map(part=>part[0]).join('').slice(0,2).toUpperCase();}
+function statusBadge(status){
+  if(status==='review')return 'review';
+  if(status==='done')return 'done';
+  return 'status';
 }
+function comparePriority(a,b){return {high:0,medium:1,low:2}[a]-{high:0,medium:1,low:2}[b];}
 
-// GANTT
-const gdata=[
-  {n:'PLTU Kalimantan Overhaul',o:'Dwi Hartono',s:0,d:4,c:'#237529'},
-  {n:'PLTS Sumatra Fase 2',o:'Ahmad Syarif',s:2,d:4,c:'#3DAB43'},
-  {n:'Commissioning Trafo',o:'Wahyu Santoso',s:1,d:3,c:'#F59E0B'},
-  {n:'Survey PLTMH Aceh',o:'Farid Pratama',s:0,d:2,c:'#14B8A6'},
-  {n:'Upgrade SCADA',o:'Iden Robet Ulum',s:3,d:3,c:'#3B82F6'},
-];
-(function(){
-  const b=document.getElementById('gantt-body');
-  if(!b)return;
-  b.innerHTML=gdata.map(r=>{
-    const lp=r.s/6*100,wp=r.d/6*100;
-    return`<div class="grow"><div class="grl"><div class="gpn">${r.n}</div><div class="gpo">${r.o}</div></div><div class="gtl">${[0,1,2,3,4,5].map(i=>`<div class="gmb${i===2?' cur':''}"></div>`).join('')}<div class="gbar" style="left:calc(${lp}% + 2px);width:calc(${wp}% - 4px);background:${r.c}">${r.n.split(' ')[0]}</div></div></div>`;
-  }).join('');
-})();
-
-// MODAL
-function openModal(id){document.getElementById(id).classList.add('show');}
-function closeModal(id){document.getElementById(id).classList.remove('show');}
+function openModal(id){
+  const el=document.getElementById(id);
+  if(el)el.classList.add('show');
+}
+function closeModal(id){
+  const el=document.getElementById(id);
+  if(el)el.classList.remove('show');
+}
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');}));
 
-// TOAST
 function toast(msg,err=false){
   const t=document.getElementById('toast-el');
   if(!t)return;
@@ -1554,63 +1544,531 @@ function toast(msg,err=false){
   t.style.background=err?'var(--red)':'var(--n9)';
   t.classList.add('show');
   clearTimeout(t._to);
-  t._to=setTimeout(()=>t.classList.remove('show'),3600);
+  t._to=setTimeout(()=>t.classList.remove('show'),3200);
 }
 
-// TASK DETAIL
-function openTaskDetail(title,tag,status,pic,deadline,desc,notes){
-  document.getElementById('task-title').textContent=title;
-  const t=document.getElementById('task-tag-badge');
-  if(t){t.textContent=tag;t.className='bdg '+(status==='done'?'gr':status==='in_progress'?'a':status==='review'?'b':'gr');}
-  const p=document.getElementById('task-pic');if(p)p.textContent=pic;
-  const dl=document.getElementById('task-deadline');if(dl)dl.textContent=deadline;
-  const d=document.getElementById('task-desc');if(d)d.textContent=desc;
-  const n=document.getElementById('task-notes');if(n)n.textContent=notes;
-  // Set status
-  document.querySelectorAll('#task-statrow .tstat').forEach((s,i)=>{
-    const ss=['backlog','in_progress','review','done'];
-    s.classList.toggle('on',ss[i]===status);
+function go(id,el){
+  document.querySelectorAll('.mod').forEach(m=>m.classList.remove('on'));
+  const page=document.getElementById('pg-'+id);
+  if(page)page.classList.add('on');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  if(el)el.classList.add('on');
+  document.getElementById('tbpg').textContent=pgLabel[id]||id;
+  if(id==='project')renderProjectWorkspace();
+  if(id==='esign')renderEsign();
+}
+
+function swTab(el,subId){
+  const page=el.closest('.mod');
+  if(!page)return;
+  page.querySelectorAll('.mt').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  page.querySelectorAll('.sub').forEach(s=>s.classList.remove('on'));
+  const sub=document.getElementById(subId);
+  if(sub)sub.classList.add('on');
+  if(page.id==='pg-project'){
+    projectState.viewState.activeView=subId;
+    saveProjectPrefs();
+    renderProjectWorkspace();
+  }
+  if(page.id==='pg-esign')renderEsign();
+}
+
+function syncSubtabState(pageId,activeId){
+  const page=document.getElementById(pageId);
+  if(!page)return;
+  page.querySelectorAll('.mt').forEach(tab=>{
+    const onclick=tab.getAttribute('onclick')||'';
+    tab.classList.toggle('on',onclick.includes(`'${activeId}'`));
   });
+  page.querySelectorAll('.sub').forEach(panel=>panel.classList.toggle('on',panel.id===activeId));
+}
+
+function fcToggle(el){el.classList.toggle('on');}
+function selectFormat(el){
+  const scope=el.closest('.cb,.mb');
+  if(scope)scope.querySelectorAll('[onclick*=selectFormat]').forEach(d=>d.style.borderColor='');
+  el.style.borderColor='var(--g500)';
+}
+const lapNames=['⚡ Produksi Energi','💰 Laporan Keuangan','🔧 Aset & Maintenance','👥 SDM & Kepegawaian','🛒 Pengadaan & PO','📊 Laporan Eksekutif'];
+function selLap(n){
+  for(let i=1;i<=6;i++){
+    const el=document.getElementById('lapsel-'+i);
+    if(el){el.style.border=i===n?'1.5px solid var(--g400)':'1px solid var(--n2)';el.style.background=i===n?'var(--g50)':'var(--white)';}
+  }
+  const title=document.getElementById('lap-form-title');
+  if(title)title.textContent=lapNames[n-1]||'Laporan';
+}
+
+function hydrateStaticSelects(){
+  const projectOptions=projectState.projects.filter(p=>p.id!=='all').map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+  ['req-project','new-issue-project'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=projectOptions;});
+  const personOptions=people.map(p=>`<option value="${p}">${p}</option>`).join('');
+  ['new-issue-pic','task-pic','new-step-person'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=personOptions;});
+}
+
+function getFilteredIssues(){
+  let issues=[...projectState.issues];
+  if(projectState.viewState.selectedProject!=='all')issues=issues.filter(issue=>issue.projectId===projectState.viewState.selectedProject);
+  const q=projectState.viewState.search.toLowerCase().trim();
+  if(q)issues=issues.filter(issue=>[issue.title,issue.key,issue.assignee,issue.description,issue.linkedDocIds.join(' '),issue.labels.join(' ')].join(' ').toLowerCase().includes(q));
+  if(projectState.viewState.statusFilters.length)issues=issues.filter(issue=>projectState.viewState.statusFilters.includes(issue.status));
+  if(projectState.viewState.priorityFilters.length)issues=issues.filter(issue=>projectState.viewState.priorityFilters.includes(issue.priority));
+  issues.sort((a,b)=>{
+    if(projectState.viewState.sortBy==='dueDate')return String(a.dueDate).localeCompare(String(b.dueDate));
+    if(projectState.viewState.sortBy==='priority')return comparePriority(a.priority,b.priority);
+    if(projectState.viewState.sortBy==='progress')return b.progress-a.progress;
+    return a.rank-b.rank;
+  });
+  return issues;
+}
+
+function renderProjectControls(){
+  const projectSelect=document.getElementById('pm-project-select');
+  if(projectSelect){
+    projectSelect.innerHTML=projectState.projects.map(project=>`<option value="${project.id}">${project.name}</option>`).join('');
+    projectSelect.value=projectState.viewState.selectedProject;
+  }
+  const search=document.getElementById('pm-search');
+  if(search)search.value=projectState.viewState.search;
+  const groupBy=document.getElementById('pm-group-by');
+  if(groupBy)groupBy.value=projectState.viewState.groupBy;
+  const sortBy=document.getElementById('pm-sort-by');
+  if(sortBy)sortBy.value=projectState.viewState.sortBy;
+  const statusWrap=document.getElementById('pm-status-chips');
+  if(statusWrap)statusWrap.innerHTML=['backlog','in_progress','review','done'].map(status=>`<button class="pm-chip ${projectState.viewState.statusFilters.includes(status)?'on':''}" onclick="toggleProjectFilter('status','${status}')">${statusLabel[status]}</button>`).join('');
+  const priorityWrap=document.getElementById('pm-priority-chips');
+  if(priorityWrap)priorityWrap.innerHTML=['high','medium','low'].map(priority=>`<button class="pm-chip ghost ${projectState.viewState.priorityFilters.includes(priority)?'on':''}" onclick="toggleProjectFilter('priority','${priority}')">${priorityLabel[priority]}</button>`).join('');
+}
+
+function renderProjectStats(issues){
+  const meta=document.getElementById('pm-meta-stats');
+  if(!meta)return;
+  const openCount=issues.filter(issue=>issue.status!=='done').length;
+  const docCount=issues.reduce((sum,issue)=>sum+issue.linkedDocIds.length,0);
+  meta.innerHTML=`<div class="pm-stat"><div class="label">Visible Issues</div><div class="value">${issues.length}</div></div><div class="pm-stat"><div class="label">Open</div><div class="value">${openCount}</div></div><div class="pm-stat"><div class="label">Need Sign</div><div class="value">${issues.filter(issue=>issue.linkedDocIds.length).length}</div></div><div class="pm-stat"><div class="label">Linked Docs</div><div class="value">${docCount}</div></div>`;
+}
+
+function groupIssues(issues){
+  const groups={};
+  issues.forEach(issue=>{
+    let key='Unassigned';
+    if(projectState.viewState.groupBy==='project')key=getProjectName(issue.projectId);
+    if(projectState.viewState.groupBy==='assignee')key=issue.assignee;
+    if(projectState.viewState.groupBy==='priority')key=priorityLabel[issue.priority];
+    if(projectState.viewState.groupBy==='status')key=statusLabel[issue.status];
+    groups[key]=groups[key]||[];
+    groups[key].push(issue);
+  });
+  return groups;
+}
+
+function issueRowMarkup(issue,includeMove=true){
+  return `<div class="issue-row"><div class="issue-main"><div class="issue-top"><div><div class="issue-key">${issue.key} · ${getProjectName(issue.projectId)}</div><div class="issue-title" onclick="openIssueDrawer('${issue.id}')">${issue.title}</div></div><div class="issue-actions">${includeMove?`<button class="tiny-btn" onclick="moveIssue('${issue.id}',-1)">↑</button><button class="tiny-btn" onclick="moveIssue('${issue.id}',1)">↓</button>`:''}<button class="tiny-btn" onclick="openIssueDrawer('${issue.id}')">↗</button></div></div><div class="issue-meta"><span class="issue-pill ${issue.priority}">${priorityLabel[issue.priority]}</span><span class="issue-pill ${statusBadge(issue.status)}">${statusLabel[issue.status]}</span><span>${issue.assignee}</span><span>${issue.dueDate}</span><span>${issue.linkedDocIds.join(', ')||'Tanpa dokumen'}</span></div><div style="margin-top:8px" class="pb"><div class="pf g" style="width:${issue.progress}%"></div></div></div></div>`;
+}
+
+function renderBacklog(issues){
+  const body=document.getElementById('pj-backlog-body');
+  if(!body)return;
+  const groups=groupIssues(issues);
+  body.innerHTML=Object.keys(groups).length?Object.entries(groups).map(([label,list])=>`<div class="backlog-group"><div class="backlog-head"><div><div class="backlog-title">${label}</div><div class="backlog-sub">${list.length} issue</div></div><button class="btn btn-outline btn-sm" onclick="openModal('modal-addtask')">+ Issue</button></div><div class="issue-stack">${list.map(issue=>issueRowMarkup(issue,true)).join('')}</div></div>`).join(''):'<div class="empty-state">Tidak ada issue yang cocok dengan filter saat ini.</div>';
+}
+
+function renderKanban(issues){
+  const body=document.getElementById('pj-kanban-body');
+  if(!body)return;
+  const statuses=['backlog','in_progress','review','done'];
+  body.innerHTML=`<div class="kb">${statuses.map(status=>{const list=issues.filter(issue=>issue.status===status);return `<div class="kbc"><div class="kbh"><span class="kbt">${statusLabel[status]}</span><span class="kbn">${list.length}</span></div><div class="kbb">${list.length?list.map(issue=>`<div class="kcard" onclick="openIssueDrawer('${issue.id}')"><div class="kct">${issue.title}</div><div class="km2"><span class="ktag ${issue.priority==='high'?'r':issue.priority==='medium'?'a':'n'}">${priorityLabel[issue.priority]}</span><div class="kav">${initials(issue.assignee)}</div></div><div style="font-size:10px;color:var(--n4);margin-top:7px">${issue.dueDate} · ${issue.linkedDocIds[0]||'No doc'}</div></div>`).join(''):'<div class="empty-state" style="padding:18px 12px">Tidak ada issue.</div>'}</div></div>`;}).join('')}</div>`;
+}
+
+function renderGrid(issues){
+  const body=document.getElementById('pj-grid-body');
+  if(!body)return;
+  const columns=projectState.viewState.visibleColumns;
+  const labels={key:'Key',project:'Project',assignee:'PIC',priority:'Priority',status:'Status',progress:'Progress',dueDate:'Deadline',linkedDocIds:'Linked Doc'};
+  body.innerHTML=`<div class="card"><div class="ch"><div><div class="ct">Issue Grid</div><div class="cs">Kolom dapat diatur dari tombol Columns</div></div><div class="cacts"><button class="btn btn-outline btn-sm" onclick="openModal('modal-columns')">Columns</button></div></div><table class="tbl"><thead><tr>${columns.map(column=>`<th>${labels[column]}</th>`).join('')}<th>Aksi</th></tr></thead><tbody>${issues.map(issue=>`<tr onclick="openIssueDrawer('${issue.id}')">${columns.map(column=>`<td>${renderGridCell(issue,column)}</td>`).join('')}<td><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openIssueDrawer('${issue.id}')">Detail</button></td></tr>`).join('')}</tbody></table></div>`;
+}
+
+function renderGridCell(issue,column){
+  if(column==='key')return `<span class="mono" style="color:var(--g700);font-weight:700">${issue.key}</span><div style="font-size:11px;font-weight:600;margin-top:2px">${issue.title}</div>`;
+  if(column==='project')return getProjectName(issue.projectId);
+  if(column==='assignee')return issue.assignee;
+  if(column==='priority')return `<span class="issue-pill ${issue.priority}">${priorityLabel[issue.priority]}</span>`;
+  if(column==='status')return `<span class="issue-pill ${statusBadge(issue.status)}">${statusLabel[issue.status]}</span>`;
+  if(column==='progress')return `<div style="display:flex;align-items:center;gap:6px"><div class="pb" style="width:70px"><div class="pf g" style="width:${issue.progress}%"></div></div><span>${issue.progress}%</span></div>`;
+  if(column==='dueDate')return issue.dueDate;
+  if(column==='linkedDocIds')return issue.linkedDocIds.length?issue.linkedDocIds.join(', '):'—';
+  return '—';
+}
+
+function renderGantt(issues){
+  const body=document.getElementById('pj-gantt-body');
+  if(!body)return;
+  const months=['Apr','Mei','Jun'];
+  body.innerHTML=`<div class="card"><div class="gw"><div class="ghd"><div class="glc">Issue</div><div class="gms">${months.map((month,index)=>`<div class="gm ${index===0?'cur':''}">${month}</div>`).join('')}</div></div>${issues.map(issue=>{const start=new Date(issue.startDate);const end=new Date(issue.dueDate);const startIndex=Math.max(0,start.getMonth()-3);const duration=Math.max(1,(end.getTime()-start.getTime())/(1000*60*60*24*18));const left=startIndex/3*100;const width=Math.min(100-left,duration/3*100);return `<div class="grow" onclick="openIssueDrawer('${issue.id}')"><div class="grl"><div class="gpn">${issue.title}</div><div class="gpo">${issue.assignee}</div></div><div class="gtl">${months.map((_,index)=>`<div class="gmb ${index===0?'cur':''}"></div>`).join('')}<div class="gbar" style="left:calc(${left}% + 2px);width:calc(${width}% - 4px);background:${issue.priority==='high'?'#EF4444':issue.priority==='medium'?'#F59E0B':'#237529'}">${issue.key}</div></div></div>`;}).join('')}</div></div>`;
+}
+
+function renderCalendar(issues){
+  const body=document.getElementById('pj-calendar-body');
+  if(!body)return;
+  const [year,month]=projectState.viewState.calendarMonth.split('-').map(Number);
+  const first=new Date(year,month-1,1);
+  const startDay=first.getDay();
+  const totalDays=new Date(year,month,0).getDate();
+  const cells=[];
+  for(let i=0;i<42;i++){
+    const dateNum=i-startDay+1;
+    const current=dateNum>0&&dateNum<=totalDays;
+    const iso=current?`${year}-${String(month).padStart(2,'0')}-${String(dateNum).padStart(2,'0')}`:'';
+    const dayIssues=current?issues.filter(issue=>issue.startDate===iso||issue.dueDate===iso):[];
+    cells.push(`<div class="cal-cell"><div class="cal-day ${current?'':'muted'}">${current?dateNum:''}</div>${dayIssues.map(issue=>`<div class="cal-item ${issue.status==='review'?'review':issue.status==='done'?'done':''}" onclick="openIssueDrawer('${issue.id}')">${issue.key} · ${issue.title}</div>`).join('')}</div>`);
+  }
+  body.innerHTML=`<div class="calendar-wrap"><div class="ch"><div class="ct">Calendar April 2026</div><div class="cacts"><button class="btn btn-outline btn-sm" onclick="shiftCalendar(-1)">←</button><button class="btn btn-outline btn-sm" onclick="shiftCalendar(1)">→</button></div></div><div class="calendar-head"><div>Minggu</div><div>Senin</div><div>Selasa</div><div>Rabu</div><div>Kamis</div><div>Jumat</div><div>Sabtu</div></div><div class="calendar-grid">${cells.join('')}</div></div>`;
+}
+
+function renderProjectDetail(issues){
+  const body=document.getElementById('pj-detail-body');
+  if(!body)return;
+  const projectId=projectState.viewState.selectedProject==='all'?'prj-1':projectState.viewState.selectedProject;
+  const project=findProject(projectId);
+  const projectIssues=projectState.issues.filter(issue=>issue.projectId===projectId);
+  body.innerHTML=`<div class="detail-grid"><div class="gcol"><div class="card"><div class="ch"><div><div class="ct">${project.name}</div><div class="cs">${project.location} · ${project.vendor}</div></div><span class="bdg b">${project.status}</span></div><div class="cb"><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:13px"><div class="sm" style="background:var(--g50)"><div class="smv" style="color:var(--g700)">${project.progress}%</div><div class="sml">Progress</div></div><div class="sm"><div class="smv">${project.budget.replace('Rp ','')}</div><div class="sml">Anggaran</div></div><div class="sm"><div class="smv">${projectIssues.length}</div><div class="sml">Issue</div></div><div class="sm"><div class="smv">${projectIssues.filter(issue=>issue.linkedDocIds.length).length}</div><div class="sml">Dokumen</div></div></div><div class="pb" style="height:8px"><div class="pf g" style="width:${project.progress}%"></div></div></div></div><div class="card"><div class="ch"><div class="ct">Issue Prioritas</div><button class="btn btn-outline btn-sm" onclick="openModal('modal-addtask')">+ Issue</button></div><div class="cb"><div class="issue-stack">${projectIssues.slice(0,4).map(issue=>issueRowMarkup(issue,false)).join('')}</div></div></div></div><div class="gcol"><div class="card"><div class="ch"><div class="ct">Dokumen Terkait</div><button class="btn btn-primary btn-sm" onclick="openRequestComposer()">Request Sign</button></div><div class="cb" style="display:flex;flex-direction:column;gap:8px">${collectProjectDocs(projectId).map(doc=>`<div class="doc-card"><div class="doc-icon">📄</div><div class="doc-main"><div class="doc-name">${doc}</div><div class="doc-sub">Terkait issue project aktif</div></div><div class="doc-cta"><button class="btn btn-outline btn-sm" onclick="openIssueByDoc('${doc}')">Issue</button><button class="btn btn-primary btn-sm" onclick="openRequestComposer(null,'${doc}','${projectId}')">Request Sign</button></div></div>`).join('')}</div></div><div class="card"><div class="ch"><div class="ct">Risiko & Notes</div></div><div class="cb"><div style="padding:9px 11px;background:#FEF2F2;border:1px solid #FECACA;border-radius:7px;margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:#991B1B">Seal turbin belum tiba</div><div style="font-size:10.5px;color:#B91C1C;margin-top:2px">Potensi geser 3 hari jika ETA berubah.</div></div><div style="padding:9px 11px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:7px"><div style="font-size:12px;font-weight:700;color:#92400E">Revisi anggaran BBM</div><div style="font-size:10.5px;color:#B45309;margin-top:2px">Perlu approval tambahan bila konsumsi naik 5%.</div></div></div></div></div>`;
+}
+
+function renderProjectWorkspace(){
+  const issues=getFilteredIssues();
+  renderProjectControls();
+  renderProjectStats(issues);
+  renderBacklog(issues);
+  renderKanban(issues);
+  renderGrid(issues);
+  renderGantt(issues);
+  renderCalendar(issues);
+  renderProjectDetail(issues);
+  renderColumnOptions();
+}
+
+function toggleProjectFilter(kind,value){
+  const key=kind==='status'?'statusFilters':'priorityFilters';
+  const list=projectState.viewState[key];
+  projectState.viewState[key]=list.includes(value)?list.filter(item=>item!==value):list.concat(value);
+  saveProjectPrefs();
+  renderProjectWorkspace();
+}
+function setProjectSelection(value){projectState.viewState.selectedProject=value;saveProjectPrefs();renderProjectWorkspace();}
+function setProjectSearch(value){projectState.viewState.search=value;saveProjectPrefs();renderProjectWorkspace();}
+function setProjectGrouping(value){projectState.viewState.groupBy=value;saveProjectPrefs();renderProjectWorkspace();}
+function setProjectSort(value){projectState.viewState.sortBy=value;saveProjectPrefs();renderProjectWorkspace();}
+function resetProjectFilters(){projectState.viewState={...projectState.viewState,selectedProject:'all',search:'',statusFilters:[],priorityFilters:[],groupBy:'project',sortBy:'rank'};saveProjectPrefs();renderProjectWorkspace();}
+
+function moveIssue(issueId,direction){
+  const issues=getFilteredIssues();
+  const idx=issues.findIndex(issue=>issue.id===issueId);
+  if(idx<0)return;
+  const swapWith=issues[idx+direction];
+  if(!swapWith)return;
+  const current=projectState.issues.find(issue=>issue.id===issueId);
+  const next=projectState.issues.find(issue=>issue.id===swapWith.id);
+  const rank=current.rank;
+  current.rank=next.rank;
+  next.rank=rank;
+  projectState.issues.sort((a,b)=>a.rank-b.rank);
+  renderProjectWorkspace();
+}
+
+function openIssueDrawer(issueId){
+  activeIssueId=issueId;
+  const issue=projectState.issues.find(item=>item.id===issueId);
+  if(!issue)return;
+  document.getElementById('task-title').textContent=issue.title;
+  document.getElementById('task-keyline').textContent=`${issue.key} · ${getProjectName(issue.projectId)} · ${issue.type}`;
+  document.getElementById('task-status').value=issue.status;
+  document.getElementById('task-priority').value=issue.priority;
+  document.getElementById('task-pic').value=issue.assignee;
+  document.getElementById('task-deadline').value=issue.dueDate;
+  document.getElementById('task-desc').value=issue.description;
+  document.getElementById('task-notes').textContent=issue.notes;
+  document.getElementById('task-prog').value=issue.progress;
+  document.getElementById('task-prog-val').textContent=`${issue.progress}%`;
+  document.getElementById('task-pb').style.width=`${issue.progress}%`;
+  document.getElementById('task-cmts').innerHTML=issue.comments.length?issue.comments.map(comment=>`<div class="cmt-row"><div class="kav" style="width:24px;height:24px;font-size:8.5px;background:${comment.author===currentUser?'var(--g600)':'#F59E0B'};flex-shrink:0">${initials(comment.author)}</div><div class="cmt-bbl">${comment.text}<div style="font-size:9.5px;color:var(--n4);margin-top:2px">${comment.author} · ${comment.time}</div></div></div>`).join(''):'<div class="empty-state" style="padding:14px">Belum ada komentar.</div>';
+  document.getElementById('task-attachments').innerHTML=issue.attachments.concat(issue.linkedDocIds).map(att=>`<div class="att-chip">${att.endsWith('.pdf')?'📄':att.endsWith('.xlsx')?'📊':'📝'} ${att}</div>`).join('');
   openModal('modal-task');
 }
-function setTaskStat(el,s){document.querySelectorAll('#task-statrow .tstat').forEach(t=>t.classList.remove('on'));el.classList.add('on');toast('Status diubah: '+s);}
+function setTaskStatus(value){const issue=projectState.issues.find(item=>item.id===activeIssueId);if(issue){issue.status=value;renderProjectWorkspace();}}
+function setTaskPriority(value){const issue=projectState.issues.find(item=>item.id===activeIssueId);if(issue){issue.priority=value;renderProjectWorkspace();}}
+function setTaskAssignee(value){const issue=projectState.issues.find(item=>item.id===activeIssueId);if(issue){issue.assignee=value;renderProjectWorkspace();}}
+function setTaskDeadline(value){const issue=projectState.issues.find(item=>item.id===activeIssueId);if(issue){issue.dueDate=value;renderProjectWorkspace();}}
+function setTaskDescription(value){const issue=projectState.issues.find(item=>item.id===activeIssueId);if(issue)issue.description=value;}
+function setTaskProgress(value){const issue=projectState.issues.find(item=>item.id===activeIssueId);if(issue){issue.progress=Number(value);renderProjectWorkspace();}}
 function addTaskCmt(){
   const inp=document.getElementById('task-cmt-inp');
-  if(!inp||!inp.value.trim())return;
-  const cmts=document.getElementById('task-cmts');
-  const d=document.createElement('div');d.className='cmt-row';
-  d.innerHTML=`<div class="kav" style="width:24px;height:24px;font-size:8.5px;background:var(--g600);flex-shrink:0">IR</div><div class="cmt-bbl">${inp.value}<div style="font-size:9.5px;color:var(--n4);margin-top:2px">Iden Robet Ulum · Baru saja</div></div>`;
-  cmts.appendChild(d);inp.value='';
+  const issue=projectState.issues.find(item=>item.id===activeIssueId);
+  if(!inp||!issue||!inp.value.trim())return;
+  issue.comments.push({author:currentUser,text:inp.value.trim(),time:'Baru saja'});
+  inp.value='';
+  openIssueDrawer(issue.id);
 }
-function saveTask(){
-  const prog=document.getElementById('task-prog').value;
-  const pb=document.getElementById('task-pb');if(pb)pb.style.width=prog+'%';
-  toast('Perubahan tugas disimpan ✓');closeModal('modal-task');
+function openIssueByDoc(docId){
+  const issue=projectState.issues.find(item=>item.linkedDocIds.includes(docId));
+  if(issue)openIssueDrawer(issue.id);
 }
-
-// PROJECT COMMENT
+function collectProjectDocs(projectId){
+  return [...new Set(projectState.issues.filter(issue=>issue.projectId===projectId).flatMap(issue=>issue.linkedDocIds))];
+}
+function createIssue(){
+  const title=document.getElementById('new-issue-title').value.trim();
+  if(!title){toast('Judul issue wajib diisi',true);return;}
+  const projectId=document.getElementById('new-issue-project').value;
+  const assignee=document.getElementById('new-issue-pic').value;
+  const priority=document.getElementById('new-issue-priority').value;
+  const dueDate=document.getElementById('new-issue-deadline').value||'2026-04-30';
+  const description=document.getElementById('new-issue-desc').value.trim();
+  const number=projectState.issues.length+1;
+  const projectCode=getProjectName(projectId).split(' ')[0].slice(0,4).toUpperCase();
+  projectState.issues.push({id:`iss-${Date.now()}`,key:`${projectCode}-${String(number).padStart(3,'0')}`,projectId,title,type:'Task',status:'backlog',priority,assignee,reporter:currentUser,labels:['new'],startDate:'2026-04-01',dueDate,progress:0,rank:number,dependencies:[],linkedDocIds:[],notes:'Issue baru dibuat dari workspace.',description,comments:[],attachments:[]});
+  closeModal('modal-addtask');
+  toast('Issue berhasil dibuat');
+  renderProjectWorkspace();
+}
+function renderColumnOptions(){
+  const wrap=document.getElementById('column-options');
+  if(!wrap)return;
+  const options=[['key','Issue Key + Title'],['project','Project'],['assignee','PIC'],['priority','Priority'],['status','Status'],['progress','Progress'],['dueDate','Deadline'],['linkedDocIds','Linked Docs']];
+  wrap.innerHTML=options.map(([value,label])=>`<label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--n7);margin-bottom:8px"><input type="checkbox" ${projectState.viewState.visibleColumns.includes(value)?'checked':''} onchange="toggleColumn('${value}',this.checked)" style="accent-color:var(--g600)"> ${label}</label>`).join('');
+}
+function toggleColumn(value,checked){
+  const list=projectState.viewState.visibleColumns;
+  projectState.viewState.visibleColumns=checked?list.concat(value).filter((item,index,array)=>array.indexOf(item)===index):list.filter(item=>item!==value);
+  saveProjectPrefs();
+  renderGrid(getFilteredIssues());
+  renderColumnOptions();
+}
+function shiftCalendar(delta){
+  const [year,month]=projectState.viewState.calendarMonth.split('-').map(Number);
+  const next=new Date(year,month-1+delta,1);
+  projectState.viewState.calendarMonth=`${next.getFullYear()}-${String(next.getMonth()+1).padStart(2,'0')}`;
+  saveProjectPrefs();
+  renderCalendar(getFilteredIssues());
+}
 function addProjCmt(){
   const inp=document.getElementById('proj-cmt');
   if(!inp||!inp.value.trim())return;
-  toast('Komentar terkirim ✓');inp.value='';
+  toast('Komentar proyek dikirim');
+  inp.value='';
 }
 
-// CHAT
-function sendMsg(){
-  const inp=document.getElementById('cinp');
-  const v=inp.value.trim();if(!v)return;
-  const msgs=document.getElementById('chat-msgs');
-  const d=document.createElement('div');d.className='mrow me';
-  d.innerHTML=`<div class="chav" style="background:var(--g600)">IR</div><div><div class="bbl me">${v}</div><div class="ctime me">Baru saja · Iden Robet Ulum</div></div>`;
-  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;inp.value='';
+function requestTemplatesFor(type){return (esignState.templates[type]||[]).map((step,index)=>({id:`step-${index+1}`,person:step.person,role:step.role,actionType:step.actionType,status:index===0?'pending':'idle',note:''}));}
+function getMateraiRequired(docType,amount,override){
+  if(override)return true;
+  return ['PO','SPK','MOU'].includes(docType)||Number(amount)>=5000000;
 }
-function switchChat(el,name,av,preview){
-  document.querySelectorAll('.chi').forEach(c=>c.classList.remove('on'));el.classList.add('on');
-  const n=document.getElementById('chat-name');if(n)n.textContent=name;
-  const a=document.getElementById('chat-av');if(a)a.textContent=av;
+function requestScope(request){
+  if(['final','rejected'].includes(request.status))return 'history';
+  const current=request.steps[request.currentStepIndex];
+  if(current&&current.person===currentUser)return 'action';
+  if(request.requester===currentUser)return 'mine';
+  return 'other';
+}
+function requestStatusBadge(status){
+  if(status==='final')return '<span class="bdg g">Final</span>';
+  if(status==='rejected')return '<span class="bdg r">Ditolak</span>';
+  return '<span class="bdg a">Pending</span>';
 }
 
-// HR
+function renderRequestScopeChips(){
+  const wrap=document.getElementById('req-scope-chips');
+  if(!wrap)return;
+  const scopes=[['action','Perlu Aksi Saya'],['mine','Saya Minta TTD'],['all','Semua']];
+  wrap.innerHTML=scopes.map(([value,label])=>`<button class="seg-btn ${esignState.queueScope===value?'on':''}" onclick="setRequestScope('${value}')">${label}</button>`).join('');
+}
+function setRequestScope(scope){esignState.queueScope=scope;renderEsign();}
+function getVisibleRequests(){
+  const pending=esignState.requests.filter(request=>request.status!=='final'&&request.status!=='rejected');
+  if(esignState.queueScope==='all')return pending;
+  return pending.filter(request=>requestScope(request)===esignState.queueScope);
+}
+
+function renderRequestKpis(){
+  const wrap=document.getElementById('req-kpis');
+  if(!wrap)return;
+  const pending=esignState.requests.filter(request=>request.status==='pending');
+  const signCount=pending.filter(request=>request.steps[request.currentStepIndex]?.actionType==='sign').length;
+  const reviewCount=pending.filter(request=>request.steps[request.currentStepIndex]?.actionType==='review').length;
+  const mineCount=pending.filter(request=>request.requester===currentUser).length;
+  wrap.innerHTML=`<div class="kpi"><div class="kbar r"></div><div class="ktop"><div class="klbl">Perlu Sign</div><div class="kib" style="background:#FEF2F2"></div></div><div class="kv">${signCount}</div><div class="km dn">Langkah sign aktif</div></div><div class="kpi"><div class="kbar a"></div><div class="ktop"><div class="klbl">Perlu Review</div><div class="kib" style="background:#FFFBEB"></div></div><div class="kv">${reviewCount}</div><div class="km neu">Review / verify</div></div><div class="kpi"><div class="kbar g"></div><div class="ktop"><div class="klbl">Request Saya</div><div class="kib" style="background:var(--g50)"></div></div><div class="kv">${mineCount}</div><div class="km up">Sedang berjalan</div></div><div class="kpi"><div class="kbar tl"></div><div class="ktop"><div class="klbl">Final Bulan Ini</div><div class="kib" style="background:#F0FDFA"></div></div><div class="kv">${esignState.requests.filter(request=>request.status==='final').length}</div><div class="km up">Riwayat selesai</div></div>`;
+}
+
+function renderQueue(){
+  const wrap=document.getElementById('req-queue');
+  if(!wrap)return;
+  const requests=getVisibleRequests();
+  wrap.innerHTML=requests.length?requests.map(request=>{const current=request.steps[request.currentStepIndex];return `<div class="req-card ${request.id===activeRequestId?'active':''}" onclick="selectRequest('${request.id}',true)"><div class="req-top"><div><div class="req-title">${request.docId} — ${request.title}</div><div class="req-sub">${request.docType} · ${request.counterparty} · Current: ${current.person} (${current.actionType})</div></div><div style="text-align:right"><div class="apva">${request.amount?formatCurrency(request.amount):'Non nominal'}</div>${requestStatusBadge(request.status)}</div></div><div class="req-tags"><span class="issue-pill ${request.materaiRequired?'high':'low'}">${request.materaiRequired?'e-Materai':'Tanpa materai'}</span><span class="issue-pill ${current.actionType==='sign'?'status':current.actionType==='review'?'review':'done'}">${current.actionType}</span></div><div class="req-summary"><span>${getProjectName(request.projectId)}</span><span>${request.requester}</span><span>${request.lastUpdate}</span></div></div>`;}).join(''):'<div class="empty-state">Tidak ada request pada segment ini.</div>';
+}
+
+function renderTemplatePanel(){
+  const wrap=document.getElementById('req-template-panel');
+  if(!wrap)return;
+  wrap.innerHTML=Object.entries(esignState.templates).map(([docType,steps])=>`<div style="padding:9px 0;border-bottom:1px solid var(--n1)"><div style="font-size:11px;font-weight:800;color:var(--n8);margin-bottom:6px">${docType}</div><div class="flow-list">${steps.map((step,index)=>`<div class="flow-item"><div class="flow-badge">${index+1}</div><div class="flow-main"><div class="flow-name">${step.person}</div><div class="flow-role">${step.role}</div></div><div class="bdg ${step.actionType==='sign'?'a':step.actionType==='review'?'b':'g'}">${step.actionType}</div></div>`).join('')}</div></div>`).join('');
+}
+
+function selectRequest(requestId,openExecution){
+  activeRequestId=requestId;
+  renderQueue();
+  renderExecution();
+  renderHistory();
+  if(openExecution){
+    const tab=document.querySelectorAll('#pg-esign .mt')[1];
+    if(tab)swTab(tab,'es-sign');
+  }
+}
+
+function renderExecution(){
+  const request=esignState.requests.find(item=>item.id===activeRequestId)||esignState.requests.find(item=>requestScope(item)==='action')||esignState.requests[0];
+  if(request)activeRequestId=request.id;
+  const current=request?request.steps[request.currentStepIndex]:null;
+  const statusBadge=document.getElementById('exec-status-badge');
+  document.getElementById('exec-title').textContent=request?request.title:'Pilih request';
+  document.getElementById('exec-meta').textContent=request?`${request.docId} · ${request.docType} · ${request.lastUpdate}`:'Belum ada dokumen aktif';
+  if(statusBadge){
+    statusBadge.textContent=request?request.status.toUpperCase():'IDLE';
+    statusBadge.className=`bdg ${request&&request.status==='final'?'g':request&&request.status==='rejected'?'r':request?'a':'gr'}`;
+  }
+  document.getElementById('exec-amount').textContent=request&&request.amount?formatCurrency(request.amount):'Non nominal';
+  document.getElementById('exec-project').textContent=request?getProjectName(request.projectId):'—';
+  document.getElementById('exec-step').textContent=current?`${current.person} · ${current.actionType}`:'—';
+  document.getElementById('exec-requester').textContent=request?request.requester:'—';
+  document.getElementById('doc-filename').textContent=request?`${request.docId}_${request.counterparty.replace(/[^A-Za-z0-9]/g,'-')}.pdf`:'—';
+  document.getElementById('exec-doc-type').textContent=request?request.docType:'Document';
+  document.getElementById('doc-selected-name').textContent=request?`${request.docId} — ${request.counterparty}`:'Pilih request dari antrian';
+  document.getElementById('exec-counterparty').textContent=request?request.counterparty:'—';
+  document.getElementById('exec-project-table').textContent=request?getProjectName(request.projectId):'—';
+  document.getElementById('exec-workflow-kind').textContent=request?`${request.steps.length} step workflow`:'—';
+  document.getElementById('exec-compliance').textContent=request?(request.materaiRequired?'e-Materai wajib':'Tanpa e-Materai'):'—';
+  document.getElementById('exec-summary').textContent=request?request.summary:'Ringkasan permintaan akan tampil di sini setelah request dipilih.';
+  document.getElementById('exec-requester-box').innerHTML=request?`${request.requester}<br><span style="color:var(--n4)">Requester</span>`:'—';
+  document.getElementById('exec-signer-box').innerHTML=current?`${current.person}<br><span style="color:var(--n4)">${current.role}</span>`:'—';
+  document.getElementById('exec-subtitle').textContent=request?`Request aktif: ${request.docId} · step ${request.currentStepIndex+1}/${request.steps.length}`:'Pilih request dari antrian.';
+  const stepper=document.getElementById('exec-stepper');
+  if(stepper)stepper.innerHTML=request?request.steps.map((step,index)=>`<div class="step-card ${index===request.currentStepIndex?'active':''} ${step.status==='done'?'done':''}"><div class="step-index">${index+1}</div><div><div class="step-label">${step.person}</div><div class="step-sub">${step.role} · ${step.actionType}</div><div class="step-note">${step.note||'—'}</div></div></div>`).join(''):'';
+  document.getElementById('sign-panel').style.display=request&&current&&current.actionType==='sign'?'block':'none';
+  document.getElementById('sign-panel-sub').textContent=request&&current&&current.actionType==='sign'?`Step aktif membutuhkan tanda tangan ${current.person}.`:'Canvas aktif hanya untuk step bertipe sign.';
+  document.getElementById('mat-rule-copy').textContent=request&&request.materaiRequired?'Request ini mewajibkan e-Materai sebelum submit.':'Request ini tidak wajib e-Materai.';
+  document.getElementById('exec-related-docs').innerHTML=request?request.steps.map((step,index)=>`<div class="doc-card"><div class="doc-icon">${step.actionType==='sign'?'✍️':'📄'}</div><div class="doc-main"><div class="doc-name">${step.person}</div><div class="doc-sub">${step.role}</div></div><span class="bdg ${step.status==='done'?'g':index===request.currentStepIndex?'a':'gr'}">${step.status}</span></div>`).join(''):'<div class="empty-state">Belum ada request aktif.</div>';
+  updateMateraiUI(request);
+  resetExecutionChecks();
+}
+
+function updateMateraiUI(request){
+  const badge=document.getElementById('mat-badge');
+  const cost=document.getElementById('mat-cost');
+  const serial=document.getElementById('mat-serial');
+  const pill=document.getElementById('mat-pill');
+  const zone=document.getElementById('mat-zone');
+  const card=document.getElementById('mat-card');
+  const stamp=document.getElementById('stamp-on-doc');
+  if(!request){badge.textContent='Belum bermaterai';badge.className='bdg a';cost.textContent='—';serial.textContent='—';pill.textContent='Belum aktif';zone.textContent='Belum ditempel';card.classList.remove('ok');stamp.style.display='none';return;}
+  if(request.materaiApplied){badge.textContent='✓ Bermaterai';badge.className='bdg g';cost.textContent=request.materaiCost;serial.textContent=request.materaiSerial;pill.textContent='✓ Ditempel';zone.innerHTML=`<div class="stamp-c"><div class="stamp-i">METERAI<br><span class="stamp-v">10.000</span><br>RI</div><div class="stamp-ok"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M1 4.5l2.5 2.5L8 2" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div></div>`;card.classList.add('ok');stamp.style.display='flex';}
+  else{badge.textContent=request.materaiRequired?'Belum bermaterai':'Tidak wajib';badge.className=request.materaiRequired?'bdg a':'bdg gr';cost.textContent='—';serial.textContent='—';pill.textContent=request.materaiRequired?'Belum ditempel':'Tidak wajib';zone.textContent=request.materaiRequired?'Belum ditempel':'Tidak diperlukan';card.classList.remove('ok');stamp.style.display='none';}
+}
+
+function renderHistory(){
+  const tbody=document.getElementById('es-history-body');
+  if(!tbody)return;
+  tbody.innerHTML=esignState.requests.filter(request=>['final','rejected'].includes(request.status)).map(request=>`<tr><td class="mono" style="color:var(--g600);font-weight:600">${request.docId}</td><td>${request.docType}</td><td>${request.counterparty}</td><td class="mono">${request.amount?request.amount.toLocaleString('id-ID'):'—'}</td><td>${request.requester}</td><td style="font-size:11px;color:var(--n4)">${request.lastUpdate}</td><td>${request.materaiRequired?(request.materaiApplied?'<span class="bdg tl">Rp 10.000</span>':'<span class="bdg a">Belum</span>'):'<span class="bdg gr">Tidak ada</span>'}</td><td>${request.status==='final'?'<span class="bdg g">Final</span>':'<span class="bdg r">Ditolak</span>'}</td></tr>`).join('');
+}
+
+function renderEsign(){
+  renderRequestScopeChips();
+  renderRequestKpis();
+  renderQueue();
+  renderTemplatePanel();
+  renderExecution();
+  renderHistory();
+}
+
+function resetExecutionChecks(){
+  document.getElementById('chk1').checked=false;
+  document.getElementById('chk2').checked=false;
+  hasSign=false;
+  clearCanvasOnly();
+  document.getElementById('sig-you-content').textContent='Belum ditandatangani';
+  document.getElementById('sign-box-you').style.background='var(--g50)';
+  document.getElementById('sign-box-you').style.border='2px dashed var(--g300)';
+  checkReady();
+}
+function clearCanvasOnly(){
+  if(!ctx)return;
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const hint=document.getElementById('sign-hint');
+  if(hint)hint.textContent='Gambar tanda tangan Anda di atas';
+  const area=document.getElementById('sign-area');
+  if(area)area.classList.remove('signed');
+}
+
+function openRequestComposer(existingId,docId,projectId){
+  const request=esignState.requests.find(item=>item.id===existingId);
+  esignState.composerDraft=request?{step:0,docType:request.docType,title:request.title,projectId:request.projectId,counterparty:request.counterparty,amount:request.amount,source:request.source,materaiOverride:request.materaiRequired,steps:request.steps.map(step=>({...step,id:`${Date.now()}-${step.person}`}))}:{step:0,docType:'PO',title:docId||'',projectId:projectId||'prj-1',counterparty:'',amount:0,source:'existing',materaiOverride:false,steps:requestTemplatesFor('PO')};
+  document.getElementById('req-doc-type').value=esignState.composerDraft.docType;
+  document.getElementById('req-doc-title').value=esignState.composerDraft.title;
+  document.getElementById('req-project').value=esignState.composerDraft.projectId;
+  document.getElementById('req-counterparty').value=esignState.composerDraft.counterparty;
+  document.getElementById('req-amount').value=esignState.composerDraft.amount||'';
+  document.getElementById('req-source').value=esignState.composerDraft.source;
+  document.getElementById('req-materai-override').checked=esignState.composerDraft.materaiOverride;
+  updateComposerStep();
+  openModal('modal-request-sign');
+}
+function updateComposerDocType(value){
+  esignState.composerDraft.docType=value;
+  esignState.composerDraft.steps=requestTemplatesFor(value);
+  updateComposerStep();
+}
+function updateComposerField(field,value){esignState.composerDraft[field]=value;updateComposerStep();}
+function updateComposerAmount(value){esignState.composerDraft.amount=Number(value||0);updateComposerStep();}
+function toggleComposerMateraiOverride(checked){esignState.composerDraft.materaiOverride=checked;updateComposerStep();}
+function addComposerStep(){
+  esignState.composerDraft.steps.push({id:`step-${Date.now()}`,person:document.getElementById('new-step-person').value,role:'Custom Step',actionType:document.getElementById('new-step-type').value,status:'idle',note:''});
+  updateComposerStep();
+}
+function removeComposerStep(id){esignState.composerDraft.steps=esignState.composerDraft.steps.filter(step=>step.id!==id);updateComposerStep();}
+function moveComposerStep(id,direction){
+  const idx=esignState.composerDraft.steps.findIndex(step=>step.id===id);
+  const target=esignState.composerDraft.steps[idx+direction];
+  if(idx<0||!target)return;
+  const current=esignState.composerDraft.steps[idx];
+  esignState.composerDraft.steps[idx]=target;
+  esignState.composerDraft.steps[idx+direction]=current;
+  updateComposerStep();
+}
+function updateComposerStep(){
+  document.querySelectorAll('.wizard-pill').forEach((pill,index)=>pill.classList.toggle('on',index===esignState.composerDraft.step));
+  document.querySelectorAll('.composer-step').forEach((panel,index)=>panel.classList.toggle('on',index===esignState.composerDraft.step));
+  const flow=document.getElementById('composer-flow');
+  if(flow)flow.innerHTML=esignState.composerDraft.steps.map((step,index)=>`<div class="flow-item"><div class="flow-badge">${index+1}</div><div class="flow-main"><div class="flow-name">${step.person}</div><div class="flow-role">${step.role} · ${step.actionType}</div></div><div style="display:flex;gap:6px"><button class="tiny-btn" onclick="moveComposerStep('${step.id}',-1)">↑</button><button class="tiny-btn" onclick="moveComposerStep('${step.id}',1)">↓</button><button class="tiny-btn" onclick="removeComposerStep('${step.id}')">✕</button></div></div>`).join('');
+  const materaiRequired=getMateraiRequired(esignState.composerDraft.docType,esignState.composerDraft.amount,esignState.composerDraft.materaiOverride);
+  const ruleCard=document.getElementById('composer-rule-card');
+  if(ruleCard){ruleCard.className=`rule-card ${materaiRequired?'warn':'ok'}`;ruleCard.innerHTML=`<div style="font-size:12px;font-weight:700;margin-bottom:4px">${materaiRequired?'e-Materai akan diwajibkan':'e-Materai tidak diwajibkan'}</div><div style="font-size:11px;color:var(--n6)">${materaiRequired?'Karena tipe dokumen kontraktual atau nominal melebihi Rp 5.000.000.':'Dokumen non-kontraktual / nominal rendah.'}</div>`;}
+  const reviewCard=document.getElementById('composer-review-card');
+  if(reviewCard)reviewCard.innerHTML=`<div style="font-size:12px;font-weight:700;margin-bottom:4px">${esignState.composerDraft.title||'Judul belum diisi'}</div><div style="font-size:11px;color:var(--n6);line-height:1.6">${esignState.composerDraft.docType} · ${getProjectName(esignState.composerDraft.projectId)} · ${esignState.composerDraft.counterparty||'Counterparty belum diisi'} · ${esignState.composerDraft.amount?formatCurrency(esignState.composerDraft.amount):'Non nominal'}<br>Workflow: ${esignState.composerDraft.steps.map(step=>`${step.person} (${step.actionType})`).join(' → ')}</div>`;
+  const nextBtn=document.getElementById('composer-next-btn');
+  if(nextBtn)nextBtn.textContent=esignState.composerDraft.step===3?'Kirim Request':'Lanjut';
+}
+function stepComposer(direction){
+  if(direction<0){esignState.composerDraft.step=Math.max(0,esignState.composerDraft.step-1);updateComposerStep();return;}
+  if(esignState.composerDraft.step<3){esignState.composerDraft.step+=1;updateComposerStep();return;}
+  submitComposerRequest();
+}
+function submitComposerRequest(){
+  if(!esignState.composerDraft.title.trim()){toast('Judul dokumen wajib diisi',true);esignState.composerDraft.step=0;updateComposerStep();return;}
+  const request={id:`req-${Date.now()}`,docId:`${esignState.composerDraft.docType}-${String(esignState.requests.length+1).padStart(4,'0')}`,docType:esignState.composerDraft.docType,title:esignState.composerDraft.title,projectId:esignState.composerDraft.projectId,counterparty:esignState.composerDraft.counterparty||'Internal',amount:esignState.composerDraft.amount,requester:currentUser,source:esignState.composerDraft.source,steps:esignState.composerDraft.steps.map((step,index)=>({...step,status:index===0?'pending':'idle',note:index===0?'Request baru dikirim':''})),materaiRequired:getMateraiRequired(esignState.composerDraft.docType,esignState.composerDraft.amount,esignState.composerDraft.materaiOverride),materaiApplied:false,materaiCost:'—',materaiSerial:'—',status:'pending',currentStepIndex:0,lastUpdate:'31 Mar 2026, 10:45',summary:`Request baru untuk ${esignState.composerDraft.title}.`};
+  esignState.requests.unshift(request);
+  closeModal('modal-request-sign');
+  toast('Request sign berhasil dibuat');
+  selectRequest(request.id,false);
+  renderEsign();
+}
+
 function approveCuti(btn,name){
   const row=btn.closest('div[style*="padding"]');
   if(row){row.style.background='var(--g50)';row.style.borderColor='var(--g300)';row.querySelector('div:last-child').innerHTML='<span class="bdg g">✓ Disetujui</span>';}
@@ -1623,84 +2081,121 @@ function rejectCuti(btn,name){
 }
 function hrSearch(){
   const q=document.getElementById('hr-search').value.toLowerCase();
-  document.querySelectorAll('#emp-grid .empc').forEach(c=>{c.style.display=c.dataset.name&&c.dataset.name.toLowerCase().includes(q)?'block':'none';});
+  document.querySelectorAll('#emp-grid .empc').forEach(card=>{card.style.display=card.dataset.name&&card.dataset.name.toLowerCase().includes(q)?'block':'none';});
+}
+function sendMsg(){
+  const inp=document.getElementById('cinp');
+  const value=inp.value.trim();
+  if(!value)return;
+  const msgs=document.getElementById('chat-msgs');
+  const row=document.createElement('div');
+  row.className='mrow me';
+  row.innerHTML=`<div class="chav" style="background:var(--g600)">IR</div><div><div class="bbl me">${value}</div><div class="ctime me">Baru saja · Iden Robet Ulum</div></div>`;
+  msgs.appendChild(row);
+  msgs.scrollTop=msgs.scrollHeight;
+  inp.value='';
+}
+function switchChat(el,name,av){
+  document.querySelectorAll('.chi').forEach(item=>item.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('chat-name').textContent=name;
+  document.getElementById('chat-av').textContent=av;
 }
 
-// CANVAS SIGNATURE
 const cvs=document.getElementById('cvs');
 const ctx=cvs?cvs.getContext('2d'):null;
-let drawing=false,hasSign=false,penColor='#237529';
+let drawing=false;
+let hasSign=false;
+let penColor='#237529';
 if(cvs){
-  cvs.addEventListener('mousedown',e=>{drawing=true;const r=cvs.getBoundingClientRect();ctx.beginPath();ctx.moveTo(e.clientX-r.left,e.clientY-r.top);});
-  cvs.addEventListener('mousemove',e=>{if(!drawing)return;const r=cvs.getBoundingClientRect();ctx.lineWidth=+document.getElementById('pen-size').value;ctx.strokeStyle=penColor;ctx.lineJoin='round';ctx.lineCap='round';ctx.lineTo(e.clientX-r.left,e.clientY-r.top);ctx.stroke();if(!hasSign){hasSign=true;document.getElementById('sign-area').classList.add('signed');document.getElementById('sign-hint').textContent='✅ Siap — klik "Terapkan Tanda Tangan"';}});
-  cvs.addEventListener('mouseup',()=>{drawing=false;if(hasSign)updSignStat();});
+  const startLine=(x,y)=>{drawing=true;ctx.beginPath();ctx.moveTo(x,y);};
+  const lineTo=(x,y)=>{if(!drawing)return;ctx.lineWidth=+document.getElementById('pen-size').value;ctx.strokeStyle=penColor;ctx.lineJoin='round';ctx.lineCap='round';ctx.lineTo(x,y);ctx.stroke();if(!hasSign){hasSign=true;document.getElementById('sign-area').classList.add('signed');document.getElementById('sign-hint').textContent='Siap diterapkan ke langkah aktif';checkReady();}};
+  cvs.addEventListener('mousedown',e=>{const r=cvs.getBoundingClientRect();startLine(e.clientX-r.left,e.clientY-r.top);});
+  cvs.addEventListener('mousemove',e=>{const r=cvs.getBoundingClientRect();lineTo(e.clientX-r.left,e.clientY-r.top);});
+  cvs.addEventListener('mouseup',()=>drawing=false);
   cvs.addEventListener('mouseleave',()=>drawing=false);
-  cvs.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const r=cvs.getBoundingClientRect();const t=e.touches[0];ctx.beginPath();ctx.moveTo(t.clientX-r.left,t.clientY-r.top);},{passive:false});
-  cvs.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const r=cvs.getBoundingClientRect();const t=e.touches[0];ctx.lineWidth=+document.getElementById('pen-size').value;ctx.strokeStyle=penColor;ctx.lineJoin='round';ctx.lineCap='round';ctx.lineTo(t.clientX-r.left,t.clientY-r.top);ctx.stroke();hasSign=true;},{passive:false});
-  cvs.addEventListener('touchend',()=>{drawing=false;if(hasSign)updSignStat();});
+  cvs.addEventListener('touchstart',e=>{e.preventDefault();const r=cvs.getBoundingClientRect();const t=e.touches[0];startLine(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+  cvs.addEventListener('touchmove',e=>{e.preventDefault();const r=cvs.getBoundingClientRect();const t=e.touches[0];lineTo(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+  cvs.addEventListener('touchend',()=>drawing=false);
 }
-function updSignStat(){const s=document.getElementById('stat-sign');if(s){s.textContent='✓ Tanda tangan OK';s.className='bdg g';}checkReady();}
-function clearSign(){if(!ctx)return;ctx.clearRect(0,0,cvs.width,cvs.height);hasSign=false;const a=document.getElementById('sign-area');if(a)a.classList.remove('signed');const h=document.getElementById('sign-hint');if(h)h.textContent='✏️ Gambar tanda tangan Anda di atas';const s=document.getElementById('stat-sign');if(s){s.textContent='✗ Belum sign';s.className='bdg r';}checkReady();}
-const colors=['#237529','#1e40af','#111827','#7C3AED'];let ci=0;
-function cycleColor(){ci=(ci+1)%colors.length;penColor=colors[ci];toast('Warna: '+['Hijau','Biru','Hitam','Ungu'][ci]);}
+function clearSign(){hasSign=false;clearCanvasOnly();document.getElementById('sig-you-content').textContent='Belum ditandatangani';document.getElementById('sign-box-you').style.background='var(--g50)';document.getElementById('sign-box-you').style.border='2px dashed var(--g300)';checkReady();}
+function cycleColor(){const colors=['#237529','#1E40AF','#111827','#7C3AED'];const names=['Hijau','Biru','Hitam','Ungu'];const index=(colors.indexOf(penColor)+1)%colors.length;penColor=colors[index];toast('Warna: '+names[index]);}
 function applySign(){
-  if(!hasSign){toast('⚠ Gambar tanda tangan terlebih dahulu',true);return;}
-  const dataURL=cvs.toDataURL();
-  const box=document.getElementById('sig-you-content');
-  if(box)box.innerHTML=`<img src="${dataURL}" style="max-height:34px;max-width:100%">`;
-  const sb=document.getElementById('sign-box-you');
-  if(sb){sb.style.border='1px solid var(--g300)';sb.style.background='var(--white)';}
-  updSignStat();toast('✍️ Tanda tangan diterapkan ke dokumen!');
+  const request=esignState.requests.find(item=>item.id===activeRequestId);
+  const current=request&&request.steps[request.currentStepIndex];
+  if(!request||!current||current.actionType!=='sign'){toast('Langkah aktif tidak membutuhkan tanda tangan',true);return;}
+  if(!hasSign){toast('Gambar tanda tangan terlebih dahulu',true);return;}
+  request.signatureApplied=true;
+  document.getElementById('sig-you-content').innerHTML=`<img src="${cvs.toDataURL()}" style="max-height:34px;max-width:100%">`;
+  document.getElementById('sign-box-you').style.background='var(--white)';
+  document.getElementById('sign-box-you').style.border='1px solid var(--g300)';
+  toast('Tanda tangan diterapkan');
+  checkReady();
 }
 
-// ESIGN HELPERS
-function selectDoc(name,vendor,nilai){
-  const n=document.getElementById('doc-selected-name');if(n)n.textContent=name+' — '+vendor+' ('+nilai+')';
-  const fn=document.getElementById('doc-filename');if(fn)fn.textContent=name+'_'+vendor.replace(/[^A-Za-z]/g,'-')+'.pdf';
-  toast('Dokumen '+name+' dimuat ✓');
-}
-function simulateUpload(){
-  toast('📂 Upload dokumen — pilih file PDF atau DOCX');
-  const z=document.getElementById('upload-zone');if(z){z.classList.add('drag');setTimeout(()=>z.classList.remove('drag'),1000);}
-}
-
-// MATERAI
 let matSelected='Rp 10.000';
-function selMat(el,cost){document.querySelectorAll('[id^=mat-opt]').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');matSelected=cost;}
+function selMat(el,cost){document.querySelectorAll('[id^=mat-opt]').forEach(option=>option.classList.remove('sel'));el.classList.add('sel');matSelected=cost;}
 function applyMat(){
+  const request=esignState.requests.find(item=>item.id===activeRequestId);
+  if(!request){closeModal('modal-mat');return;}
+  request.materaiApplied=true;
+  request.materaiCost=matSelected;
+  request.materaiSerial='MAT-2026-'+Math.random().toString(36).slice(2,10).toUpperCase();
   closeModal('modal-mat');
-  const ser='MAT-2026-'+Math.random().toString(36).substr(2,8).toUpperCase();
-  const mc=document.getElementById('mat-cost');if(mc)mc.textContent=matSelected;
-  const ms=document.getElementById('mat-serial');if(ms)ms.textContent=ser;
-  const mb=document.getElementById('mat-badge');if(mb){mb.textContent='✓ Bermaterai';mb.className='bdg g';}
-  const mp=document.getElementById('mat-pill');if(mp)mp.textContent='✓ Ditempel';
-  const mz=document.getElementById('mat-zone');
-  if(mz)mz.innerHTML=`<div class="stamp-c"><div class="stamp-i">METERAI<br><span class="stamp-v">10.000</span><br>RI</div><div class="stamp-ok"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M1 4.5l2.5 2.5L8 2" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div></div><div style="font-size:11px;font-weight:600;color:var(--g700)">✓ e-Meterai Ditempel</div><div style="font-size:9.5px;color:var(--n4);font-family:'JetBrains Mono'">${ser}</div>`;
-  const mc2=document.getElementById('mat-card');if(mc2)mc2.classList.add('ok');
-  const sd=document.getElementById('stamp-on-doc');if(sd)sd.style.display='flex';
-  const sm=document.getElementById('stat-mat');if(sm){sm.textContent='✓ Materai OK';sm.className='bdg g';}
-  checkReady();toast('🪙 e-Meterai '+matSelected+' berhasil ditempel!');
+  updateMateraiUI(request);
+  toast('e-Meterai ditempel');
+  checkReady();
 }
 function checkReady(){
-  const c1=document.getElementById('chk1')?.checked;
-  const c2=document.getElementById('chk2')?.checked;
-  const mc=document.getElementById('mat-cost')?.textContent;
-  const matOk=mc&&mc!=='—';
-  const ready=hasSign&&matOk&&c1&&c2;
-  const btn=document.getElementById('btn-approve');if(btn)btn.disabled=!ready;
-  const rn=document.getElementById('req-note');if(rn)rn.style.display=ready?'none':'flex';
-  const on=document.getElementById('ok-note');if(on)on.style.display=ready?'flex':'none';
+  const request=esignState.requests.find(item=>item.id===activeRequestId);
+  const current=request&&request.steps[request.currentStepIndex];
+  const ready=!!request&&!!current&&document.getElementById('chk1').checked&&document.getElementById('chk2').checked&&(!request.materaiRequired||request.materaiApplied)&&(!(current.actionType==='sign')||request.signatureApplied);
+  document.getElementById('btn-approve').disabled=!ready;
+  document.getElementById('req-note').style.display=ready?'none':'flex';
+  document.getElementById('ok-note').style.display=ready?'flex':'none';
 }
 function doApprove(){
-  applySign();
-  setTimeout(()=>{
-    toast('✅ Dokumen disetujui &amp; ditandatangani! Diteruskan ke Direktur Utama.');
-    setTimeout(()=>{swTab(document.querySelectorAll('#pg-esign .mt')[2],'es-history');},2500);
-  },500);
+  const request=esignState.requests.find(item=>item.id===activeRequestId);
+  const current=request&&request.steps[request.currentStepIndex];
+  if(!request||!current){toast('Tidak ada request aktif',true);return;}
+  if(current.person!==currentUser){toast('Request ini bukan aksi Anda saat ini',true);return;}
+  if(document.getElementById('btn-approve').disabled){toast('Lengkapi syarat langkah aktif',true);return;}
+  current.status='done';
+  current.note='Diproses oleh '+currentUser;
+  request.lastUpdate='31 Mar 2026, 11:15';
+  request.signatureApplied=false;
+  if(request.currentStepIndex<request.steps.length-1){
+    request.currentStepIndex+=1;
+    request.steps[request.currentStepIndex].status='pending';
+    request.status='pending';
+    toast('Langkah selesai. Diteruskan ke signer berikutnya.');
+  }else{
+    request.status='final';
+    toast('Request selesai dan final.');
+    const historyTab=document.querySelectorAll('#pg-esign .mt')[2];
+    if(historyTab)swTab(historyTab,'es-history');
+  }
+  renderEsign();
 }
-function doReject(){toast('✕ Dokumen ditolak. Notifikasi dikirim ke pembuat.',true);}
+function doReject(){
+  const request=esignState.requests.find(item=>item.id===activeRequestId);
+  if(!request){toast('Tidak ada request aktif',true);return;}
+  request.status='rejected';
+  request.lastUpdate='31 Mar 2026, 11:20';
+  toast('Request ditolak',true);
+  renderEsign();
+}
 
-// PROGRESS ANIM
-setTimeout(()=>{document.querySelectorAll('.pf,.pbf').forEach(b=>{const w=b.style.width;b.style.transition='none';b.style.width='0';setTimeout(()=>{b.style.transition='width .8s ease';b.style.width=w;},100);});},300);
+function initialize(){
+  loadProjectPrefs();
+  hydrateStaticSelects();
+  syncSubtabState('pg-project',projectState.viewState.activeView);
+  const pending=esignState.requests.find(request=>requestScope(request)==='action')||esignState.requests[0];
+  if(pending)activeRequestId=pending.id;
+  renderProjectWorkspace();
+  renderEsign();
+}
+
+initialize();
 </script>
 </body></html>
